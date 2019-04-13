@@ -6,13 +6,6 @@ body {
     background-size: cover;
 }
 
-@media (min-width: 576px){
-.jumbotron {
-    padding: 4rem 2rem;
-    background: none;
-}
-}
-
 @media (max-width: 1024px) {
 
   body {
@@ -23,10 +16,9 @@ body {
     background-size: cover;
 }
 
-.jumbotron {
+.jumbotron{
     background: none;
 }
-
 
 #search{
   display:inline;
