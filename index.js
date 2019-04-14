@@ -100,7 +100,7 @@ function getMedia() {
                       <img id="itemimg" class="card-img-top" src="` + imageLinks[i] + `" />
                       <div class="card-body">
                         <h5 class="card-title"><i class="far fa-file-image"></i></h5>
-                        <a id="imgdownloadlink" class="card-link" href="` + imageLinks[i] + `" target="_blank">
+                        <a id="imgdownloadlink" class="card-link" href="` + imageLinks[i] + '&dl=1' + `" target="_blank">
                           <u>click to download <i class="far fa-arrow-alt-circle-down"></i></u></a>
                       </div>
                     </div>
@@ -112,7 +112,7 @@ function getMedia() {
                       <video style="width: 100%;" src="` + videoLinks[i] + `"></video>
                       <div class="card-body">
                         <h5 class="card-title"><i class="far fa-file-video"></i></h5>
-                        <a id="viddownloadlink" class="card-link" href="` + videoLinks[i] + `" target="_blank">
+                        <a id="viddownloadlink" class="card-link" href="` + videoLinks[i] + '&dl=1' + `" target="_blank">
                           <u>click to download <i class="far fa-arrow-alt-circle-down"></i></u></a>
                       </div>
                     </div>
