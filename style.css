@@ -58,7 +58,6 @@ p.desc{
 }
 
 .downloadlink{
-    display:none;
     margin-top:40px
 }
 
@@ -97,7 +96,7 @@ input#search-box{
 span.message{
   font-size:14px; 
   color:red; 
-  display:none;
+
 }
 
 .jumbotron {
