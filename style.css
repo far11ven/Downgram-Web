@@ -16,10 +16,6 @@ body {
     background-size: cover;
 }
 
-.jumbotron{
-    background: none;
-}
-
 #search{
   display:inline;
 }
@@ -29,11 +25,15 @@ body {
   border-radius: .25rem;
   margin-bottom: 4px;
 }
+
+.card-columns{
+    padding-left:15%;
+    padding-right:15%;
+}
   
 }
 
-
- img.navbar-logo{
+img.navbar-logo{
     height:32px;
 }
 
@@ -61,6 +61,8 @@ p.desc{
     margin-top:40px
 }
 
+
+
 #stats_banner{
     color:grey; 
     margin-top:40px;
@@ -81,6 +83,10 @@ span.stats{
   padding:5px;
 }
 
+a.social-link:hover{
+  text-decoration: none;
+}
+
 div#actualStats{
     display:none;
 }
@@ -93,17 +99,15 @@ input#search-box{
     color:#1f74c9;
  }
 
-span.message{
-  font-size:14px; 
+.error{
+  font-size:15px; 
+  font-family: Helvetica;
   color:red; 
 
 }
 
-.jumbotron {
-    background: none
-}
 
-.form-control:focus {
+input.form-control:focus {
   outline: 0; 
   box-shadow: 0 0 0 0.05rem rgba(0,123,255,.25);
 }
@@ -115,7 +119,7 @@ span.message{
   width: 15px;
   height: 15px;
   border-radius: 100%;
-  margin: 30px 5px;
+  margin: 24px 4px;
 }
 
 
@@ -159,3 +163,24 @@ span.message{
 
 
 /* LOADER */
+
+a.back-to-home{
+  color:#007bff;
+  margin-left:15px;
+  margin-top:15px;
+  border:2.5px solid royalblue;
+}
+
+a.back-to-home:hover{
+  color:#007bff;
+  margin-left:15px;
+  margin-top:15px;
+  border:3px solid #007bff;
+
+}
+
+img.giphy-tuts{
+  height:526px;
+  width:250px;
+  margin-bottom: 2rem;
+}

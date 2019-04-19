@@ -1,22 +1,27 @@
+//www.downgram.in
 let config;
 let url;
 let imageLinks = [];
 let videoLinks = [];
 
 window.onload = function () {
+	$("#spinner").show();  //shows loader
+	$("a[title~='Host']").hide();
+	if(window.location.pathname === '/'){
     fetch("config.json")
         .then(response => response.json())
         .then(responseJSON => {
             config = responseJSON;
             getSessionCount();
         });
+	}
 };
 
 function getSessionCount() {
     var url = document.getElementById("search-box").value;
-    $("#spinner").show();  //hides loader
-
-    fetch(config.api.host + '/api/sessioncount')
+    $("a[title~='Host']").hide(); //hides 000webhost banner
+    
+    fetch('https://downgram-back-end.herokuapp.com/api/sessioncount')
         .then(response => response.json())
         .then(responseJson => {
             let totalSessions = responseJson.result.$numberDouble;
@@ -24,7 +29,6 @@ function getSessionCount() {
             $(document).ready(function () {
                 console.log($("span.stats").text())
                 $("span.stats").text(totalSessions);
-                console.log($("span.stats").text())
             });
 
             $("#spinner").hide();  //hides loader
@@ -42,8 +46,10 @@ function saveSessionDetails() {
     let sessionBody = '{"linkURL":"' + url + '","channelType": "web"}';
 
     console.log(JSON.parse(sessionBody));
+    
+    console.log("host", config.api.host);
 
-    fetch(config.api.host + '/api/savesession', {
+    fetch('https://downgram-back-end.herokuapp.com/api/savesession', {
         method: "POST",
         body: JSON.stringify({ linkURL: url, channelType: 'web' }),
         headers: {
@@ -79,8 +85,9 @@ function getMedia() {
     });
 
     url = document.getElementById("search-box").value;
+    console.log("host", config.api.host);
 
-    fetch(config.api.host + '/api/getmedia?link=' + url)
+    fetch('https://downgram-back-end.herokuapp.com/api/getmedia?link=' + url)
         .then(response => response.json())
         .then(responseJson => {
 
@@ -106,13 +113,13 @@ function getMedia() {
                     </div>
                     `);
 
-                    for (var i = 0; i < videoLinks.length; i++)
+                    for (var j = 0; j < videoLinks.length; j++)
                         $("#downloadlink").append(`
                       <div class="card border-secondary">
-                      <video style="width: 100%;" src="` + videoLinks[i] + `"></video>
+                      <video style="width: 100%;" src="` + videoLinks[j] + `"></video>
                       <div class="card-body">
                         <h5 class="card-title"><i class="far fa-file-video"></i></h5>
-                        <a id="viddownloadlink" class="card-link" href="` + videoLinks[i] + '&dl=1' + `" target="_blank">
+                        <a id="viddownloadlink" class="card-link" href="` + videoLinks[j] + '&dl=1' + `" target="_blank">
                           <u>click to download <i class="far fa-arrow-alt-circle-down"></i></u></a>
                       </div>
                     </div>
@@ -128,8 +135,8 @@ function getMedia() {
 
                 $(document).ready(function () {
 
-                    $("#search-section").append(`
-                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i>` + responseJson.message + `</span>
+                    $(".error").append(`
+                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` + responseJson.message + `</span>
                     `);
                 });
 
@@ -137,8 +144,8 @@ function getMedia() {
             } else if (responseJson.message === "Please enter a valid link") {
 
                 $(document).ready(function () {
-                    $("#search-section").append(`
-                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i>` + responseJson.message + `</span>
+                    $(".error").append(`
+                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` + responseJson.message + `</span>
                     `);
 
                 });
@@ -150,6 +157,12 @@ function getMedia() {
         .catch(err => {
             console.log('err', err);
             $("#spinner").hide();  //hides loader
+            $(document).ready(function () {
+                    $(".error").append(`
+                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` + " Something went wrong! Please try again." + `</span>
+                    `);
+
+                });
         })
 
 }
