@@ -5,17 +5,60 @@ let imageLinks = [];
 let videoLinks = [];
 
 window.onload = function () {
-	$("#spinner").show();  //shows loader
-	$("a[title~='Host']").hide();
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const userName = urlParams.get('user');
+    
+    console.log("user:", userName); 
+    
+    if(!userName){                  //if user is null
+        saveViewCount();
+    }
+    
+	console.log("path", window.location.pathname);
 	if(window.location.pathname === '/'){
-    fetch("config.json")
-        .then(response => response.json())
-        .then(responseJSON => {
-            config = responseJSON;
-            getSessionCount();
+	     $("#spinner").show();  //shows loader
+         fetch("config.json")
+            .then(response => response.json())
+            .then(responseJSON => {
+                config = responseJSON;
+                getSessionCount();
+               
         });
+	} else if (window.location.pathname === '/pages/404.html') {
+	    
+	    window.location.replace("https://www.downgram.in")
+	    
 	}
+	
+	$("a[title~='Host']").hide();
 };
+
+function saveViewCount() {
+
+    let sessionBody = '{"channel": "web"}';
+
+    fetch('https://downgram-back-end.herokuapp.com/api/saveviewcount', {
+        method: "POST",
+        body: sessionBody,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(responseJson => {
+
+            console.log(responseJson);
+
+        })
+        .catch(err => {
+            console.log('err', err);
+            
+        });
+
+}
+
+
 
 function getSessionCount() {
     var url = document.getElementById("search-box").value;
@@ -45,9 +88,7 @@ function saveSessionDetails() {
 
     let sessionBody = '{"linkURL":"' + url + '","channelType": "web"}';
 
-    console.log(JSON.parse(sessionBody));
-    
-    console.log("host", config.api.host);
+     $("a[title~='Host']").hide(); //hides 000webhost banner
 
     fetch('https://downgram-back-end.herokuapp.com/api/savesession', {
         method: "POST",
@@ -85,7 +126,6 @@ function getMedia() {
     });
 
     url = document.getElementById("search-box").value;
-    console.log("host", config.api.host);
 
     fetch('https://downgram-back-end.herokuapp.com/api/getmedia?link=' + url)
         .then(response => response.json())
@@ -116,7 +156,7 @@ function getMedia() {
                     for (var j = 0; j < videoLinks.length; j++)
                         $("#downloadlink").append(`
                       <div class="card border-secondary">
-                      <video style="width: 100%;" src="` + videoLinks[j] + `"></video>
+                      <video style="width: 100%;" src="` + videoLinks[j] + `" controls></video>
                       <div class="card-body">
                         <h5 class="card-title"><i class="far fa-file-video"></i></h5>
                         <a id="viddownloadlink" class="card-link" href="` + videoLinks[j] + '&dl=1' + `" target="_blank">
