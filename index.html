@@ -3,13 +3,13 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Downgram - Instagram Videos, Photos & IGTV Download</title>
+  <title>Downgram - Online Instagram Videos, Photos & IGTV Download</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="index.js"></script>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="style.css">
   <meta name="keywords"
-    content="instagram,instagram download,instagram photos download,instagram videos download,instagram download, #instagramVideos,#instagramphotos,#instagramIGTV,downgram, downloader for instagram, #instagram, #downgram, #downgram_app, downgram.in,">
+    content="instagram, instagram download, online instagram download, online instagram, online instagram image, instagram photos download,instagram videos download,instagram download, #instagramVideos,#instagramphotos,#instagramIGTV,downgram, downloader for instagram, #instagram, #downgram, downgram app, downloadgram, #downgram_app, downgram.in,">
   <meta name="description" content="A simple and sleek way of downloading Instagram Videos, Photos & IGTV" />
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
@@ -20,7 +20,7 @@
 
   <meta property="og:url" content="http://www.downgram.in" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Downgram - Instagram Videos, Photos & IGTV Download" />
+  <meta property="og:title" content="Downgram - Online Instagram Videos, Photos & IGTV Download" />
   <meta property="og:description" content="A simple and sleek way of downloading Instagram Videos, Photos & IGTV" />
   <meta property="og:image" content="http://www.downgram.in/assets/logo.png" />
 
@@ -32,7 +32,6 @@
     });
   </script>
 </head>
-
 <body>
   <nav class="navbar navbar-expand-lg navbar-light ">
     <a class="navbar-brand" href="/"><img class="navbar-logo" src="../assets/logo.png" /></a>
@@ -65,19 +64,20 @@
     <div class="container col-md-6">
       <div class="col-md-12" id="search-section">
         <form class="navbar-form" role="search">
-          <div class="input-group" id="search">
-            <input class="form-control" placeholder="Paste your link here.." id="search-box" name="search-box"
+          <div class="input-group">
+            <input class="form-control" placeholder="paste your Instagram link.." name="search-box" id="search-box"
               type="text">
             <div class="input-group-btn">
-              <button class="btn btn-primary" type="button" onClick="getMedia()">
-                <i class="fas fa-search"></i> find it </button>
+              <button id="search-btn" class="btn btn-default" type="button" onClick="getMedia()"><i
+                  class="fas fa-search"></i> find it </button>
             </div>
           </div>
         </form>
+        <div id="watchagif">
+          <a class="card-link" href="/pages/getting-started.html" target="_self"> wanna watch a gif? </a>
+        </div>
       </div>
-      <div #watchagif style="font-size:16px; color:#1f74c9; text-decoration: underline;">
-        <a id="watchagif" class="card-link" href="/pages/getting-started.html" target="_self"> wanna watch a gif? </a>
-      </div>
+
       <div #spinner id="spinner" style="font-size:24px; color:#1f74c9; display:none;">
         <!--<i class="fa fa-spinner fa-spin "></i>-->
         <div class="loader" id="loader-2">
@@ -100,8 +100,7 @@
           href='https://play.google.com/store/apps/details?id=com.kushal.downgram&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
           <img alt='Get it on Google Play' class="playstore" src="assets/google-play-badge.svg" />
         </a>
-        <a
-          href='https://www.downgram.in'>
+        <a href='https://www.downgram.in'>
           <img alt='open in browser' class="browserbadge" src="assets/browser-badge.svg" />
         </a>
       </div>

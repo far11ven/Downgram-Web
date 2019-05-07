@@ -19,14 +19,37 @@ body {
 
 }
 
-#search{
-  display:inline;
+#search-btn{
+ background-color: #1f74c9;
+ color: #dee6ee;
+ border-radius: 0rem; 
 }
 
-#search-box{
-  width: 100%;
-  border-radius: .25rem;
-  margin-bottom: 4px;
+#search-btn:hover{
+  background-color: #007bff;
+  color:#ffffff;
+
+ }
+
+input#search-box{
+  background-color:transparent !important;
+  border: 1.4px solid #ced4da;
+  border-radius: none;
+  color:royalblue;
+  font-family: Quicksand;
+}
+
+input#search-box:focus, input#search-box:hover{
+  border: 1.4px solid #1f74c9;
+  color: royalblue;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+#watchagif{
+  font-size:16px; 
+  color:#1f74c9; 
+  text-decoration: underline;
 }
 
 .card-columns{
@@ -96,21 +119,12 @@ div#actualStats{
     display:none;
 }
 
-input#search-box{
-    background-color:transparent !important;
-    margin-right:2px;
-    border: 1.2px solid #ced4da;
-    border-radius: none;
-    color:#1f74c9;
- }
-
 .error{
   font-size:15px; 
   font-family: Helvetica;
   color:red; 
 
 }
-
 
 input.form-control:focus {
   outline: 0; 
