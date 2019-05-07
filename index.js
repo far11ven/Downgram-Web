@@ -5,42 +5,42 @@ let imageLinks = [];
 let videoLinks = [];
 
 window.onload = function () {
-    
+
     const urlParams = new URLSearchParams(window.location.search);
     const userName = urlParams.get('user');
-    
-    console.log("user:", userName); 
-    
-    if(!userName){                  //if user is null
+
+    console.log("user:", userName);
+
+    if (!userName) {                  //if user is null
         saveViewCount();
     }
-    
-	console.log("path", window.location.pathname);
-	if(window.location.pathname === '/'){
-	     $("#spinner").show();  //shows loader
-         fetch("config.json")
+
+    console.log("path", window.location.pathname);
+    if (window.location.pathname === '/') {
+        $("#spinner").show();  //shows loader
+        fetch("config.json")
             .then(response => response.json())
             .then(responseJSON => {
                 config = responseJSON;
                 getSessionCount();
-               
-        });
-	} else if (window.location.pathname === '/pages/404.html') {
-	    
-	    window.location.replace("https://www.downgram.in")
-	    
-	}
-	
-	$("a[title~='Host']").hide();
+
+            });
+    } else if (window.location.pathname === '/pages/404.html') {
+
+        window.location.replace("https://www.downgram.in")
+
+    }
+
+    $("a[title~='Host']").hide();
 };
 
 function saveViewCount() {
 
-    let sessionBody = '{"channel": "web"}';
+    let sessionBody = { channelType: 'web' };
 
     fetch('https://downgram-back-end.herokuapp.com/api/saveviewcount', {
         method: "POST",
-        body: sessionBody,
+        body: JSON.stringify(sessionBody),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -53,7 +53,7 @@ function saveViewCount() {
         })
         .catch(err => {
             console.log('err', err);
-            
+
         });
 
 }
@@ -63,7 +63,7 @@ function saveViewCount() {
 function getSessionCount() {
     var url = document.getElementById("search-box").value;
     $("a[title~='Host']").hide(); //hides 000webhost banner
-    
+
     fetch('https://downgram-back-end.herokuapp.com/api/sessioncount')
         .then(response => response.json())
         .then(responseJson => {
@@ -84,15 +84,15 @@ function getSessionCount() {
 
 }
 
-function saveSessionDetails() {
+function saveSessionDetails(url) {
 
-    let sessionBody = '{"linkURL":"' + url + '","channelType": "web"}';
+    let sessionBody = { linkURL: url, channelType: 'web' };
 
-     $("a[title~='Host']").hide(); //hides 000webhost banner
+    $("a[title~='Host']").hide(); //hides 000webhost banner
 
     fetch('https://downgram-back-end.herokuapp.com/api/savesession', {
         method: "POST",
-        body: JSON.stringify({ linkURL: url, channelType: 'web' }),
+        body: JSON.stringify(sessionBody),
         headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
@@ -120,7 +120,6 @@ function getMedia() {
     $(document).ready(function () {
         $("#errormessage").remove();
         $("#downloadlink").empty();
-
         $("#spinner").show(); //shows loader
 
     });
@@ -138,7 +137,6 @@ function getMedia() {
 
                 console.log(imageLinks.length);
                 console.log(videoLinks.length);
-
 
                 $(document).ready(function () {
                     for (var i = 0; i < imageLinks.length; i++)
@@ -168,8 +166,7 @@ function getMedia() {
                 });
 
                 //savesession details
-                saveSessionDetails();
-
+                saveSessionDetails(url);
 
             } else if (responseJson.message === "Please enter a valid INSTAGRAM link") {
 
@@ -189,8 +186,6 @@ function getMedia() {
                     `);
 
                 });
-
-
             }
             $("#spinner").hide();  //hides loader
         })
@@ -198,13 +193,10 @@ function getMedia() {
             console.log('err', err);
             $("#spinner").hide();  //hides loader
             $(document).ready(function () {
-                    $(".error").append(`
-                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` + " Something went wrong! Please try again." + `</span>
-                    `);
-
-                });
+                $(".error")
+                    .append(`<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` + " Something went wrong! Please try again." + `</span>`);
+            });
         })
-
 }
 
 
