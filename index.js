@@ -16,7 +16,18 @@ window.onload = function () {
     }
 
     console.log("path", window.location.pathname);
-    if (window.location.pathname === '/') {
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+
+        var dialogShownOn = localStorage.getItem('dialogShownOn')
+
+        if (dialogShownOn !== new Date().toLocaleDateString()) {
+
+            $('#StartUpModal').modal('show');  //display startup modal
+
+            var today = new Date().toLocaleDateString();
+            localStorage.setItem('dialogShownOn', today);
+        }
+
         $("#spinner").show();  //shows loader
         fetch("config.json")
             .then(response => response.json())
@@ -198,5 +209,3 @@ function getMedia() {
             });
         })
 }
-
-
