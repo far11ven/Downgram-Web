@@ -141,11 +141,11 @@ function getMedia(searchQuery) {
         videoLinks = responseJson.result.videolinks;
 
         $(document).ready(function() {
-        $("#downloadlink").append(`<h5>Available Downloads : <span id="downloadcount"> </span></h5>`)
-        $("#downloadCount").value = imageLinks.length + videoLinks.length;
+        $("#downloadlink").append(`<h5 class="dark-th">Available Downloads : <span id="downloadcount"> </span></h5>`)
+        $("#downloadcount").value = imageLinks.length + videoLinks.length;
         
         for (var i = 0; i < imageLinks.length; i++)
-            $("#downloadlink").append(
+            $("#results").append(
               `
                       <div class="card">
                       <img id="itemimg" class="card-img-top" src="` +
@@ -164,7 +164,7 @@ function getMedia(searchQuery) {
             );
 
           for (var j = 0; j < videoLinks.length; j++)
-            $("#downloadlink").append(
+            $("#results").append(
               `
                       <div class="card">
                       <video style="width: 100%;" src="` +

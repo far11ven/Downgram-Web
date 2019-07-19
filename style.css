@@ -66,8 +66,37 @@ span.modal-link{
 
 }
 
-.header>a:hover{
+.title>a:hover{
+ color:#007bf9;
   text-decoration: none;
+}
+
+.header{
+  color: #000;
+  text-decoration: none;
+  letter-spacing: 0.10em;
+  display: inline-block;
+  position: relative;
+
+}
+
+.header:after  {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: #000;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+  cursor: default;
+}
+
+.header:hover:after{ 
+  width: 100%; 
+  left: 0; 
 }
 
 #search-btn{
