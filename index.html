@@ -8,8 +8,9 @@
   <script src="index.js"></script>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="togglestyle.css" />
   <meta name="keywords"
-    content="instagram, instagram download, online instagram download, online instagram, online instagram image, instagram photos download,instagram videos download,instagram download, #instagramVideos,#instagramphotos,#instagramIGTV,downgram, downloader for instagram, #instagram, #downgram, downgram app, downloadgram, #downgram_app, downgram.in,">
+    content="instagram, instagram download, online instagram download, online instagram, online instagram image, instagram photos download,instagram videos download,instagram download, #instagramVideos,#instagramphotos,#instagramIGTV,downgram, downloader for instagram, #instagram, #downgram, downgram app, downloadgram, #downgram_app, downgram.in,downgram app, downgram_app">
   <meta name="description" content="A simple and sleek way of downloading Instagram Videos, Photos & IGTV" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -39,18 +40,27 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li class="nav-item dark-th">
           <a class="nav-item nav-link" href="/pages/privacy.html">Privacy</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item dark-th">
           <a class="nav-item nav-link" href="/pages/getting-started.html">Get started</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item dark-th">
           <a class="nav-item nav-link"
             href="https://docs.google.com/forms/d/e/1FAIpQLScsz8jaqcS7mc48UqqHVfzH9Vxo8kztSPWaTCOl-Pm5y3a-sw/viewform?vc=0&c=0&w=1"
             target="_blank">Feedback <i class="fas fa-comment-dots"></i></a>
         </li>
       </ul>
+      <span class="navbar-text">
+      <div id="theme" class="dark-th">
+        <div>Dark Mode</div>
+        <label class="switch">
+          <input id="theme-toggle" type="checkbox" unchecked="">
+          <span class="slider round" onclick="themeSelection()"></span>
+        </label>
+      </div>
+      </span>
     </div>
   </nav>
   <div class="jumbotron bg-transparent text-center" style="margin-bottom:0">
@@ -61,10 +71,10 @@
       <div class="col-md-12" id="search-section">
         <form class="navbar-form" role="search">
           <div class="input-group">
-            <input class="form-control" placeholder="paste your Instagram link.." name="search-box" id="search-box"
-              type="text">
+            <input class="form-control" name="search" id="search-box" placeholder="paste your Instagram link.."
+              type="text" onpaste="btnActivation()" onchange="btnActivation()">
             <div class="input-group-btn">
-              <button id="search-btn" class="btn btn-default" type="button" onClick="getMedia()"><i
+              <button id="search-btn" class="btn btn-default" type="submit"><i
                   class="fas fa-search"></i> find it </button>
             </div>
           </div>
@@ -82,7 +92,10 @@
         </div>
       </div>
       <div class="error"> </div>
-      <div id=ad>
+    <div id="downloadlink" class="downloadlink card-columns">
+     
+    </div>
+    <div class="ads">
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- bottom-ad-banner -->
         <ins class="adsbygoogle"
@@ -94,11 +107,9 @@
         <script>
            (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
-     </div>
-     <div id="downloadlink" class="downloadlink card-columns">
     </div>
-      <div id="stats_banner" style="padding:15px;">
-        <h4 id="sudostats">
+      <div id="stats_banner" style="padding:15px;" class="dark-th">
+        <h4 id="sudostats" >
           served <span class="stats">lots of</span> downloads with <i class="far fa-heart" style="color:red;"></i> so
           far
         </h4>
@@ -111,7 +122,7 @@
       </div>
       <div id="social" style="padding:15px;">
         <h5>
-          spread the <i class="far fa-heart stats" style="color:red;"></i>
+          spread the_ <i class="far fa-heart stats" style="color:red;"></i>
           <pre> </pre>
           <h3>
             <a class="social-link" target="_blank"
