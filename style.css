@@ -1,0 +1,272 @@
+@media (max-width:2048px) and (min-width:1366px) {
+  body {
+  background-image: url("assets/white_nature.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.card-columns{
+  padding-left:10%;
+  padding-right:10%;
+}
+}
+
+@media (max-width:1366px) and (min-width:575px) {
+
+  body {
+    background-image: url("assets/white_nature.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+.card-columns{
+  padding-left:2%;
+  padding-right:2%;
+}
+
+}
+
+@media (max-width:575px) {
+
+  body {
+    background-image: url("assets/white_nature1024.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .card-columns{
+    padding-left:16%;
+    padding-right:16%;
+  }
+  
+  }
+
+
+
+
+.fa-times-circle:hover {
+  color: #1f74c9;
+}
+
+
+
+div#StartUpModal a:hover{
+  text-decoration: none;
+
+}
+
+span.modal-link{
+  text-decoration: overline;
+
+}
+
+.header>a:hover{
+  text-decoration: none;
+}
+
+#search-btn{
+  background-color: #007bff;
+  color:#fff;
+  border-radius: 0rem; 
+  box-shadow: 0 0 0 0px #fff inset;
+  }
+
+#search-btn:hover{
+  border: 1px solid #007bff;
+  background: none repeat scroll 0 0 rgba(255,255,255,.35);
+  box-shadow: 0 0 0 0px #fff inset;
+  color: #007bff;
+  border-radius: 0rem; 
+  
+}
+
+#search-btn:disabled,
+#search-btn[disabled] {
+  background-color: #007bf4;
+  color: #fff;
+  border-radius: 0rem;
+  box-shadow: 0 0 0 0px #fff inset;
+}
+
+input#search-box{
+background-color:transparent !important;
+border: 1.4px solid #ced4da;
+border-radius: none;
+color:royalblue;
+font-family: Quicksand;
+}
+
+input#search-box:focus, input#search-box:hover{
+border: 1.4px solid #007bff;
+color: royalblue;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+#watchagif{
+font-size:16px; 
+color:#1f74c9; 
+text-decoration: underline;
+}
+
+img.playstore:hover, img.browserbadge:hover{
+   opacity:0.8;
+}
+
+img.navbar-logo{
+  height:32px;
+}
+
+img.navbar-logo:hover{
+  transform: scale(1.2);
+}
+
+
+img.logo{
+  height:125px;
+}
+
+h1.header{
+  font-family: Quicksand;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+p.desc{
+  color: rgb(160, 177, 187);
+  font-family: Helvetica;
+}
+
+.downloadlink{
+  margin-top:40px
+}
+
+
+
+#stats_banner{
+  color:grey; 
+  margin-top:40px;
+  margin-bottom:100px;
+}
+
+span.stats{
+  color:royalblue;
+  text-decoration: overline;
+}
+
+.ads{
+    padding:15px;
+}
+
+.social{
+color:grey; 
+margin-bottom:10px;
+}
+
+.social-link{
+padding:5px;
+}
+
+a.social-link:hover{
+text-decoration: none;
+}
+
+div#actualStats{
+  display:none;
+}
+
+#theme {
+    font-size: 0.8rem;
+    font-family: monospace;
+}
+
+.error{
+font-size:15px; 
+font-family: Helvetica;
+color:red; 
+
+}
+
+input.form-control:focus {
+outline: 0; 
+box-shadow: 0 0 0 0.05rem rgba(0,123,255,.25);
+}
+
+/* LOADER */
+
+#loader-2 span{
+display: inline-block;
+width: 15px;
+height: 15px;
+border-radius: 100%;
+margin: 24px 4px;
+}
+
+
+#loader-2 span#span-1{
+background-color: #007bff;
+}
+#loader-2 span#span-2{
+background-color: lightcoral;
+}
+#loader-2 span#span-3{
+background-color:lightgreen;
+}
+
+#loader-2 span:nth-child(1){
+animation: bounce 1s ease-in-out infinite;
+}
+
+#loader-2 span:nth-child(2){
+animation: bounce 1s ease-in-out 0.33s infinite;
+}
+
+#loader-2 span:nth-child(3){
+animation: bounce 1s ease-in-out 0.66s infinite;
+}
+
+@keyframes bounce{
+0%, 75%, 100%{
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+
+25%{
+  -webkit-transform: translateY(-20px);
+  -ms-transform: translateY(-20px);
+  -o-transform: translateY(-20px);
+  transform: translateY(-20px);
+}
+}
+
+
+/* LOADER */
+
+a.back-to-home{
+color:#007bff;
+margin-left:15px;
+margin-top:15px;
+border:2.5px solid royalblue;
+}
+
+a.back-to-home:hover{
+color:#007bff;
+margin-left:15px;
+margin-top:15px;
+border:3px solid #007bff;
+
+}
+
+img.giphy-tuts{
+height:526px;
+width:250px;
+margin-bottom: 2rem;
+}
