@@ -54,6 +54,10 @@
   color: #1f74c9;
 }
 
+.privacy-policy {
+    background-color: #eff0f1;
+}
+
 
 
 div#StartUpModal a:hover{
@@ -66,8 +70,14 @@ span.modal-link{
 
 }
 
+.title{
+  font-family: Quicksand;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color:#007bf9;
+}
+
 .title>a:hover{
- color:#007bf9;
   text-decoration: none;
 }
 
@@ -161,11 +171,6 @@ img.logo{
   height:125px;
 }
 
-h1.header{
-  font-family: Quicksand;
-  font-size: 2.5rem;
-  font-weight: bold;
-}
 
 p.desc{
   color: rgb(160, 177, 187);

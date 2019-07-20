@@ -141,7 +141,8 @@ function getMedia(searchQuery) {
         videoLinks = responseJson.result.videolinks;
 
         $(document).ready(function() {
-        $("#downloadlink").append(`<h5 class="dark-th">Available Downloads : <span id="downloadcount"> </span></h5>`)
+        $("#downloadlink").append(`<h5 style="color:cornflowerblue;">Available Downloads : <span id="downloadcount"> </span></h5>`);
+        $("#downloadlink").append(`<div id="results" class="downloadlink card-columns"> </div>`);
         $("#downloadcount").value = imageLinks.length + videoLinks.length;
         
         for (var i = 0; i < imageLinks.length; i++)
@@ -233,12 +234,12 @@ function themeSelection() {
 function changeTheme(userPref) {
   $(document).ready(function() {
     if (userPref === "true") {
-      $("body").css("background-image", "url(assets/black_nature.jpg)");
+      $("body").css("background-image", "url(./assets/black_nature.jpg)");
       $(".dark-th").css("color", "#ffffff");
       $("#theme-toggle").prop('checked', true);
 
     } else {
-      $("body").css("background-image", "url(assets/white_nature.jpg)");
+      $("body").css("background-image", "url(./assets/white_nature.jpg)");
        $(".dark-th").css("color", "rgba(0,0,0,.5)");
        $("#theme-toggle").prop('checked', false);
     }
