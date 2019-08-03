@@ -7,6 +7,7 @@ let videoLinks = [];
 // add + '&dl=1'
 
 window.onload = function() {
+  $("#spinner").show(); //shows loader
   changeTheme(localStorage.getItem("darkMode")); //select theme
   const urlParams = new URLSearchParams(window.location.search);
   const userName = urlParams.get("user");
@@ -37,8 +38,7 @@ window.onload = function() {
       var today = new Date().toLocaleDateString();
       localStorage.setItem("dialogShownOn", today);
     }
-
-    $("#spinner").show(); //shows loader
+    
     fetch("config.json")
       .then(response => response.json())
       .then(responseJSON => {
@@ -51,6 +51,28 @@ window.onload = function() {
 
   $("a[title~='Host']").hide();
 };
+
+// function showGiforVideo() {
+//   setTimeout(function(){
+//   showElemGiforVideo();
+//   showGiforVideo(); 
+// }, 5500);
+// }
+
+// function showElemGiforVideo(){
+// if(document.getElementById("watchagif").style.display == "none"){
+// document.getElementById("watchagif").style.display ="block";
+
+// } else {
+// document.getElementById("watchagif").style.display = "none"}
+
+// if(document.getElementById("watchavideo").style.display == "none"){
+// 	document.getElementById("watchavideo").style.display = "block"
+	
+// } else{
+// document.getElementById("watchavideo").style.display ="none";
+// }
+// }
 
 function btnActivation() {
   if (document.getElementById("search-box").value === "") {
@@ -141,25 +163,28 @@ function getMedia(searchQuery) {
         videoLinks = responseJson.result.videolinks;
 
         $(document).ready(function() {
-        $("#downloadlink").append(`<h5 style="color:cornflowerblue;">Available Downloads : <span id="downloadcount"> </span></h5>`);
+        $("#downloadlink").append('<h5 style="color:cornflowerblue;">Available Downloads : <span id="downloadcount">' + (imageLinks.length + videoLinks.length) + '</span></h5>');
         $("#downloadlink").append(`<div id="results" class="downloadlink card-columns"> </div>`);
-        $("#downloadcount").value = imageLinks.length + videoLinks.length;
+
         
         for (var i = 0; i < imageLinks.length; i++)
             $("#results").append(
               `
                       <div class="card">
+                      <i class="media-type fas fa-image"></i>
                       <img id="itemimg" class="card-img-top" src="` +
                 imageLinks[i] +
                 `" />
-                      <div class="card-body">
-                        <h5 class="card-title"><i class="far fa-file-image"></i></h5>
+                      
                         <a id="imgdownloadlink" class="card-link" href="` +
                 imageLinks[i] +
                 "&dl=1" +
                 `" target="_blank">
-                          <u>click to download <i class="far fa-arrow-alt-circle-down"></i></u></a>
-                      </div>
+                          <div class="c-body">
+                          <span><i class="fas fa-download"></i> Download </span>
+                          </div>
+                        </a>
+                      
                     </div>
                     `
             );
@@ -168,17 +193,19 @@ function getMedia(searchQuery) {
             $("#results").append(
               `
                       <div class="card">
+                      <i class="media-type fas fa-video"></i>
                       <video style="width: 100%;" src="` +
                 videoLinks[j] +
                 `" controls></video>
-                      <div class="card-body">
-                        <h5 class="card-title"><i class="far fa-file-video"></i></h5>
+                      
                         <a id="viddownloadlink" class="card-link" href="` +
                 videoLinks[j] +
                 "&dl=1" +
                 `" target="_blank">
-                          <u>click to download <i class="far fa-arrow-alt-circle-down"></i></u></a>
-                      </div>
+                          <div class="c-body"><span><i class="fas fa-download"></i> Download </span>
+                          </div>
+                        </a>
+                      
                     </div>
                     `
             );

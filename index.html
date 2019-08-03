@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="togglestyle.css" />
   <meta name="keywords"
-    content="instagram, instagram download, online instagram download, online instagram, online instagram image, instagram photos download,instagram videos download,instagram download, #instagramVideos,#instagramphotos,#instagramIGTV,downgram, downloader for instagram, #instagram, #downgram, downgram app, downloadgram, #downgram_app, downgram.in,downgram app, downgram_app">
+    content="instagram, instagram download, instagram download video, instagram download photo, online instagram download, online instagram, online instagram image, instagram photos download,instagram videos download,instagram download, #instagramVideos,#instagramphotos,#instagramIGTV,downgram, downloader for instagram, #instagram, #downgram, downgram app, downloadgram, #downgram_app, downgram.in,downgram app, downgram_app,downgram - downloader for instagram">
   <meta name="description" content="A simple and sleek way of downloading Instagram Videos, Photos & IGTV" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -22,6 +22,11 @@
   <meta property="og:title" content="Downgram - Online Instagram Videos, Photos & IGTV Download" />
   <meta property="og:description" content="A simple and sleek way of downloading Instagram Videos, Photos & IGTV" />
   <meta property="og:image" content="http://www.downgram.in/assets/logo.png" />
+  <script type="text/javascript">
+    $('#modal-video').on('hidden.bs.modal', function () {
+    $("#modal-video iframe").attr("src", $("#modal-video iframe").attr("src"));
+});
+</script>
   <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
   <!--<script>-->
   <!--  (adsbygoogle = window.adsbygoogle || []).push({-->
@@ -34,20 +39,20 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light ">
     <a class="navbar-brand" href="/"><img class="navbar-logo" src="../assets/logo.png" /></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    <button class="navbar-toggler dark-th" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon dark-th"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item header dark-th">
-          <a class="nav-item nav-link" href="/pages/privacy.html">Privacy</a>
+        <li class="nav-item header">
+          <a class="nav-item nav-link dark-th" href="/pages/privacy.html">Privacy</a>
         </li>
-        <li class="nav-item header dark-th">
-          <a class="nav-item nav-link" href="/pages/getting-started.html">Get started</a>
+        <li class="nav-item header">
+          <a class="nav-item nav-link dark-th" href="/pages/getting-started.html">Get started</a>
         </li>
-        <li class="nav-item header dark-th">
-          <a class="nav-item nav-link"
+        <li class="nav-item header">
+          <a class="nav-item nav-link dark-th"
             href="https://docs.google.com/forms/d/e/1FAIpQLScsz8jaqcS7mc48UqqHVfzH9Vxo8kztSPWaTCOl-Pm5y3a-sw/viewform?vc=0&c=0&w=1"
             target="_blank">Feedback <i class="fas fa-comment-dots"></i></a>
         </li>
@@ -72,16 +77,24 @@
       <div class="col-md-12" id="search-section">
         <form class="navbar-form" role="search">
           <div class="input-group">
+
             <input class="form-control" name="search" id="search-box" placeholder="paste your Instagram link.."
-              type="text" oninput="btnActivation()" onchange="btnActivation()">
+              type="search" oninput="btnActivation()" onchange="btnActivation()">
+
             <div class="input-group-btn">
               <button id="search-btn" class="btn btn-default" type="submit"><i
-                  class="fas fa-search"></i> find it </button>
+                  class="fas fa-search"></i> <span>find it </span> </button>
             </div>
           </div>
         </form>
-        <div id="watchagif">
-          <a class="card-link" href="/pages/getting-started.html" target="_self"> wanna watch a gif? </a>
+       <div  style="display:inline;">
+        <span id="watchavideo" >
+          <a href="#"  data-toggle="modal" data-target="#youtubeModal"> wanna watch a video? </a>
+        </span>
+		<span class="dark-th"> or </span>
+        <span id="watchagif">
+          <a href="/pages/getting-started.html" target="_self"> a gif? </a>
+        </span>
         </div>
       </div>
       <div #spinner id="spinner" style="font-size:24px; color:#1f74c9; display:none;">
@@ -144,6 +157,24 @@
       </div>
     </div>
   </div>
+  
+<!-- Yotube video popup Modal -->
+  <div id="youtubeModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">How <span class="modal-link"> <a
+                href='https://play.google.com/store/apps/details?id=com.kushal.downgram'> it works</a></span>!
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
+          </button>
+        </div>
+        <iframe id="iframeYoutube" height="400"  src="https://www.youtube.com/embed/E4jNL3_EdII" frameborder="0" allowfullscreen></iframe> 
+      </div>
+    </div>
+  </div>
 
   <!--StartUp Modal Window-->
   <div id="StartUpModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -187,6 +218,15 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
     integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
     crossorigin="anonymous"></script>
+    <script type="text/javascript"> 
+$("#search-clear").click(function(){
+    $("#search-box").val('');
+});
+
+    $('#modal-video').on('hidden.bs.modal', function () {
+    $("#modal-video iframe").attr("src", $("#modal-video iframe").attr("src"));
+});
+</script>
 </body>
 
 </html>

@@ -45,10 +45,11 @@
     padding-right:16%;
   }
   
+  #search-btn > span {
+    display: none;
   }
-
-
-
+  
+  }
 
 .fa-times-circle:hover {
   color: #1f74c9;
@@ -110,6 +111,7 @@ span.modal-link{
 }
 
 #search-btn{
+  border: 1.1px solid #007bff;
   background-color: #007bff;
   color:#fff;
   border-radius: 0rem; 
@@ -117,7 +119,7 @@ span.modal-link{
   }
 
 #search-btn:hover{
-  border: 1px solid #007bff;
+  border: 1.1px solid #007bff;
   background: none repeat scroll 0 0 rgba(255,255,255,.35);
   box-shadow: 0 0 0 0px #fff inset;
   color: #007bff;
@@ -127,6 +129,7 @@ span.modal-link{
 
 #search-btn:disabled,
 #search-btn[disabled] {
+  border: 1.1px solid #007bff;
   background-color: #007bf4;
   color: #fff;
   border-radius: 0rem;
@@ -134,22 +137,25 @@ span.modal-link{
 }
 
 input#search-box{
+margin-right: 0.07rem;
 background-color:transparent !important;
-border: 1.4px solid #ced4da;
+border: 1.5px solid #ced4da;
 border-radius: none;
-color:royalblue;
+color:grey;
 font-family: Quicksand;
 }
 
 input#search-box:focus, input#search-box:hover{
-border: 1.4px solid #007bff;
+margin-right: 0.07rem;
+border: 1.5px solid #007bff;
 color: royalblue;
 -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
-#watchagif{
-font-size:16px; 
+#watchagif, #watchavideo{
+font-size:15px; 
 color:#1f74c9; 
 text-decoration: underline;
 }
@@ -159,7 +165,7 @@ img.playstore:hover, img.browserbadge:hover{
 }
 
 img.navbar-logo{
-  height:32px;
+  height:34px;
 }
 
 img.navbar-logo:hover{
@@ -168,7 +174,7 @@ img.navbar-logo:hover{
 
 
 img.logo{
-  height:125px;
+  height:150px;
 }
 
 
@@ -181,6 +187,30 @@ p.desc{
   margin-top:40px
 }
 
+.c-body{
+    flex: 1 1 auto;
+    padding: 0.25rem; !important;
+    background-color: #007bf4;
+    color: white;
+}
+
+.c-body:hover{
+    flex: 1 1 auto;
+    padding: 0.25rem; !important;
+    background-color: #429cf5;
+    color: white;
+}
+
+a.card-link{
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a.card-link:hover {
+    color: mintcream;
+    text-decoration: underline;
+}
 
 
 #stats_banner{
@@ -192,6 +222,15 @@ p.desc{
 span.stats{
   color:royalblue;
   text-decoration: overline;
+}
+
+.media-type{
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    font-size: 24px;
+    color: #007bf4;
+    text-shadow: 0px 1px 3px rgba(51,51,51,0.2);
 }
 
 .ads{
@@ -220,10 +259,18 @@ div#actualStats{
     font-family: monospace;
 }
 
-.error{
-font-size:15px; 
-font-family: Helvetica;
-color:red; 
+.message{
+    font-size:14px; 
+    font-family: Helvetica;
+    background: #bb4242;
+    border-radius: 3px;
+    color: #fff !important;
+    letter-spacing: 1px;
+    line-height: 9px;
+    padding: 4px 6px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 4px;
 
 }
 
