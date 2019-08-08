@@ -59,8 +59,6 @@
     background-color: #eff0f1;
 }
 
-
-
 div#StartUpModal a:hover{
   text-decoration: none;
 
@@ -183,8 +181,16 @@ p.desc{
   font-family: Helvetica;
 }
 
-.downloadlink{
-  margin-top:40px
+#downloads{
+  margin-top: 1.6rem;
+}
+
+#results{
+  margin-top: 1rem;
+}
+.card-img-top:hover{
+    
+    opacity: 0.7;
 }
 
 .c-body{
@@ -210,6 +216,29 @@ a.card-link{
 a.card-link:hover {
     color: mintcream;
     text-decoration: underline;
+}
+
+.card-thumbnail {
+    clear: both;
+    width: 64px;
+    height: 64px;
+    margin: auto;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    background-size: cover;
+    overflow: hidden;
+}
+
+div.higlights-bar {
+  padding: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+
+div.higlights-bar a {
+  display: inline-block;
+  text-align: center;
 }
 
 
@@ -254,6 +283,10 @@ div#actualStats{
   display:none;
 }
 
+div#highlight-results {
+  margin-top: 1rem;
+}
+
 #theme {
     font-size: 0.8rem;
     font-family: monospace;
@@ -274,6 +307,20 @@ div#actualStats{
 
 }
 
+.success-message{
+    background: LIMEGREEN;
+    font-size: 15px;
+    font-family: Helvetica;
+    border-radius: 3px;
+    color: #fff !important;
+    letter-spacing: 2px;
+    line-height: 12px;
+    padding: 5px 20px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
 input.form-control:focus {
 outline: 0; 
 box-shadow: 0 0 0 0.05rem rgba(0,123,255,.25);
@@ -281,35 +328,44 @@ box-shadow: 0 0 0 0.05rem rgba(0,123,255,.25);
 
 /* LOADER */
 
+
 #loader-2 span{
 display: inline-block;
 width: 15px;
 height: 15px;
 border-radius: 100%;
-margin: 24px 4px;
+margin: 20px 4px;
 }
 
 
 #loader-2 span#span-1{
-background-color: #007bff;
+background-color: #FE4469;
 }
 #loader-2 span#span-2{
-background-color: lightcoral;
+background-color: #00A3E8;
 }
 #loader-2 span#span-3{
-background-color:lightgreen;
+background-color:#2E58C8;
+}
+
+#loader-2 span#span-4{
+background-color:limegreen;
 }
 
 #loader-2 span:nth-child(1){
-animation: bounce 1s ease-in-out infinite;
+animation: bounce 0.8s ease-in-out infinite;
 }
 
 #loader-2 span:nth-child(2){
-animation: bounce 1s ease-in-out 0.33s infinite;
+animation: bounce 0.8s ease-in-out 0.33s infinite;
 }
 
 #loader-2 span:nth-child(3){
-animation: bounce 1s ease-in-out 0.66s infinite;
+animation: bounce 0.8s ease-in-out 0.66s infinite;
+}
+
+#loader-2 span:nth-child(4){
+animation: bounce 0.8s ease-in-out 0.99s infinite;
 }
 
 @keyframes bounce{
@@ -331,6 +387,111 @@ animation: bounce 1s ease-in-out 0.66s infinite;
 
 /* LOADER */
 
+/* The STARTING OF ImageViewer Modal (background) */
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+
+#MediaViewerModal .modal-content {
+  margin: auto;
+  display: block;
+  background-color: rgba(0,0,0,0) !important; 
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,0) !important; 
+}
+
+/* Caption of Modal Image */
+#MediaViewerModal #caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation */
+#MediaViewerModal .modal-content, #caption {  
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+#MediaViewerModal .modal-content>img, #MediaViewerModal .modal-content>video{
+    width:350;
+	margin: auto;
+	display: block;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)} 
+  to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+
+#MediaViewerModal .close{
+    color: white;
+	float: right;
+}
+
+.close:hover,
+.close:focus {
+  color: #007bf4;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
+
+/* ending of ImageViewr Modal */
+
+
+/* Radio button style */
+.radio-btn {
+    margin-bottom: 0.5rem;
+}
+
+.radio-btn label {
+    font-size: 1.1em ;
+    font-weight: bold;
+    color: #00A3E8;
+}
+
+.radio-btn label:hover {
+    color: #007bf4;
+}
+
+.radio-btn input[type="radio"]:checked+label {
+    color: #007bf4;
+}
+
+/* 404.html style */
+
 a.back-to-home{
 color:#007bff;
 margin-left:15px;
@@ -351,3 +512,4 @@ height:526px;
 width:250px;
 margin-bottom: 2rem;
 }
+

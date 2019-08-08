@@ -3,6 +3,7 @@ let config;
 let url;
 let imageLinks = [];
 let videoLinks = [];
+let highlightLinks = [];
 
 // add + '&dl=1'
 
@@ -10,21 +11,49 @@ window.onload = function() {
   $("#spinner").show(); //shows loader
   changeTheme(localStorage.getItem("darkMode")); //select theme
   const urlParams = new URLSearchParams(window.location.search);
-  const userName = urlParams.get("user");
 
   const searchQuery = urlParams.get("search");
+  const username = urlParams.get("username");
+  const dp = urlParams.get("dp");
+  const highlightId = urlParams.get("highlight");
+  const searchOptions = urlParams.get("searchOptions");
 
-  document.getElementById("search-box").value = searchQuery;
+  if (searchOptions) {
+    var selectedRadioBtn;
+    if (searchOptions == "posts") {
+      selectedRadioBtn = document.getElementById("inlineRadio1");
+      changeSearchMode(searchOptions);
+    } else if (searchOptions == "dp") {
+      selectedRadioBtn = document.getElementById("inlineRadio2");
+      changeSearchMode(searchOptions);
+    } else if (searchOptions == "stories") {
+      selectedRadioBtn = document.getElementById("inlineRadio3");
+      changeSearchMode(searchOptions);
+    }
+    selectedRadioBtn.checked = true;
+  } else {
+    //to be selected by default
+    var selectedRadioBtn = document.getElementById("inlineRadio1");
+    selectedRadioBtn.checked = true;
+    changeSearchMode("posts");
+  }
+
   if (searchQuery) {
     getMedia(searchQuery);
+    document.getElementById("search-box").value = searchQuery;
+  } else if (dp) {
+    getDP(dp);
+    document.getElementById("search-box").value = dp;
+  } else if (username && highlightId) {
+    getHighlight(username, highlightId);
+    document.getElementById("search-box").value = username;
+  } else if (username) {
+    getStories(username);
+    document.getElementById("search-box").value = username;
   }
 
   btnActivation(); //to make search button disabled by default if searchquery is empty
-
-  if (!userName) {
-    //if user is null
-    saveViewCount();
-  }
+  saveViewCount(); // save page views
 
   if (
     window.location.pathname === "/" ||
@@ -38,7 +67,7 @@ window.onload = function() {
       var today = new Date().toLocaleDateString();
       localStorage.setItem("dialogShownOn", today);
     }
-    
+
     fetch("config.json")
       .then(response => response.json())
       .then(responseJSON => {
@@ -55,7 +84,7 @@ window.onload = function() {
 // function showGiforVideo() {
 //   setTimeout(function(){
 //   showElemGiforVideo();
-//   showGiforVideo(); 
+//   showGiforVideo();
 // }, 5500);
 // }
 
@@ -68,7 +97,7 @@ window.onload = function() {
 
 // if(document.getElementById("watchavideo").style.display == "none"){
 // 	document.getElementById("watchavideo").style.display = "block"
-	
+
 // } else{
 // document.getElementById("watchavideo").style.display ="none";
 // }
@@ -93,9 +122,7 @@ function saveViewCount() {
     }
   })
     .then(response => response.json())
-    .then(responseJson => {
-
-    })
+    .then(responseJson => {})
     .catch(err => {
       console.log("err", err);
     });
@@ -123,24 +150,24 @@ function getSessionCount() {
 }
 
 function saveSessionDetails(url) {
-  let sessionBody = { linkURL: url, channelType: 'web' };
+  let sessionBody = { linkURL: url, channelType: "web" };
   $("a[title~='Host']").hide(); //hides 000webhost banner
-  fetch('https://downgram-back-end.herokuapp.com/api/savesession', {
-      method: "POST",
-      body: JSON.stringify(sessionBody),
-      headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-      }
+  fetch("https://downgram-back-end.herokuapp.com/api/savesession", {
+    method: "POST",
+    body: JSON.stringify(sessionBody),
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json"
+    }
   })
-      .then(response => response.json())
-      .then(responseJson => {
-          $("#spinner").hide();  //hides loader
-      })
-      .catch(err => {
-          console.log('err', err);
-          $("#spinner").hide();  //hides loader
-      });
+    .then(response => response.json())
+    .then(responseJson => {
+      $("#spinner").hide(); //hides loader
+    })
+    .catch(err => {
+      console.log("err", err);
+      $("#spinner").hide(); //hides loader
+    });
 }
 
 function getMedia(searchQuery) {
@@ -149,7 +176,7 @@ function getMedia(searchQuery) {
     $("#errormessage").each(function() {
       $(this).remove();
     });
-    $("#downloadlink").empty();
+    $("#downloads").empty();
     $("#spinner").show(); //shows loader
   });
 
@@ -163,18 +190,27 @@ function getMedia(searchQuery) {
         videoLinks = responseJson.result.videolinks;
 
         $(document).ready(function() {
-        $("#downloadlink").append('<h5 style="color:cornflowerblue;">Available Downloads : <span id="downloadcount">' + (imageLinks.length + videoLinks.length) + '</span></h5>');
-        $("#downloadlink").append(`<div id="results" class="downloadlink card-columns"> </div>`);
+          $("#downloads").append(
+            '<span class="success-message"> AVAILABLE DOWNLOADS : <span id="downloadcount">' +
+              (imageLinks.length + videoLinks.length) +
+              "</span></span>"
+          );
+          $("#downloads").append(
+            `<div id="results" class="downloadlink card-columns"> </div>`
+          );
 
-        
-        for (var i = 0; i < imageLinks.length; i++)
+          for (var i = 0; i < imageLinks.length; i++)
             $("#results").append(
               `
                       <div class="card">
                       <i class="media-type fas fa-image"></i>
-                      <img id="itemimg" class="card-img-top" src="` +
+                      <img id="itemimg_` +
+                (i + 1) +
+                `" class="card-img-top" src="` +
                 imageLinks[i] +
-                `" />
+                `" onclick="openMediaViewer('itemimg_` +
+                (i + 1) +
+                `')"/>
                       
                         <a id="imgdownloadlink" class="card-link" href="` +
                 imageLinks[i] +
@@ -194,9 +230,13 @@ function getMedia(searchQuery) {
               `
                       <div class="card">
                       <i class="media-type fas fa-video"></i>
-                      <video style="width: 100%;" src="` +
+                      <video id="itemvid_` +
+                (i + 1) +
+                `"  class="card-img-top" style="width: 100%;" src="` +
                 videoLinks[j] +
-                `" controls></video>
+                `" onclick="openMediaViewer('itemvid_` +
+                (i + 1) +
+                `')"></video>
                       
                         <a id="viddownloadlink" class="card-link" href="` +
                 videoLinks[j] +
@@ -251,11 +291,383 @@ function getMedia(searchQuery) {
     });
 }
 
+function getDP(dpSearchQuery) {
+  // remove attached items & start loader
+  $(document).ready(function() {
+    $("#errormessage").each(function() {
+      $(this).remove();
+    });
+    $("#downloads").empty();
+    $("#spinner").show(); //shows loader
+  });
+
+  url = dpSearchQuery;
+
+  fetch("https://downgram-back-end.herokuapp.com/api/getdp?dp=" + url)
+    .then(response => response.json())
+    .then(responseJson => {
+      if (responseJson.message == "Hello dp") {
+        imageLinks = responseJson.result.imagelinks;
+        videoLinks = responseJson.result.videolinks;
+
+        $(document).ready(function() {
+          $("#downloads").append(
+            '<span class="success-message"> AVAILABLE DP FOR USER : </span>'
+          );
+          $("#downloads").append(
+            `<div id="results" class="downloadlink card-columns"> </div>`
+          );
+
+          for (var i = 0; i < imageLinks.length; i++)
+            $("#results").append(
+              `
+                      <div class="card">
+                      <i class="media-type fas fa-image"></i>
+                      <img id="itemimg_` +
+                (i + 1) +
+                `" class="card-img-top" src="` +
+                imageLinks[i] +
+                `" onclick="openMediaViewer('itemimg_` +
+                (i + 1) +
+                `')"/>
+                      
+                        <a id="imgdownloadlink" class="card-link" href="` +
+                imageLinks[i] +
+                "&dl=1" +
+                `" target="_blank">
+                          <div class="c-body">
+                          <span><i class="fas fa-download"></i> Download </span>
+                          </div>
+                        </a>
+                      
+                    </div>
+                    `
+            );
+        });
+
+        //savesession details
+        saveSessionDetails(url);
+      } else if (
+        responseJson.message ===
+        "Please enter a valid INSTAGRAM username/profile link"
+      ) {
+        $(document).ready(function() {
+          $(".error").append(
+            `
+                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+              responseJson.message +
+              `</span>
+           `
+          );
+        });
+      }
+      $("#spinner").hide(); //hides loader
+    })
+    .catch(err => {
+      console.log("err", err);
+      $("#spinner").hide(); //hides loader
+      $(document).ready(function() {
+        $(".error").append(
+          `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+            " Something went wrong! Please try again." +
+            `</span>`
+        );
+      });
+    });
+}
+
+function getStories(username) {
+  // remove attached items & start loader
+  $(document).ready(function() {
+    $("#errormessage").each(function() {
+      $(this).remove();
+    });
+    $("#downloads").empty();
+    $("#spinner").show(); //shows loader
+  });
+
+  url = "username=" + username;
+
+  fetch("https://downgram-back-end.herokuapp.com/api/getstories?" + url)
+    .then(response => response.json())
+    .then(responseJson => {
+      if (responseJson.message == "Hello") {
+        imageLinks = responseJson.result.storyImageLinks;
+        videoLinks = responseJson.result.storyVideoLinks;
+        highlightLinks = responseJson.result.highlightsLinks;
+
+        //initialize 3D array
+        //for (var i = 0; i <= highlightLinks.length; i++) {
+        //  highlightLinks[i] = new Array(2);
+        //}
+
+        $(document).ready(function() {
+            
+          // highlights code
+
+          $("#downloads").append(
+            '<span class="success-message"> AVAILABLE USER HIGHLIGHTS FOR ' +
+              username +
+              ' : <span id="downloadcount">' +
+              highlightLinks.length +
+              "</span></span>"
+          );
+          $("#downloads").append(
+            `<div id="highlight-results" class="higlights-bar"> </div>`
+          );
+
+          for (var i = 0; i < highlightLinks.length; i++)
+            $("#highlight-results").append(
+              `<a id="highLightlink" class="card-link" href="?username=` +
+                username +
+                "&highlight=" +
+                highlightLinks[i][2] +
+                "&searchOptions=stories" +
+                `" target="_blank">
+                    <img id="itemHighlight_` +
+                (i + 1) +
+                `" class="card-thumbnail" src="` +
+                highlightLinks[i][1] +
+                `"/>
+                <div class="c-body">
+                      <span>` +
+                highlightLinks[i][0] +
+                `</span>
+                </div>
+              </a>
+             `
+            );
+          // Stories code
+
+          $("#downloads").append(
+            '<span class="success-message"> AVAILABLE USER STORY FOR ' +
+              username +
+              ' : <span id="downloadcount">' +
+              (imageLinks.length + videoLinks.length) +
+              "</span></span>"
+          );
+          $("#downloads").append(
+            `<div id="results" class="downloadlink card-columns"> </div>`
+          );
+
+          for (var i = 0; i < imageLinks.length; i++)
+            $("#results").append(
+              `
+                        <div class="card">
+                        <i class="media-type fas fa-image"></i>
+                        <img id="itemimg_` +
+                (i + 1) +
+                `" class="card-img-top" src="` +
+                imageLinks[i] +
+                `" onclick="openMediaViewer('itemimg_` +
+                (i + 1) +
+                `')"/>
+                        
+                          <a id="imgdownloadlink" class="card-link" href="` +
+                imageLinks[i] +
+                "&dl=1" +
+                `" target="_blank">
+                            <div class="c-body">
+                            <span><i class="fas fa-download"></i> Download </span>
+                            </div>
+                          </a>
+                        
+                      </div>
+                      `
+            );
+
+          for (var j = 0; j < videoLinks.length; j++)
+            $("#results").append(
+              `
+                        <div class="card">
+                        <i class="media-type fas fa-video"></i>
+                        <video id="itemvid_` +
+                (i + 1) +
+                `"  class="card-img-top" style="width: 100%;" src="` +
+                videoLinks[j] +
+                `" onclick="openMediaViewer('itemvid_` +
+                (i + 1) +
+                `')"></video>
+                        
+                          <a id="viddownloadlink" class="card-link" href="` +
+                videoLinks[j] +
+                "&dl=1" +
+                `" target="_blank">
+                            <div class="c-body"><span><i class="fas fa-download"></i> Download </span>
+                            </div>
+                          </a>
+                        
+                      </div>
+                      `
+            );
+        });
+
+        //savesession details
+        saveSessionDetails(url);
+      } else if (
+        responseJson.message === "Please enter a valid INSTAGRAM username"
+      ) {
+        $(document).ready(function() {
+          $(".error").append(
+            `
+                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+              responseJson.message +
+              `</span>
+                    `
+          );
+        });
+      } else if (responseJson.message === "Please enter a valid username") {
+        $(document).ready(function() {
+          $(".error").append(
+            `
+                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+              responseJson.message +
+              `</span>
+                    `
+          );
+        });
+      }
+      $("#spinner").hide(); //hides loader
+    })
+    .catch(err => {
+      console.log("err", err);
+      $("#spinner").hide(); //hides loader
+      $(document).ready(function() {
+        $(".error").append(
+          `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+            " Something went wrong! Please try again." +
+            `</span>`
+        );
+      });
+    });
+}
+
+function getHighlight(username, highlightId) {
+  // remove attached items & start loader
+  $(document).ready(function() {
+    $("#errormessage").each(function() {
+      $(this).remove();
+    });
+    $("#downloads").empty();
+    $("#spinner").show(); //shows loader
+  });
+
+  url = "username=" + username + "&highlight=" + highlightId;
+
+  fetch("https://downgram-back-end.herokuapp.com/api/gethighlights?" + url)
+    .then(response => response.json())
+    .then(responseJson => {
+      if (responseJson.message == "Hello") {
+        imageLinks = responseJson.result.storyImageLinks;
+        videoLinks = responseJson.result.storyVideoLinks;
+
+        $(document).ready(function() {
+          $("#downloads").append(
+            '<span class="success-message"> AVAILABLE DOWNLOADS FOR HIGHLIGHT: <span id="downloadcount">' +
+              (imageLinks.length + videoLinks.length) +
+              "</span></span>"
+          );
+          $("#downloads").append(
+            `<div id="results" class="downloadlink card-columns"> </div>`
+          );
+
+          for (var i = 0; i < imageLinks.length; i++)
+            $("#results").append(
+              `
+                      <div class="card">
+                      <i class="media-type fas fa-image"></i>
+                      <img id="itemimg_` +
+                (i + 1) +
+                `" class="card-img-top" src="` +
+                imageLinks[i] +
+                `" onclick="openMediaViewer('itemimg_` +
+                (i + 1) +
+                `')"/>
+                      
+                        <a id="imgdownloadlink" class="card-link" href="` +
+                imageLinks[i] +
+                "&dl=1" +
+                `" target="_blank">
+                          <div class="c-body">
+                          <span><i class="fas fa-download"></i> Download </span>
+                          </div>
+                        </a>
+                      
+                    </div>
+                    `
+            );
+
+          for (var j = 0; j < videoLinks.length; j++)
+            $("#results").append(
+              `
+                      <div class="card">
+                      <i class="media-type fas fa-video"></i>
+                      <video id="itemvid_` +
+                (i + 1) +
+                `"  class="card-img-top" style="width: 100%;" src="` +
+                videoLinks[j] +
+                `" onclick="openMediaViewer('itemvid_` +
+                (i + 1) +
+                `')"></video>
+                      
+                        <a id="viddownloadlink" class="card-link" href="` +
+                videoLinks[j] +
+                "&dl=1" +
+                `" target="_blank">
+                          <div class="c-body"><span><i class="fas fa-download"></i> Download </span>
+                          </div>
+                        </a>
+                      
+                    </div>
+                    `
+            );
+        });
+
+        //savesession details
+        saveSessionDetails(url);
+      } else if (
+        responseJson.message === "Please enter a valid INSTAGRAM username"
+      ) {
+        $(document).ready(function() {
+          $(".error").append(
+            `
+                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+              responseJson.message +
+              `</span>
+                    `
+          );
+        });
+      } else if (responseJson.message === "Please enter a valid username") {
+        $(document).ready(function() {
+          $(".error").append(
+            `
+                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+              responseJson.message +
+              `</span>
+                    `
+          );
+        });
+      }
+      $("#spinner").hide(); //hides loader
+    })
+    .catch(err => {
+      console.log("err", err);
+      $("#spinner").hide(); //hides loader
+      $(document).ready(function() {
+        $(".error").append(
+          `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+            " Something went wrong! Please try again." +
+            `</span>`
+        );
+      });
+    });
+}
+
 function themeSelection() {
   let isSelected = document.getElementById("theme-toggle").checked;
 
   localStorage.setItem("darkMode", !isSelected);
-   changeTheme(localStorage.getItem("darkMode"));
+  changeTheme(localStorage.getItem("darkMode"));
 }
 
 function changeTheme(userPref) {
@@ -263,12 +675,69 @@ function changeTheme(userPref) {
     if (userPref === "true") {
       $("body").css("background-image", "url(./assets/black_nature.jpg)");
       $(".dark-th").css("color", "#ffffff");
-      $("#theme-toggle").prop('checked', true);
-
+      $("#theme-toggle").prop("checked", true);
     } else {
       $("body").css("background-image", "url(./assets/white_nature.jpg)");
-       $(".dark-th").css("color", "rgba(0,0,0,.5)");
-       $("#theme-toggle").prop('checked', false);
+      $(".dark-th").css("color", "rgba(0,0,0,.5)");
+      $("#theme-toggle").prop("checked", false);
     }
   });
+}
+
+function openMediaViewer(id) {
+  // Get the modal
+  var modal = document.getElementById("MediaViewerModal");
+
+  // Get the image and insert it inside the modal - use its "alt" text as a caption
+  var mediaItem = document.getElementById(id);
+  var modalImg = document.getElementById("modalImg");
+  var modalVideo = document.getElementById("modalVideo");
+
+  if (id.includes("itemimg")) {
+    modalImg.style.display = "block";
+    modalVideo.style.display = "none";
+    modalImg.src = mediaItem.src;
+  } else {
+    modalVideo.style.display = "block";
+    modalImg.style.display = "none";
+    modalVideo.src = mediaItem.src;
+  }
+  var modalCaptionText = document.getElementById("caption");
+
+  modal.style.display = "block";
+  modalCaptionText.innerHTML = mediaItem.alt;
+}
+
+function closeMediaViewer() {
+  // Get the modal
+  var modal = document.getElementById("MediaViewerModal");
+  modal.style.display = "none";
+}
+
+function changeSearchMode(searchType) {
+  if (searchType === "posts") {
+    var searchBox = document.getElementById("search-box");
+    searchBox.value = "";
+    searchBox.type = "search";
+    searchBox.name = "search";
+    searchBox.placeholder = "paste your Instagram post/IGTV link..";
+    var searchForm = document.getElementById("search-form");
+    searchForm.role = "search";
+  } else if (searchType === "dp") {
+    var searchBox = document.getElementById("search-box");
+    searchBox.value = "";
+    searchBox.type = "dp";
+    searchBox.name = "dp";
+    searchBox.placeholder = "enter your Instagram username only..";
+    var searchForm = document.getElementById("search-form");
+    searchForm.role = "dp";
+  } else if (searchType === "stories") {
+    var searchBox = document.getElementById("search-box");
+    searchBox.value = "";
+    searchBox.type = "username";
+    searchBox.name = "username";
+    searchBox.placeholder = "enter your Instagram username only..";
+    var searchForm = document.getElementById("search-form");
+    searchForm.role = "username";
+  }
 }
