@@ -21,11 +21,6 @@
           <meta property="og:title" content="Downgram - Online Instagram Videos, Photos & IGTV Download" />
           <meta property="og:description" content="A simple and sleek way of downloading Instagram Videos, Photos & IGTV" />
           <meta property="og:image" content="http://www.downgram.in/assets/logo.png" />
-          <script type="text/javascript">
-            $('#modal-video').on('hidden.bs.modal', function () {
-            $("#modal-video iframe").attr("src", $("#modal-video iframe").attr("src"));
-        });
-        </script>
           <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
           <!--<script>-->
           <!--  (adsbygoogle = window.adsbygoogle || []).push({-->
@@ -242,15 +237,11 @@
             integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
             crossorigin="anonymous"></script>
             <script type="text/javascript"> 
-             $(document).ready(function() {
-        $("#search-clear").click(function(){
-            $("#search-box").val('');
-        });
-        
-            $('#modal-video').on('hidden.bs.modal', function () {
-            $("#modal-video iframe").attr("src", $("#modal-video iframe").attr("src"));
-            });
-        });
+            $(document).ready(function() {
+				$('#modal-video').on('hidden.bs.modal', function () {
+					$("#modal-video iframe").attr("src", $("#modal-video iframe").attr("src"));
+				});
+			});
         </script>
         </body>
         

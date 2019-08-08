@@ -6,7 +6,6 @@ let videoLinks = [];
 let highlightLinks = [];
 
 // add + '&dl=1'
-
 window.onload = function() {
   $("#spinner").show(); //shows loader
   changeTheme(localStorage.getItem("darkMode")); //select theme
@@ -376,8 +375,11 @@ function getDP(dpSearchQuery) {
     });
 }
 
-function getStories(username) {
-  // remove attached items & start loader
+function getStories(searchQuery) {
+	
+  let username = searchQuery;
+	
+ // removes attached items & start loader
   $(document).ready(function() {
     $("#errormessage").each(function() {
       $(this).remove();
@@ -385,7 +387,23 @@ function getStories(username) {
     $("#downloads").empty();
     $("#spinner").show(); //shows loader
   });
-
+	
+	if(username.includes("instagram.com")) {
+         let link = username.split("instagram.com/");
+         let usernameArr = link[1].split("/");
+         if(usernameArr[0] !== "p"){
+			username = usernameArr[0];
+         } else {
+			  $(document).ready(function() {
+				$(".error").append(
+            `
+            <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> Please enter a valid Instagram username or profile link</span>
+            `
+          );
+        });
+		}
+   }
+  
   url = "username=" + username;
 
   fetch("https://downgram-back-end.herokuapp.com/api/getstories?" + url)
@@ -402,7 +420,6 @@ function getStories(username) {
         //}
 
         $(document).ready(function() {
-            
           // highlights code
 
           $("#downloads").append(
