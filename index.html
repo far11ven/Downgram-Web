@@ -216,7 +216,7 @@
               </div>
             </div>
           </div>
-           <!-- The Modal -->
+           <!-- The Media Viewer Modal -->
             <div id="MediaViewerModal" class="modal">
                 <span class="close" onclick="closeMediaViewer()"><h1><i class="far fa-times-circle"></i></h1></span>
                 <div class="modal-content">
@@ -237,11 +237,11 @@
             integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
             crossorigin="anonymous"></script>
             <script type="text/javascript"> 
-            $(document).ready(function() {
-				$('#modal-video').on('hidden.bs.modal', function () {
-					$("#modal-video iframe").attr("src", $("#modal-video iframe").attr("src"));
-				});
-			});
+             $(document).ready(function() {
+                $('#modal-video').on('hidden.bs.modal', function () {
+                     $("#modal-video iframe").attr("src", $("#modal-video iframe").attr("src"));
+                });
+             });
         </script>
         </body>
         

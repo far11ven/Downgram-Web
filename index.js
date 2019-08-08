@@ -6,6 +6,7 @@ let videoLinks = [];
 let highlightLinks = [];
 
 // add + '&dl=1'
+
 window.onload = function() {
   $("#spinner").show(); //shows loader
   changeTheme(localStorage.getItem("darkMode")); //select theme
@@ -290,8 +291,10 @@ function getMedia(searchQuery) {
     });
 }
 
-function getDP(dpSearchQuery) {
-  // remove attached items & start loader
+function getDP(searchQuery) {
+  let username = searchQuery;
+	
+  // removes attached items & starting loader
   $(document).ready(function() {
     $("#errormessage").each(function() {
       $(this).remove();
@@ -299,8 +302,24 @@ function getDP(dpSearchQuery) {
     $("#downloads").empty();
     $("#spinner").show(); //shows loader
   });
+	
+	if(username.includes("instagram.com")) {
+         let link = username.split("instagram.com/");
+         let usernameArr = link[1].split("/");
+         if(usernameArr[0] !== "p"){
+			username = usernameArr[0];
+         } else {
+			  $(document).ready(function() {
+				$(".error").append(
+            `
+            <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> Please enter a valid Instagram username or profile link</span>
+            `
+          );
+        });
+		}
+   }
 
-  url = dpSearchQuery;
+  url = username;
 
   fetch("https://downgram-back-end.herokuapp.com/api/getdp?dp=" + url)
     .then(response => response.json())
@@ -379,7 +398,7 @@ function getStories(searchQuery) {
 	
   let username = searchQuery;
 	
- // removes attached items & start loader
+  // removes attached items & starting loader
   $(document).ready(function() {
     $("#errormessage").each(function() {
       $(this).remove();
@@ -403,7 +422,7 @@ function getStories(searchQuery) {
         });
 		}
    }
-  
+   
   url = "username=" + username;
 
   fetch("https://downgram-back-end.herokuapp.com/api/getstories?" + url)
@@ -420,6 +439,7 @@ function getStories(searchQuery) {
         //}
 
         $(document).ready(function() {
+            
           // highlights code
 
           $("#downloads").append(
@@ -440,7 +460,7 @@ function getStories(searchQuery) {
                 "&highlight=" +
                 highlightLinks[i][2] +
                 "&searchOptions=stories" +
-                `" target="_blank">
+                `" target="_self">
                     <img id="itemHighlight_` +
                 (i + 1) +
                 `" class="card-thumbnail" src="` +
@@ -454,6 +474,7 @@ function getStories(searchQuery) {
               </a>
              `
             );
+            
           // Stories code
 
           $("#downloads").append(
