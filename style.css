@@ -407,7 +407,6 @@ animation: bounce 0.8s ease-in-out 0.99s infinite;
 
 #MediaViewerModal .modal-content {
   margin: auto;
-  display: block;
   background-color: rgba(0,0,0,0) !important; 
   background-clip: padding-box;
   border: 1px solid rgba(0,0,0,0) !important; 
@@ -434,6 +433,7 @@ animation: bounce 0.8s ease-in-out 0.99s infinite;
 }
 #MediaViewerModal .modal-content>img, #MediaViewerModal .modal-content>video{
     width:350;
+    margin-top: 50px;
 	margin: auto;
 	display: block;
 }

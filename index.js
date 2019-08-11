@@ -709,15 +709,26 @@ function themeSelection() {
 }
 
 function changeTheme(userPref) {
+    
+    var deviceWidth = Math.max(window.screen.width, window.innerWidth);
+    console.log("deviceWidth :", deviceWidth);
   $(document).ready(function() {
     if (userPref === "true") {
-      $("body").css("background-image", "url(./assets/black_nature.jpg)");
-      $(".dark-th").css("color", "#ffffff");
-      $("#theme-toggle").prop("checked", true);
+        $(".dark-th").css("color", "#ffffff");
+        $("#theme-toggle").prop("checked", true);
+        if(deviceWidth < 575){
+            $("body").css("background-image", "url(./assets/black_nature1024.jpg)");
+        } else {
+            $("body").css("background-image", "url(./assets/black_nature.jpg)");
+        }
     } else {
-      $("body").css("background-image", "url(./assets/white_nature.jpg)");
       $(".dark-th").css("color", "rgba(0,0,0,.5)");
       $("#theme-toggle").prop("checked", false);
+      if(deviceWidth < 575){
+            $("body").css("background-image", "url(./assets/white_nature1024.jpg)");
+        } else {
+            $("body").css("background-image", "url(./assets/white_nature.jpg)");
+        }
     }
   });
 }
