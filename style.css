@@ -11,6 +11,7 @@
   padding-left:10%;
   padding-right:10%;
 }
+
 }
 
 @media (max-width:1366px) and (min-width:575px) {
@@ -49,7 +50,15 @@
     display: none;
   }
   
-  }
+  #MediaViewerModal .modal-content>img, #MediaViewerModal .modal-content>video{
+    max-width: 380px;
+    max-height: auto;
+    margin-top: 50px;
+	margin: auto;
+	display: block;
+}
+  
+}
 
 .fa-times-circle:hover {
   color: #1f74c9;
@@ -175,6 +184,12 @@ img.logo{
   height:150px;
 }
 
+.navbar-text {
+    display: inline-block;
+    padding-top: 0rem; 
+    padding-bottom: 0rem;
+}
+
 
 p.desc{
   color: rgb(160, 177, 187);
@@ -227,6 +242,16 @@ a.card-link:hover {
     border-radius: 50px;
     background-size: cover;
     overflow: hidden;
+}
+
+.card-button{
+    margin-top: 0.1rem;
+    background-color: #007bf4;
+    border: 1px solid #007bf4;
+    padding: 0rem 0.25rem;
+    border-radius: 4px;
+    color: #fff;
+    position: relative;
 }
 
 div.higlights-bar {
@@ -432,7 +457,7 @@ animation: bounce 0.8s ease-in-out 0.99s infinite;
   animation-duration: 0.6s;
 }
 #MediaViewerModal .modal-content>img, #MediaViewerModal .modal-content>video{
-    max-width: 380px;
+    max-width: 575px;
     max-height: auto;
     margin-top: 50px;
 	margin: auto;

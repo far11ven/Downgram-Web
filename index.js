@@ -466,7 +466,7 @@ function getStories(searchQuery) {
                 `" class="card-thumbnail" src="` +
                 highlightLinks[i][1] +
                 `"/>
-                <div class="c-body">
+                <div class="card-button">
                       <span>` +
                 highlightLinks[i][0] +
                 `</span>

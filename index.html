@@ -5,9 +5,11 @@
           <title>Downgram - Online Download Instagram Photos, Videos, Stories & IGTV</title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <script src="index.js"></script>
+          <script src="pace.js"></script>
           <link rel="icon" type="image/x-icon" href="favicon.ico">
           <link rel="stylesheet" href="style.css">
           <link rel="stylesheet" href="togglestyle.css" />
+          <link rel="stylesheet" href="pace.css">
           <meta name="keywords"
             content="instagram, online download, instagram download, instagram stories download,instagram stories, instagram video download,instagram download video, instagram photo download, instagram download photo, online instagram download, online instagram, online instagram image, instagram photos download,instagram videos download,instagram download, #instagramVideos,#instagramphotos,#instagramIGTV, downgram, downloader for instagram, #instagram, #downgram, downgram app, downloadgram, #downgram_app, downgram.in, downgram app, downgram_app,downgram - downloader for instagram, downloader for instagram, online downloader for instagram">
           <meta name="description" content="A simple and sleek way of downloading Instagram Videos, Photos & IGTV" />
@@ -18,8 +20,8 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
           <meta property="og:url" content="http://www.downgram.in" />
           <meta property="og:type" content="website" />
-          <meta property="og:title" content="Downgram - Online Instagram Videos, Photos & IGTV Download" />
-          <meta property="og:description" content="A simple and sleek way of downloading Instagram Videos, Photos & IGTV" />
+          <meta property="og:title" content="Downgram - Online Instagram Photos, Videos, Stories & IGTV Download" />
+          <meta property="og:description" content="A simple and sleek way of downloading Instagram Photos, Videos, Stories & IGTV" />
           <meta property="og:image" content="http://www.downgram.in/assets/logo.png" />
           <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
           <!--<script>-->
@@ -52,6 +54,9 @@
                   <a class="nav-item nav-link dark-th" href="/pages/getting-started.html">Get started</a>
                 </li>
                 <li class="nav-item header">
+                  <a class="nav-item nav-link dark-th" href="/pages/report-issue.html">Report an issue</a>
+                </li>
+                <li class="nav-item header">
                   <a class="nav-item nav-link dark-th"
                     href="https://docs.google.com/forms/d/e/1FAIpQLScsz8jaqcS7mc48UqqHVfzH9Vxo8kztSPWaTCOl-Pm5y3a-sw/viewform?vc=0&c=0&w=1"
                     target="_blank">Feedback <i class="fas fa-comment-dots"></i></a>
@@ -77,19 +82,19 @@
               <div class="col-md-12" id="search-section">
                 <form id="search-form" class="navbar-form" role="search">
                     <div class="radio-btn">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="searchOptions" id="inlineRadio1" value="posts" onchange="changeSearchMode('posts')">
-                          <label class="form-check-label" for="inlineRadio1">Posts</label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input class="custom-control-input" type="radio" name="searchOptions" id="inlineRadio1" value="posts" onchange="changeSearchMode('posts')">
+                          <label class="custom-control-label" for="inlineRadio1">Posts</label>
                         </input>
                         </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="searchOptions" id="inlineRadio2" value="dp" onchange="changeSearchMode('dp')">
-                          <label class="form-check-label" for="inlineRadio2">Dp</label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input class="custom-control-input" type="radio" name="searchOptions" id="inlineRadio2" value="dp" onchange="changeSearchMode('dp')">
+                          <label class="custom-control-label" for="inlineRadio2">Dp</label>
                         </input>
                         </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="searchOptions" id="inlineRadio3" value="stories" onchange="changeSearchMode('stories')">
-                          <label class="form-check-label" for="inlineRadio3">Stories/Highlights</label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input class="custom-control-input" type="radio" name="searchOptions" id="inlineRadio3" value="stories" onchange="changeSearchMode('stories')">
+                          <label class="custom-control-label" for="inlineRadio3">Stories/Highlights</label>
                         </input>
                         </div>
                       </div>
@@ -151,7 +156,7 @@
                 </a>
               </div>
               <div id="social" style="padding:15px;">
-                <h5>
+                <h5 class="dark-th">
                   spread the_ <i class="far fa-heart stats" style="color:red;"></i>
                   <pre> </pre>
                   <h3>
