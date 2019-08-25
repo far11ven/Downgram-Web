@@ -266,6 +266,11 @@ div.higlights-bar a {
   text-align: center;
 }
 
+.promo img{
+  width: 70%;
+  padding: 1px;
+  border: 0.1rem solid #007bf4;
+}
 
 #stats_banner{
   color:grey; 
