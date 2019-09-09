@@ -74,8 +74,15 @@ window.onload = function() {
         config = responseJSON;
         getSessionCount();
       });
-  } else if (window.location.pathname === "/pages/404.html") {
-    window.location.replace("https://www.downgram.in");
+  } else {
+      
+      if (window.location.pathname === "/pages/404.html") {
+        window.location.replace("https://www.downgram.in");
+      }
+      
+      $('a[href="' + window.location.pathname + '"]')
+      .parents("li") //variations ("li,ul")
+      .addClass("active");
   }
 
   $("a[title~='Host']").hide();
