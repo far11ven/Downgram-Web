@@ -41,17 +41,17 @@ function changeTheme(userPref) {
 			$(".dark-th").css("color", "#ffffff");
 			$("#theme-toggle").prop("checked", true);
 			if (deviceWidth < 575) {
-				$("body").css("background-image", "url(./assets/black_nature1024.jpg)");
+				$("body").css("background-image", "url(https://downgram.in/assets/black_nature1024.jpg)");
 			} else {
-				$("body").css("background-image", "url(./assets/black_nature.jpg)");
+				$("body").css("background-image", "url(https://downgram.in/assets/black_nature.jpg)");
 			}
 		} else {
 			$(".dark-th").css("color", "rgba(0,0,0,.5)");
 			$("#theme-toggle").prop("checked", false);
 			if (deviceWidth < 575) {
-				$("body").css("background-image", "url(./assets/white_nature1024.jpg)");
+				$("body").css("background-image", "url(https://downgram.in/assets/white_nature1024.jpg)");
 			} else {
-				$("body").css("background-image", "url(./assets/white_nature.jpg)");
+				$("body").css("background-image", "url(https://downgram.in/assets/white_nature.jpg)");
 			}
 		}
 	});
