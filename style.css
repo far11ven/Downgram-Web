@@ -1,4 +1,4 @@
-@media (max-width:2048px) and (min-width:1366px) {
+@media (max-width:2048px) and (min-width:1024px) {
   body {
   background-image: url("assets/white_nature.jpg");
   background-attachment: fixed;
@@ -11,9 +11,10 @@
   padding-left:10%;
   padding-right:10%;
 }
+
 }
 
-@media (max-width:1366px) and (min-width:575px) {
+@media (max-width:1024px) and (min-width:575px) {
 
   body {
     background-image: url("assets/white_nature.jpg");
@@ -40,21 +41,36 @@
     background-size: cover;
   }
 
+  .vertical-ads{
+    display:none;
+  }
+
   .card-columns{
     padding-left:16%;
     padding-right:16%;
   }
   
+  #search-btn > span {
+    display: none;
   }
-
-
-
+  
+  #MediaViewerModal .modal-content>img, #MediaViewerModal .modal-content>video{
+    max-width: 380px;
+    max-height: auto;
+    margin-top: 50px;
+	margin: auto;
+	display: block;
+}
+  
+}
 
 .fa-times-circle:hover {
   color: #1f74c9;
 }
 
-
+.privacy-policy {
+    background-color: #eff0f1;
+}
 
 div#StartUpModal a:hover{
   text-decoration: none;
@@ -66,11 +82,53 @@ span.modal-link{
 
 }
 
-.header>a:hover{
+.title>a{
+  font-family: Quicksand;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color:#007bf9;
+}
+
+.title>a:hover{
   text-decoration: none;
+  color: #F44466;
+}
+
+.header{
+  color: #000;
+  text-decoration: none;
+  letter-spacing: 0.10em;
+  display: inline-block;
+  position: relative;
+
+}
+
+.header:after  {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: #000;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+  cursor: default;
+}
+
+.header:hover:after{ 
+  width: 100%; 
+  left: 0; 
+}
+
+.header.active {
+    border: 0.1rem solid #007bff;
+    font-weight: bold;
 }
 
 #search-btn{
+  border: 1.1px solid #007bff;
   background-color: #007bff;
   color:#fff;
   border-radius: 0rem; 
@@ -78,7 +136,7 @@ span.modal-link{
   }
 
 #search-btn:hover{
-  border: 1px solid #007bff;
+  border: 1.1px solid #007bff;
   background: none repeat scroll 0 0 rgba(255,255,255,.35);
   box-shadow: 0 0 0 0px #fff inset;
   color: #007bff;
@@ -88,6 +146,7 @@ span.modal-link{
 
 #search-btn:disabled,
 #search-btn[disabled] {
+  border: 1.1px solid #007bff;
   background-color: #007bf4;
   color: #fff;
   border-radius: 0rem;
@@ -95,32 +154,36 @@ span.modal-link{
 }
 
 input#search-box{
+margin-right: 0.07rem;
 background-color:transparent !important;
-border: 1.4px solid #ced4da;
+border: 1.5px solid #ced4da;
 border-radius: none;
-color:royalblue;
+color:grey;
 font-family: Quicksand;
 }
 
 input#search-box:focus, input#search-box:hover{
-border: 1.4px solid #007bff;
+margin-right: 0.07rem;
+border: 1.5px solid #007bff;
 color: royalblue;
 -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
-#watchagif{
-font-size:16px; 
+#watchagif, #watchavideo{
+font-size:15px; 
 color:#1f74c9; 
 text-decoration: underline;
 }
 
 img.playstore:hover, img.browserbadge:hover{
    opacity:0.8;
+   transform: scale(1.05);
 }
 
 img.navbar-logo{
-  height:32px;
+  height:34px;
 }
 
 img.navbar-logo:hover{
@@ -129,25 +192,115 @@ img.navbar-logo:hover{
 
 
 img.logo{
-  height:125px;
+  height:150px;
 }
 
-h1.header{
-  font-family: Quicksand;
-  font-size: 2.5rem;
-  font-weight: bold;
+.navbar-text {
+    display: inline-block;
+    padding-top: 0rem; 
+    padding-bottom: 0rem;
 }
+
 
 p.desc{
   color: rgb(160, 177, 187);
   font-family: Helvetica;
 }
 
-.downloadlink{
-  margin-top:40px
+#downloads{
+  margin-top: 1.6rem;
+}
+
+#results{
+  margin-top: 1rem;
+}
+
+.card-head {
+  overflow: hidden;
+}
+
+.card-img-top:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  cursor: pointer;
+}
+
+.c-body{
+    flex: 1 1 auto;
+    padding: 0.25rem; !important;
+    background-color: #007bf4;
+    color: white;
+}
+
+.c-body:hover{
+    flex: 1 1 auto;
+    padding: 0.25rem; !important;
+    background-color: #429cf5;
+    color: white;
+}
+
+a.card-link{
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a.card-link:hover {
+    color: mintcream;
+    text-decoration: underline;
+}
+
+.card-thumbnail {
+    clear: both;
+    width: 64px;
+    height: 64px;
+    margin: auto;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.card-button{
+    margin-top: 0.1rem;
+    background-color: #007bf4;
+    border: 1px solid #007bf4;
+    padding: 0rem 0.25rem;
+    border-radius: 4px;
+    color: #fff;
+    position: relative;
+}
+
+div.higlights-bar {
+  padding: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 
+div.higlights-bar a {
+  display: inline-block;
+  text-align: center;
+}
+
+div.higlights-bar #highLightlink>img:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    cursor: pointer;
+}
+
+.promo img{
+  padding: 1px;
+  border: 0.1rem solid #007bf4;
+}
+
+.promo img:hover {
+    transform: scale(1.02);
+}
 
 #stats_banner{
   color:grey; 
@@ -158,6 +311,15 @@ p.desc{
 span.stats{
   color:royalblue;
   text-decoration: overline;
+}
+
+.media-type{
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    font-size: 24px;
+    color: #007bf4;
+    text-shadow: 0px 1px 3px rgba(51,51,51,0.2);
 }
 
 .ads{
@@ -181,16 +343,42 @@ div#actualStats{
   display:none;
 }
 
+div#highlight-results {
+  margin-top: 1rem;
+}
+
 #theme {
     font-size: 0.8rem;
     font-family: monospace;
 }
 
-.error{
-font-size:15px; 
-font-family: Helvetica;
-color:red; 
+.message{
+    font-size:14px; 
+    font-family: Helvetica;
+    background: #bb4242;
+    border-radius: 3px;
+    color: #fff !important;
+    letter-spacing: 1px;
+    line-height: 9px;
+    padding: 4px 6px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 4px;
 
+}
+
+.success-message{
+    background: LIMEGREEN;
+    font-size: 15px;
+    font-family: Helvetica;
+    border-radius: 3px;
+    color: #fff !important;
+    letter-spacing: 2px;
+    line-height: 12px;
+    padding: 5px 20px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 input.form-control:focus {
@@ -200,35 +388,44 @@ box-shadow: 0 0 0 0.05rem rgba(0,123,255,.25);
 
 /* LOADER */
 
+
 #loader-2 span{
 display: inline-block;
 width: 15px;
 height: 15px;
 border-radius: 100%;
-margin: 24px 4px;
+margin: 20px 4px;
 }
 
 
 #loader-2 span#span-1{
-background-color: #007bff;
+background-color: #FE4469;
 }
 #loader-2 span#span-2{
-background-color: lightcoral;
+background-color: #00A3E8;
 }
 #loader-2 span#span-3{
-background-color:lightgreen;
+background-color:#2E58C8;
+}
+
+#loader-2 span#span-4{
+background-color:limegreen;
 }
 
 #loader-2 span:nth-child(1){
-animation: bounce 1s ease-in-out infinite;
+animation: bounce 0.8s ease-in-out infinite;
 }
 
 #loader-2 span:nth-child(2){
-animation: bounce 1s ease-in-out 0.33s infinite;
+animation: bounce 0.8s ease-in-out 0.33s infinite;
 }
 
 #loader-2 span:nth-child(3){
-animation: bounce 1s ease-in-out 0.66s infinite;
+animation: bounce 0.8s ease-in-out 0.66s infinite;
+}
+
+#loader-2 span:nth-child(4){
+animation: bounce 0.8s ease-in-out 0.99s infinite;
 }
 
 @keyframes bounce{
@@ -250,6 +447,114 @@ animation: bounce 1s ease-in-out 0.66s infinite;
 
 /* LOADER */
 
+/* The STARTING OF MediaViewer Modal (background) */
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  padding-top: 0px;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+
+#MediaViewerModal .modal-content {
+  margin: auto;
+  background-color: rgba(0,0,0,0) !important; 
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,0) !important; 
+}
+
+/* Caption of Modal Image */
+#MediaViewerModal #caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation */
+#MediaViewerModal .modal-content, #caption {  
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+#MediaViewerModal .modal-content>img, #MediaViewerModal .modal-content>video{
+    max-width: 575px;
+    max-height: auto;
+    margin-top: 50px;
+	margin: auto;
+	display: block;
+}
+
+
+/* The Close Button */
+
+#MediaViewerModal .close{
+    color: white;
+	float: right;
+}
+
+.close:hover,
+.close:focus {
+  color: #007bf4;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)} 
+  to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
+
+/* ending of ImageViewr Modal */
+
+
+/* Radio button style */
+.radio-btn {
+    margin-bottom: 0.5rem;
+}
+
+.radio-btn label {
+    font-size: 1.1em ;
+    font-weight: bold;
+    color: #00A3E8;
+}
+
+.radio-btn label:hover {
+    color: #007bf4;
+}
+
+.radio-btn input[type="radio"]:checked+label {
+    color: #007bf4;
+}
+
+/* 404.html style */
+
 a.back-to-home{
 color:#007bff;
 margin-left:15px;
@@ -270,3 +575,51 @@ height:526px;
 width:250px;
 margin-bottom: 2rem;
 }
+
+
+/* Footer style */
+.footer-container {
+    font-size: 0.85rem!important;
+    color: #6c757d!important;
+    text-align: center!important;
+    padding: 10px;
+}
+
+
+/* animation */
+
+.animate-float {
+  animation: float 12s ease-in-out infinite;
+}
+
+.animate-beat {
+  transform: scale(1);
+  animation: heart-beat .30s infinite alternate;
+}
+
+
+@keyframes heart-beat{
+  100% {
+    transform: scale(1.2);
+}
+
+}
+
+@keyframes float{
+  0%{
+    transform: rotate(10deg) translateY(0);
+}
+25% {
+    transform: rotate(5deg) translateY(-10px);
+}
+50% {
+    transform: rotate(-5deg) translateY(10px);
+}
+75% {
+    transform: rotate(5deg) translateY(-10px);
+}
+100% {
+    transform: rotate(10deg) translateY(0);
+}
+  }
+
