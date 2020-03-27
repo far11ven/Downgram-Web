@@ -8,7 +8,8 @@
 
   <title>Downgram - Online Download Instagram Photos, Videos, Stories & IGTV</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
   <script src="index.js"></script>
 
@@ -74,12 +75,13 @@
   <meta name="theme-color" content="#db4938" />
   <script>
     // Registering our Service worker
-    if ('serviceWorker' in navigator) {
-      navigator
-        .serviceWorker
-        .register('serviceWorker.js', { scope: './' })
-        .then(res => console.log("service worker registered"))
-        .catch(err => console.log("service worker not registered", err))
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker
+          .register("/serviceWorker.js")
+          .then(res => console.log("service worker registered"))
+          .catch(err => console.log("service worker not registered", err))
+      })
     }
   </script>
 
