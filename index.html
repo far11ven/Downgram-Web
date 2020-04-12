@@ -47,7 +47,7 @@
 
   <meta property="og:image" content="http://www.downgram.in/assets/logo.png" />
 
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
   <script>
 
@@ -76,12 +76,12 @@
   <script>
     // Registering our Service worker
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function () {
-        navigator.serviceWorker
-          .register("/serviceWorker.js")
-          .then(res => console.log("service worker registered"))
-          .catch(err => console.log("service worker not registered", err))
-      })
+
+      navigator.serviceWorker
+        .register('serviceWorker.js', { scope: './' })
+        .then(res => console.log("service worker registered"))
+        .catch(err => console.log("service worker not registered", err))
+
     }
   </script>
 

@@ -1,10 +1,10 @@
 {
   "name": "Downgram",
   "short_name": "Downgram",
-  "start_url": "index.html",
+  "start_url": "/",
   "background_color": "#fcfcfc",
   "theme_color": "#007bf9",
-  "display": "standalone",
+  "display": "minimal-ui",
   "icons": [
     {
       "src": "assets/icons/icon-48x48.png",
