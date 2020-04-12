@@ -161,7 +161,7 @@ function btnActivation() {
 function saveViewCount() {
   let sessionBody = { channelType: "web" };
 
-  fetch(config.DOWNGRAM_BACK_END + "/api/saveviewcount", {
+  fetch("https://prod.downgram.in/api/saveviewcount", {
     method: "POST",
 
     body: JSON.stringify(sessionBody),
@@ -184,7 +184,7 @@ function getSessionCount() {
 
   $("a[title~='Host']").hide(); //hides 000webhost banner
 
-  fetch(config.DOWNGRAM_BACK_END + "/api/sessioncount")
+  fetch("https://prod.downgram.in/api/sessioncount")
     .then((response) => response.json())
 
     .then((responseJson) => {
@@ -209,7 +209,7 @@ function saveSessionDetails(url) {
 
   $("a[title~='Host']").hide(); //hides 000webhost banner
 
-  fetch(config.DOWNGRAM_BACK_END + "/api/savesession", {
+  fetch("https://prod.downgram.in/api/savesession", {
     method: "POST",
 
     body: JSON.stringify(sessionBody),
@@ -248,7 +248,7 @@ function getMedia(searchQuery) {
 
   url = searchQuery;
 
-  fetch(config.DOWNGRAM_BACK_END + "/api/getmedia?link=" + url)
+  fetch("https://prod.downgram.in/api/getmedia?link=" + url)
     .then((response) => response.json())
 
     .then((responseJson) => {
@@ -433,7 +433,7 @@ function getDP(searchQuery) {
 
   url = username;
 
-  fetch(config.DOWNGRAM_BACK_END + "/api/getdp?dp=" + url)
+  fetch("https://prod.downgram.in/api/getdp?dp=" + url)
     .then((response) => response.json())
 
     .then((responseJson) => {
@@ -565,7 +565,7 @@ function getStories(searchQuery) {
 
   url = "username=" + username;
 
-  fetch(config.DOWNGRAM_BACK_END + "/api/getstories?" + url)
+  fetch("https://prod.downgram.in/api/getstories?" + url)
     .then((response) => response.json())
 
     .then((responseJson) => {
@@ -780,7 +780,7 @@ function getHighlight(username, highlightId) {
 
   url = "username=" + username + "&highlight=" + highlightId;
 
-  fetch(config.DOWNGRAM_BACK_END + "/api/gethighlights?" + url)
+  fetch("https://prod.downgram.in/api/gethighlights?" + url)
     .then((response) => response.json())
 
     .then((responseJson) => {
