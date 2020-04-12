@@ -6,9 +6,10 @@
 
   <meta charset="utf-8">
 
-  <title>Downgram - Online Download Instagram Photos, Videos, Stories & IGTV</title>
+  <title>Downgram - Online Download Instagram Photos, Videos, Stories/Highlights & IGTV</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
   <script src="index.js"></script>
 
@@ -23,9 +24,9 @@
   <link rel="stylesheet" href="pace.css">
 
   <meta name="keywords"
-    content="instagram, online download, instagram download, instagram stories download,instagram stories, instagram video download,instagram download video, instagram photo download, instagram download photo, online instagram download, online instagram, online instagram image, instagram photos download,instagram videos download,instagram download, #instagramVideos,#instagramphotos,#instagramIGTV, downgram, downloader for instagram, #instagram, #downgram, downgram app, downloadgram, #downgram_app, downgram.in, downgram app, downgram_app,downgram - downloader for instagram, downloader for instagram, online downloader for instagram">
+    content="instagram downgram,download instagram, online download, instagram download, instagram stories download, instagram highlights download,instagram stories, instagram highlights, instagram video download,instagram download video, instagram photo download, instagram download photo, online instagram download, online instagram, online instagram image, instagram photos download,instagram videos download,instagram download, #instagramVideos,#instagramphotos,#instagramIGTV, downgram, downloader for instagram, #instagram, #downgram, downgram app, downloadgram, #downgram_app, downgram.in, downgram app, downgram_app,downgram - downloader for instagram, downloader for instagram, online downloader for instagram">
 
-  <meta name="description" content="A simple and sleek way of downloading Instagram Videos, Photos & IGTV" />
+  <meta name="description" content="A simple and sleek way of downloading Photos, Videos, Stories/Highlights & IGTV" />
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -39,26 +40,26 @@
 
   <meta property="og:type" content="website" />
 
-  <meta property="og:title" content="Downgram - Online Instagram Photos, Videos, Stories & IGTV Download" />
+  <meta property="og:title" content="Downgram - Online Instagram Photos, Videos, Stories/Highlights & IGTV" />
 
   <meta property="og:description"
-    content="A simple and sleek way of downloading Instagram Photos, Videos, Stories & IGTV" />
+    content="A simple and sleek way of downloading Photos, Videos, Stories/Highlights & IGTV" />
 
   <meta property="og:image" content="http://www.downgram.in/assets/logo.png" />
 
-  <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
 
-  <!--<script>-->
+  <script>
 
-  <!--  (adsbygoogle = window.adsbygoogle || []).push({-->
+    // (adsbygoogle = window.adsbygoogle || []).push({
 
-  <!--    google_ad_client: "ca-pub-1533259080190708",-->
+    //   google_ad_client: "ca-pub-1533259080190708",
 
-  <!--    enable_page_level_ads: true-->
+    //   enable_page_level_ads: true
 
-  <!--  });-->
+    // });
 
-  <!--</script>-->
+  </script>
 
   <link rel="manifest" href="manifest.json" />
   <!-- ios support -->
@@ -74,12 +75,13 @@
   <meta name="theme-color" content="#db4938" />
   <script>
     // Registering our Service worker
-    if ('serviceWorker' in navigator) {
-      navigator
-        .serviceWorker
-        .register('serviceWorker.js', { scope: './' })
-        .then(res => console.log("service worker registered"))
-        .catch(err => console.log("service worker not registered", err))
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker
+          .register("/serviceWorker.js")
+          .then(res => console.log("service worker registered"))
+          .catch(err => console.log("service worker not registered", err))
+      })
     }
   </script>
 

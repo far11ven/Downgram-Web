@@ -1,5 +1,4 @@
 {
-    "api": {
-        "host": "https:/downgram-back-end.herokuapp.com"
-    }
+    "DOWNGRAM_BACK_END": "https:/prod.downgram.in"
+
 }
