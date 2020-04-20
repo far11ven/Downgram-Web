@@ -1,112 +1,204 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <title>Downgram - Getting Started</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="index.js"></script>
-  <script src="../pace.js"></script>
-  <link rel="icon" type="image/x-icon" href="../favicon.ico">
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="../togglestyle.css" />
-  <link rel="stylesheet" href="../pace.css">
-  <meta name="keywords" content="instagram,instagram download,instagram photos download,instagram videos download,instagram download, #instagramVideos,#instagramphotos,#instagramIGTV,downgram, downloader for instagram, #instagram, #downgram, #downgram_app, downgram.in,">
-  <meta name="description" content="A simple and sleek way of downloading Instagram Videos, Photos & IGTV" />
-  
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-  <meta property="og:url" content="http://www.downgram.in" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Downgram - Instagram Videos, Photos & IGTV Download" />
-  <meta property="og:description" content="A simple and sleek way of downloading Instagram Videos, Photos & IGTV" />
-  <meta property="og:image" content="http://www.downgram.in/assets/logo.png" />
-</head>
-
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light ">
-    <a class="navbar-brand" href="/"><img class="navbar-logo" src="../assets/logo.png" /></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item header">
-          <a class="nav-item nav-link dark-th" href="/pages/privacy.html">Privacy</a>
-        </li>
-        <li class="nav-item header">
-          <a class="nav-item nav-link dark-th" href="/pages/getting-started.html">Get started</a>
-        </li>
-        <li class="nav-item header">
-           <a class="nav-item nav-link dark-th" href="/pages/report-issue.html">Report an issue</a>
-        </li>
-        <li class="nav-item header">
-          <a class="nav-item nav-link dark-th"
-            href="https://docs.google.com/forms/d/e/1FAIpQLScsz8jaqcS7mc48UqqHVfzH9Vxo8kztSPWaTCOl-Pm5y3a-sw/viewform?vc=0&c=0&w=1"
-            target="_blank">Feedback <i class="fas fa-comment-dots"></i></a>
-        </li>
-      </ul>
-      <span class="navbar-text">
-      <div id="theme" class="dark-th">
-        <div>Dark Mode</div>
-        <label class="switch">
-          <input id="theme-toggle" type="checkbox" unchecked="">
-          <span class="slider round" onclick="themeSelection()"></span>
-        </label>
-      </div>
-      </span>
-    </div>
-  </nav>
-
-  <div class="jumbotron jumbotron-fluid bg-transparent text-center">
-    <img class="giphy-tuts" src="../assets/tuts-giphy_mobile.gif"/>
-  
-    <div class="container col-md-6">
-      <div id="social" style="padding:15px;">
-        <h5>
-          spread the <i class="far fa-heart stats" style="color:red;"></i>
-          <pre> </pre>
-          <h2>
-            <a class="social-link" target="_blank"
-              OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=350'); return false;"
-              href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.downgram.in%2F&amp;src=sdkpreparse">
-              <i class="fab fa-facebook"></i>
-            </a>
-            <a class="social-link" target="_blank"
-              OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=300'); return false;"
-              href="https://twitter.com/share?hashtags=downgram_app,awesome_site&text=Hey%21+try+out%3A www.downgram.in - Instagram Videos, Photos %26 IGTV Download @downgram_app">
-              <i class="fab fa-twitter"></i></a>
-            <a class="social-link" target="_blank"
-              OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=300'); return false;"
-              href="https://api.whatsapp.com/send?text=Hey%21%20try%20out%3A%20www.downgram.in%20-%20Instagram%20Videos,%20Photos%20%26%20IGTV%20Download">
-              <i class="fab fa-whatsapp"></i></a>
-          </h2>
-        </h5>
-      </div>
-    </div>
-  </div>
-  <footer class="footer">
-      <div class="footer-container">
-        <span class="text-muted">© 2019-20 Downgram.in</span>
-      </div>
-    </footer>
-
-  <script src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=406944066536664&autoLogAppEvents=1"
-    async defer crossorigin="anonymous"> </script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-    integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-    integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
-    crossorigin="anonymous"></script>
-</body>
-</html>
+<!doctype html>
+
+<html lang="en">
+
+
+
+<head>
+
+  <meta charset="utf-8">
+
+  <title>Downgram - Getting Started</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="index.js"></script>
+
+  <script src="../pace.js"></script>
+
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+  <link rel="stylesheet" href="../style.css">
+
+  <link rel="stylesheet" href="../togglestyle.css" />
+
+  <link rel="stylesheet" href="../pace.css">
+
+  <meta name="keywords"
+    content="instagram,instagram download,instagram photos download,instagram videos download,instagram download, #instagramVideos,#instagramphotos,#instagramIGTV,downgram, downloader for instagram, #instagram, #downgram, #downgram_app, downgram.in,">
+
+  <meta name="description" content="A simple and sleek way of downloading Instagram Videos, Photos & IGTV" />
+
+
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand" />
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+
+  <meta property="og:url" content="http://www.downgram.in" />
+
+  <meta property="og:type" content="website" />
+
+  <meta property="og:title" content="Downgram - Instagram Videos, Photos & IGTV Download" />
+
+  <meta property="og:description" content="A simple and sleek way of downloading Instagram Videos, Photos & IGTV" />
+
+  <meta property="og:image" content="http://www.downgram.in/assets/logo.png" />
+
+</head>
+
+
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light ">
+
+    <a class="navbar-brand" href="/"><img class="navbar-logo" src="../assets/logo.png" /></a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+      <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item header">
+
+          <a class="nav-item nav-link dark-th" href="/pages/privacy.html">Privacy</a>
+
+        </li>
+
+        <li class="nav-item header">
+
+          <a class="nav-item nav-link dark-th" href="/pages/getting-started.html">Get started</a>
+
+        </li>
+
+        <li class="nav-item header">
+
+          <a class="nav-item nav-link dark-th" href="/pages/report-issue.html">Report an issue</a>
+
+        </li>
+
+        <li class="nav-item header">
+
+          <a class="nav-item nav-link dark-th"
+            href="https://docs.google.com/forms/d/e/1FAIpQLScsz8jaqcS7mc48UqqHVfzH9Vxo8kztSPWaTCOl-Pm5y3a-sw/viewform?vc=0&c=0&w=1"
+            target="_blank">Feedback <i class="fas fa-comment-dots"></i></a>
+
+        </li>
+
+      </ul>
+
+      <span class="navbar-text">
+
+        <div id="theme" class="dark-th">
+
+          <div>Dark Mode</div>
+
+          <label class="switch">
+
+            <input id="theme-toggle" type="checkbox" unchecked="">
+
+            <span class="slider round" onclick="themeSelection()"></span>
+
+          </label>
+
+        </div>
+
+      </span>
+
+    </div>
+
+  </nav>
+
+
+
+  <div class="jumbotron jumbotron-fluid bg-transparent text-center">
+
+    <img class="giphy-tuts" src="../assets/tuts-giphy_mobile.gif" />
+
+
+
+    <div class="container col-md-6">
+
+      <div id="social" style="padding:15px;">
+
+        <h5>
+
+          spread the <i class="far fa-heart stats" style="color:red;"></i>
+
+          <pre> </pre>
+
+          <h2>
+
+            <a class="social-link" target="_blank"
+              OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=350'); return false;"
+              href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.downgram.in%2F&amp;src=sdkpreparse">
+
+              <i class="fab fa-facebook"></i>
+
+            </a>
+
+            <a class="social-link" target="_blank"
+              OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=300'); return false;"
+              href="https://twitter.com/share?hashtags=downgram_app,awesome_site&text=Hey%21+try+out%3A www.downgram.in - Instagram Videos, Photos %26 IGTV Download @downgram_app">
+
+              <i class="fab fa-twitter"></i></a>
+
+            <a class="social-link" target="_blank"
+              OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=300'); return false;"
+              href="https://api.whatsapp.com/send?text=Hey%21%20try%20out%3A%20www.downgram.in%20-%20Instagram%20Videos,%20Photos%20%26%20IGTV%20Download">
+
+              <i class="fab fa-whatsapp"></i></a>
+
+          </h2>
+
+        </h5>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer class="footer">
+
+    <div class="footer-container">
+
+      <span class="text-muted">© 2019-20 Downgram.in</span>
+
+    </div>
+
+  </footer>
+
+
+
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=406944066536664&autoLogAppEvents=1"></script>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>

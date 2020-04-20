@@ -4,6 +4,8 @@ let config;
 
 let url;
 
+let postText;
+
 let imageLinks = [];
 
 let videoLinks = [];
@@ -111,8 +113,6 @@ window.onload = function () {
 
           .addClass("active");
       }
-
-      $("a[title~='Host']").hide();
     });
 };
 
@@ -150,6 +150,18 @@ window.onload = function () {
 
 // }
 
+function copyText() {
+  var copyText = document.getElementById("post-description").innerText;
+  var elem = document.createElement("textarea");
+  document.body.appendChild(elem);
+  elem.value = copyText;
+  elem.select();
+  document.execCommand("copy");
+  document.body.removeChild(elem);
+
+  $(".toast").toast("show");
+}
+
 function btnActivation() {
   if (document.getElementById("search-box").value === "") {
     document.getElementById("search-btn").disabled = true;
@@ -181,8 +193,6 @@ function saveViewCount() {
 
 function getSessionCount() {
   var url = document.getElementById("search-box").value;
-
-  $("a[title~='Host']").hide(); //hides 000webhost banner
 
   fetch("https://prod.downgram.in/api/sessioncount")
     .then((response) => response.json())
@@ -257,11 +267,36 @@ function getMedia(searchQuery) {
 
         videoLinks = responseJson.result.videolinks;
 
+        postText = responseJson.result.postText;
+
         $(document).ready(function () {
           $("#downloads").append(
             '<span class="success-message"> AVAILABLE DOWNLOADS : <span id="downloadcount">' +
               (imageLinks.length + videoLinks.length) +
               "</span></span>"
+          );
+
+          $("#downloads").append(
+            `<div class="card conatiner post-text m-4">
+            <div class="card-header">
+              <strong>Post Description</strong>
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p id="post-description">` +
+              postText +
+              `</p> 
+              </blockquote>
+              <button id="copy-text" onclick="copyText()" title="copy post description">
+									<i class="fas fa-copy"></i> Copy Text
+                </button>
+                <div class="toast container" style="max-width:12rem;">
+									<div class="toast-body">
+										Text has been copied!
+									</div>
+								</div>
+            </div>
+          </div>`
           );
 
           $("#downloads").append(
