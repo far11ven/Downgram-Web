@@ -7,6 +7,10 @@
   background-size: cover;
 }
 
+.horizontal-ads{
+  display:none;
+}
+
 .card-columns{
   padding-left:10%;
   padding-right:10%;
@@ -22,6 +26,10 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+  }
+
+  .horizontal-ads{
+    display:none;
   }
 
 .card-columns{
