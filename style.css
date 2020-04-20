@@ -72,6 +72,12 @@
   
 }
 
+.horizontal-ads{
+  width: 468px !important;
+  height: 100px !important;
+  margin: 0 auto !important;
+}
+
 .fa-times-circle:hover {
   color: #1f74c9;
 }
