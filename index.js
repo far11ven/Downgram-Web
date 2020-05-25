@@ -267,7 +267,7 @@ function getMedia(searchQuery) {
 }
 
 function parseJson(jsonData) {
-  fetch("http://localhost:4000/api/parsejson", {
+  fetch("https://prod.downgram.in/api/parsejson", {
     method: "POST", // or 'PUT'
     headers: {
       "Content-Type": "application/json",
