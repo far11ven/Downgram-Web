@@ -256,9 +256,24 @@ function getMedia(searchQuery) {
     $("#spinner").show(); //shows loader
   });
 
-  url = searchQuery;
+  url = searchQuery + "?__a=1";
 
-  fetch("https://prod.downgram.in/api/getmedia?link=" + url)
+  fetch(url)
+    .then((response) => response.json())
+
+    .then((responseJson) => {
+      parseJson(responseJson);
+    });
+}
+
+function parseJson(jsonData) {
+  fetch("http://localhost:4000/api/parsejson", {
+    method: "POST", // or 'PUT'
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(jsonData),
+  })
     .then((response) => response.json())
 
     .then((responseJson) => {
