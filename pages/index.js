@@ -88,7 +88,6 @@ function isvalidated(event) {
 
 function reporter() {
   $("#spinner").show();
-  console.log("formData : ", formData);
 
   let requestBody = formData;
   fetch("https://prod.downgram.in/api/issuereporter", {

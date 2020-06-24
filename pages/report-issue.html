@@ -121,7 +121,7 @@
 
 
 
-  <div id="container" class="container col-md-5 privacy-policy">
+  <div id="container" class="container col-md-4">
 
     <div id="spinner" style="font-size:24px; color:#1f74c9; display:none;">
 
@@ -189,11 +189,18 @@
 
       </div>
 
-      <button id="submit" type="submit" onClick="isvalidated(event)" class="btn btn-primary">
-
-        Submit Issue
-
-      </button>
+      <div class="row">
+        <div class="col-md-4">
+          <button id="submit" type="submit" onClick="isvalidated(event)" class="btn btn-primary">
+            Submit Issue <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+        <div class="col-md-4">
+          <div id="spinner" style="font-size:24px; color:#1f74c9; display:none;">
+            <i class="fa fa-spinner fa-spin dark-th"></i>
+          </div>
+        </div>
+      </div>
 
     </form>
 
