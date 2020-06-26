@@ -256,7 +256,9 @@ function getMedia(searchQuery) {
     $("#spinner").show(); //shows loader
   });
 
-  url = searchQuery + "?__a=1";
+  var sanitizedUrl = searchQuery.split("?");
+
+  url = sanitizedUrl[0] + "?__a=1";
 
   fetch(url)
     .then((response) => response.json())
