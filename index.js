@@ -53,6 +53,10 @@ window.onload = function () {
           selectedRadioBtn = document.getElementById("inlineRadio3");
 
           changeSearchMode(searchOptions);
+        } else if (searchOptions == "reels") {
+          selectedRadioBtn = document.getElementById("inlineRadio4");
+
+          changeSearchMode(searchOptions);
         }
 
         selectedRadioBtn.checked = true;
