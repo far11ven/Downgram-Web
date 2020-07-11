@@ -101,16 +101,16 @@ function reporter() {
     .then((responseJson) => {
       if (responseJson.message === "Report sent successfully") {
         $("#issue-form").hide();
-        var formParent = document.getElementById("container");
+        var formParent = document.getElementById("msg-container");
         var newElement = document.createElement("p");
         newElement.setAttribute("id", "success-message");
-        newElement.innerHTML = `<h2> Thank you! <br> Your issue has been submitted. <i style='color:limegreen' class='far fa-check-circle'></i></h2><br>
-			<a
-				href="report-issue.html"
-				target="_self"
-				>Report another <i class="fas fa-comment-dots"></i
-			  ></a>
-			`;
+        newElement.innerHTML = `<h3> Thank you! <i style='color:limegreen' class='far fa-check-circle'></i> <br> Your issue has been submitted. </h3><br>
+          <a
+              href="report-issue.html"
+              target="_self"
+              >Report another <i class="fas fa-comment-dots"></i
+            ></a>
+          `;
         formParent.appendChild(newElement);
       }
     })
