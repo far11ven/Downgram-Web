@@ -100,7 +100,7 @@ window.onload = function () {
           localStorage.getItem("dialogShownOn")
         ).getDate();
 
-        if (new Date().getDate() - dialogShownOn >= 12) {
+        if (new Date().getDate() - dialogShownOn >= 365) {
           $("#StartUpModal").modal("show"); //display startup modal
 
           var today = new Date().toLocaleDateString();
@@ -114,7 +114,6 @@ window.onload = function () {
 
         $('a[href="' + window.location.pathname + '"]')
           .parents("li") //variations ("li,ul")
-
           .addClass("active");
       }
     });
