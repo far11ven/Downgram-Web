@@ -108,7 +108,7 @@ window.onload = function () {
           localStorage.setItem("dialogShownOn", today);
         }
       } else {
-        if (window.location.pathname === "/pages/404.html") {
+        if (window.location.pathname === "/404.html") {
           window.location.replace("https://www.downgram.in");
         }
 
