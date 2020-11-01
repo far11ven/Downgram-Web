@@ -136,7 +136,7 @@ span.modal-link{
 }
 
 #search-btn{
-  border: 1.1px solid #007bff;
+  border: 2.5px solid #007bff;
   background-color: #007bff;
   color:#fff;
   border-radius: 0rem; 
@@ -144,7 +144,7 @@ span.modal-link{
   }
 
 #search-btn:hover{
-  border: 1.1px solid #007bff;
+  border: 2.5px solid #007bff;
   background: none repeat scroll 0 0 rgba(255,255,255,.35);
   box-shadow: 0 0 0 0px #fff inset;
   color: #007bff;
@@ -154,7 +154,7 @@ span.modal-link{
 
 #search-btn:disabled,
 #search-btn[disabled] {
-  border: 1.1px solid #007bff;
+  border: 2.5px solid #007bff;
   background-color: #007bf4;
   color: #fff;
   border-radius: 0rem;
@@ -168,6 +168,7 @@ border: 1.5px solid #ced4da;
 border-radius: none;
 color:grey;
 font-family: Quicksand;
+font-size: large;
 }
 
 input#search-box:focus, input#search-box:hover{
