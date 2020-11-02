@@ -995,7 +995,7 @@ function changeTheme(userPref) {
   $(document).ready(function () {
     if (userPref === "true") {
       $(".dark-th").css("color", "#ffffff");
-
+      $("body input").css("color", "#ffffff");
       $("#theme-toggle").prop("checked", true);
 
       if (deviceWidth < 575) {
@@ -1005,7 +1005,7 @@ function changeTheme(userPref) {
       }
     } else {
       $(".dark-th").css("color", "rgba(0,0,0,.5)");
-
+      $("body input").css("color", "#808080");
       $("#theme-toggle").prop("checked", false);
 
       if (deviceWidth < 575) {
