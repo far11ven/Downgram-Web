@@ -53,6 +53,10 @@ window.onload = function () {
           selectedRadioBtn = document.getElementById("inlineRadio3");
 
           changeSearchMode(searchOptions);
+        } else if (searchOptions == "reels") {
+          selectedRadioBtn = document.getElementById("inlineRadio4");
+
+          changeSearchMode(searchOptions);
         }
 
         selectedRadioBtn.checked = true;
@@ -96,7 +100,7 @@ window.onload = function () {
           localStorage.getItem("dialogShownOn")
         ).getDate();
 
-        if (new Date().getDate() - dialogShownOn >= 12) {
+        if (new Date().getDate() - dialogShownOn >= 365) {
           $("#StartUpModal").modal("show"); //display startup modal
 
           var today = new Date().toLocaleDateString();
@@ -104,13 +108,12 @@ window.onload = function () {
           localStorage.setItem("dialogShownOn", today);
         }
       } else {
-        if (window.location.pathname === "/pages/404.html") {
+        if (window.location.pathname === "/404.html") {
           window.location.replace("https://www.downgram.in");
         }
 
         $('a[href="' + window.location.pathname + '"]')
           .parents("li") //variations ("li,ul")
-
           .addClass("active");
       }
     });
@@ -256,7 +259,9 @@ function getMedia(searchQuery) {
     $("#spinner").show(); //shows loader
   });
 
-  url = searchQuery + "?__a=1";
+  var sanitizedUrl = searchQuery.split("?");
+
+  url = sanitizedUrl[0] + "?__a=1";
 
   fetch(url)
     .then((response) => response.json())
