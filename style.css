@@ -34,6 +34,10 @@
     padding-left: 2%;
     padding-right: 2%;
   }
+
+  .promo img {
+    width: 900px;
+  }
 }
 
 @media (max-width: 575px) {
@@ -52,6 +56,11 @@
   .card-columns {
     padding-left: 16%;
     padding-right: 16%;
+  }
+
+  
+  .promo img {
+    width: 280px;
   }
 
   #search-btn > span {
@@ -89,6 +98,7 @@ span.modal-link {
   font-size: 2.5rem;
   font-weight: bold;
   color: #007bf9;
+  text-decoration: none;
 }
 
 .title > a:hover {
@@ -334,6 +344,7 @@ span.stats {
 
 .social-link {
   padding: 5px;
+  text-decoration: none;  
 }
 
 a.social-link:hover {

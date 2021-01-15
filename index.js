@@ -1,22 +1,19 @@
 //www.downgram.in
 
 let config;
-
 let url;
-
 let postText;
-
 let imageLinks = [];
-
 let videoLinks = [];
-
 let highlightLinks = [];
 
 // add + '&dl=1'
 
-window.onload = function () {
-  $("#spinner").show(); //shows loader
-
+window.onload = function(){ 
+  document.getElementById("spinner").style.display = "block"; //shows loader
+  
+  let switchIs = (localStorage.getItem("darkMode") == 'true'); 
+  document.getElementById("theme-toggle").checked = switchIs;  // select the darMode switch as per user pref
   changeTheme(localStorage.getItem("darkMode")); //select theme
 
   fetch("config.json")
@@ -71,21 +68,21 @@ window.onload = function () {
       }
 
       if (searchQuery) {
+        document.getElementById("search-box").value = searchQuery;
         getMedia(searchQuery);
 
-        document.getElementById("search-box").value = searchQuery;
+        
       } else if (dp) {
+        document.getElementById("search-box").value = dp;
         getDP(dp);
 
-        document.getElementById("search-box").value = dp;
       } else if (username && highlightId) {
+        document.getElementById("search-box").value = username;
         getHighlight(username, highlightId);
 
-        document.getElementById("search-box").value = username;
       } else if (username) {
-        getStories(username);
-
         document.getElementById("search-box").value = username;
+        getStories(username);
       }
 
       btnActivation(); //to make search button disabled by default if searchquery is empty
@@ -101,7 +98,10 @@ window.onload = function () {
         ).getDate();
 
         if (new Date().getDate() - dialogShownOn >= 365) {
-          $("#StartUpModal").modal("show"); //display startup modal
+          var startUpModal = new bootstrap.Modal(document.getElementById('StartUpModal'), {
+            keyboard: false
+          })
+          startUpModal.show(); //display startup modal
 
           var today = new Date().toLocaleDateString();
 
@@ -112,9 +112,8 @@ window.onload = function () {
           window.location.replace("https://www.downgram.in");
         }
 
-        $('a[href="' + window.location.pathname + '"]')
-          .parents("li") //variations ("li,ul")
-          .addClass("active");
+        document.querySelector('a[href="' + window.location.pathname + '"]')
+        .parentNode.classList.add("active");
       }
     });
 };
@@ -156,13 +155,13 @@ window.onload = function () {
 function copyText() {
   var copyText = document.getElementById("post-description").innerText;
   var elem = document.createElement("textarea");
-  document.body.appendChild(elem);
+  document.body.appendChildChild(elem);
   elem.value = copyText;
   elem.select();
   document.execCommand("copy");
   document.body.removeChild(elem);
 
-  $(".toast").toast("show");
+  document.querySelector(".toast").toast("show");
 }
 
 function btnActivation() {
@@ -203,25 +202,19 @@ function getSessionCount() {
     .then((responseJson) => {
       let totalSessions = responseJson.result.$numberDouble;
 
-      $(document).ready(function () {
-        $("span.stats").text(totalSessions);
-      });
+      document.querySelector("span.stats").innerHTML= totalSessions;
+      document.getElementById("spinner").style.display = "none"; //hides loader
 
-      $("#spinner").hide(); //hides loader
-    })
-
-    .catch((err) => {
+    }).catch((err) => {
       console.log("err", err);
 
-      $("#spinner").hide(); //hides loader
+      document.getElementById("spinner").style.display = "none"; //hides loader
     });
 }
 
 function saveSessionDetails(url) {
   let sessionBody = { linkURL: url, channelType: "web" };
-
-  $("a[title~='Host']").hide(); //hides 000webhost banner
-
+  
   fetch("https://prod.downgram.in/api/savesession", {
     method: "POST",
 
@@ -236,28 +229,31 @@ function saveSessionDetails(url) {
     .then((response) => response.json())
 
     .then((responseJson) => {
-      $("#spinner").hide(); //hides loader
+      document.getElementById("spinner").style.display = "none"; //hides loader
     })
 
     .catch((err) => {
       console.log("err", err);
 
-      $("#spinner").hide(); //hides loader
+      document.getElementById("spinner").style.display = "none"; //hides loader
     });
 }
 
 function getMedia(searchQuery) {
   // remove attached items & start loader
-
-  $(document).ready(function () {
-    $("#errormessage").each(function () {
-      $(this).remove();
+  if(document.querySelectorAll("#errormessage").length > 0){
+    document.querySelectorAll("#errormessage").forEach(currentItem => {
+      currentItem.remove();
     });
+  }
 
-    $("#downloads").empty();
+  // clear all subchilds of @downloads
+    var downloadsElem = document.getElementById("downloads");
+    while (downloadsElem.firstChild) {
+      downloadsElem.removeChild(downloadsElem.firstChild);
+    }
 
-    $("#spinner").show(); //shows loader
-  });
+  document.getElementById("spinner").style.display = "block"; //show loader
 
   var sanitizedUrl = searchQuery.split("?");
 
@@ -289,14 +285,13 @@ function parseJson(jsonData) {
 
         postText = responseJson.result.postText;
 
-        $(document).ready(function () {
-          $("#downloads").append(
+          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
             '<span class="success-message"> AVAILABLE DOWNLOADS : <span id="downloadcount">' +
               (imageLinks.length + videoLinks.length) +
               "</span></span>"
           );
 
-          $("#downloads").append(
+          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
             `<div class="card conatiner post-text m-4">
             <div class="card-header">
               <strong>Post Description</strong>
@@ -319,12 +314,12 @@ function parseJson(jsonData) {
           </div>`
           );
 
-          $("#downloads").append(
+          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
             `<div id="results" class="downloadlink card-columns"> </div>`
           );
 
           for (var i = 0; i < imageLinks.length; i++)
-            $("#results").append(
+            document.getElementById("results").insertAdjacentHTML('beforebegin',
               `
 
                       <div class="card">
@@ -364,7 +359,7 @@ function parseJson(jsonData) {
             );
 
           for (var j = 0; j < videoLinks.length; j++)
-            $("#results").append(
+            document.getElementById("results").insertAdjacentHTML('beforebegin',
               `
 
                       <div class="card">
@@ -400,7 +395,6 @@ function parseJson(jsonData) {
 
                     `
             );
-        });
 
         //savesession details
 
@@ -408,8 +402,8 @@ function parseJson(jsonData) {
       } else if (
         responseJson.message === "Please enter a valid INSTAGRAM link"
       ) {
-        $(document).ready(function () {
-          $(".error").append(
+        
+          document.querySelector(".error").insertAdjacentHTML('beforebegin',
             `
 
                       <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
@@ -418,10 +412,9 @@ function parseJson(jsonData) {
 
                     `
           );
-        });
       } else if (responseJson.message === "Please enter a valid link") {
-        $(document).ready(function () {
-          $(".error").append(
+        
+          document.querySelector(".error").insertAdjacentHTML('beforebegin',
             `
 
                       <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
@@ -430,41 +423,42 @@ function parseJson(jsonData) {
 
                     `
           );
-        });
       }
 
-      $("#spinner").hide(); //hides loader
+      document.getElementById("spinner").style.display = "none"; //hides loader
     })
 
     .catch((err) => {
       console.log("err", err);
 
-      $("#spinner").hide(); //hides loader
+      document.getElementById("spinner").style.display = "none"; //hides loader
 
-      $(document).ready(function () {
-        $(".error").append(
+      
+        document.querySelector(".error").insertAdjacentHTML('beforebegin',
           `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
             " Something went wrong! Please try again." +
             `</span>`
         );
       });
-    });
 }
 
 function getDP(searchQuery) {
   let username = searchQuery;
 
-  // removes attached items & starting loader
-
-  $(document).ready(function () {
-    $("#errormessage").each(function () {
-      $(this).remove();
-    });
-
-    $("#downloads").empty();
-
-    $("#spinner").show(); //shows loader
+ // remove attached items & start loader
+ if(document.querySelectorAll("#errormessage").length > 0){
+  document.querySelectorAll("#errormessage").forEach(currentItem => {
+    currentItem.remove();
   });
+}
+
+// clear all subchilds of @downloads
+  var downloadsElem = document.getElementById("downloads");
+  while (downloadsElem.firstChild) {
+    downloadsElem.removeChild(downloadsElem.firstChild);
+  }
+
+  document.getElementById("spinner").style.display = "none"; //hides loader
 
   if (username.includes("instagram.com")) {
     let link = username.split("instagram.com/");
@@ -474,15 +468,14 @@ function getDP(searchQuery) {
     if (usernameArr[0] !== "p") {
       username = usernameArr[0];
     } else {
-      $(document).ready(function () {
-        $(".error").append(
+      
+        document.querySelector(".error").insertAdjacentHTML('beforebegin',
           `
 
             <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> Please enter a valid Instagram username or profile link</span>
 
             `
         );
-      });
     }
   }
 
@@ -495,19 +488,16 @@ function getDP(searchQuery) {
       if (responseJson.message == "Hello dp") {
         imageLinks = responseJson.result.imagelinks;
 
-        videoLinks = responseJson.result.videolinks;
-
-        $(document).ready(function () {
-          $("#downloads").append(
+          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
             '<span class="success-message"> AVAILABLE DP FOR USER : </span>'
           );
 
-          $("#downloads").append(
+          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
             `<div id="results" class="downloadlink card-columns"> </div>`
           );
 
           for (var i = 0; i < imageLinks.length; i++)
-            $("#results").append(
+            document.getElementById("results").insertAdjacentHTML('beforebegin',
               `
 
                       <div class="card">
@@ -543,60 +533,57 @@ function getDP(searchQuery) {
 
                     `
             );
-        });
 
         //savesession details
-
         saveSessionDetails(url);
+
       } else if (
         responseJson.message ===
         "Please enter a valid INSTAGRAM username/profile link"
       ) {
-        $(document).ready(function () {
-          $(".error").append(
-            `
-
-                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+        
+          document.querySelector(".error").insertAdjacentHTML('beforebegin',
+            `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
               responseJson.message +
               `</span>
 
            `
           );
-        });
       }
 
-      $("#spinner").hide(); //hides loader
+      document.getElementById("spinner").style.display = "none"; //hides loader
     })
-
     .catch((err) => {
       console.log("err", err);
 
-      $("#spinner").hide(); //hides loader
+      document.getElementById("spinner").style.display = "none"; //hides loader
 
-      $(document).ready(function () {
-        $(".error").append(
+      
+        document.querySelector(".error").insertAdjacentHTML('beforebegin',
           `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
             " Something went wrong! Please try again." +
             `</span>`
         );
       });
-    });
 }
 
 function getStories(searchQuery) {
   let username = searchQuery;
-
-  // removes attached items & starting loader
-
-  $(document).ready(function () {
-    $("#errormessage").each(function () {
-      $(this).remove();
-    });
-
-    $("#downloads").empty();
-
-    $("#spinner").show(); //shows loader
+ 
+ // remove attached items & start loader
+ if(document.querySelectorAll("#errormessage").length > 0){
+  document.querySelectorAll("#errormessage").forEach(currentItem => {
+    currentItem.remove();
   });
+}
+
+// clear all subchilds of @downloads
+  var downloadsElem = document.getElementById("downloads");
+  while (downloadsElem.firstChild) {
+    downloadsElem.removeChild(downloadsElem.firstChild);
+  }
+
+  document.getElementById("spinner").style.display = "none"; //hides loader
 
   if (username.includes("instagram.com")) {
     let link = username.split("instagram.com/");
@@ -606,15 +593,14 @@ function getStories(searchQuery) {
     if (usernameArr[0] !== "p") {
       username = usernameArr[0];
     } else {
-      $(document).ready(function () {
-        $(".error").append(
+      
+        document.querySelector(".error").insertAdjacentHTML('beforebegin',
           `
 
             <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> Please enter a valid Instagram username or profile link</span>
 
             `
         );
-      });
     }
   }
 
@@ -639,10 +625,10 @@ function getStories(searchQuery) {
 
         //}
 
-        $(document).ready(function () {
+        
           // highlights code
 
-          $("#downloads").append(
+          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
             '<span class="success-message"> AVAILABLE USER HIGHLIGHTS FOR ' +
               username +
               ' : <span id="downloadcount">' +
@@ -650,12 +636,12 @@ function getStories(searchQuery) {
               "</span></span>"
           );
 
-          $("#downloads").append(
+          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
             `<div id="highlight-results" class="higlights-bar"> </div>`
           );
 
           for (var i = 0; i < highlightLinks.length; i++)
-            $("#highlight-results").append(
+            document.getElementById("highlight-results").insertAdjacentHTML('beforebegin',
               `<a id="highLightlink" class="card-link" href="?username=` +
                 username +
                 "&highlight=" +
@@ -684,7 +670,7 @@ function getStories(searchQuery) {
 
           // Stories code
 
-          $("#downloads").append(
+          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
             '<span class="success-message"> AVAILABLE USER STORY FOR ' +
               username +
               ' : <span id="downloadcount">' +
@@ -692,12 +678,12 @@ function getStories(searchQuery) {
               "</span></span>"
           );
 
-          $("#downloads").append(
+          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
             `<div id="results" class="downloadlink card-columns"> </div>`
           );
 
           for (var i = 0; i < imageLinks.length; i++)
-            $("#results").append(
+            document.getElementById("results").insertAdjacentHTML('beforebegin',
               `
 
                         <div class="card">
@@ -735,7 +721,7 @@ function getStories(searchQuery) {
             );
 
           for (var j = 0; j < videoLinks.length; j++)
-            $("#results").append(
+            document.getElementById("results").insertAdjacentHTML('beforebegin',
               `
 
                         <div class="card">
@@ -769,7 +755,6 @@ function getStories(searchQuery) {
 
                       `
             );
-        });
 
         //savesession details
 
@@ -777,8 +762,8 @@ function getStories(searchQuery) {
       } else if (
         responseJson.message === "Please enter a valid INSTAGRAM username"
       ) {
-        $(document).ready(function () {
-          $(".error").append(
+        
+          document.querySelector(".error").insertAdjacentHTML('beforebegin',
             `
 
                       <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
@@ -787,51 +772,46 @@ function getStories(searchQuery) {
 
                     `
           );
-        });
       } else if (responseJson.message === "Please enter a valid username") {
-        $(document).ready(function () {
-          $(".error").append(
-            `
-
-                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+        
+          document.querySelector(".error").insertAdjacentHTML('beforebegin',
+            `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
               responseJson.message +
-              `</span>
-
-                    `
+            `</span>`
           );
-        });
       }
+      document.getElementById("spinner").style.display = "none"; //hides loader
 
-      $("#spinner").hide(); //hides loader
-    })
-
-    .catch((err) => {
+    }).catch((err) => {
       console.log("err", err);
 
-      $("#spinner").hide(); //hides loader
-
-      $(document).ready(function () {
-        $(".error").append(
+      document.getElementById("spinner").style.display = "none"; //hides loader
+      
+      document.querySelector(".error").insertAdjacentHTML('beforebegin',
           `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
             " Something went wrong! Please try again." +
             `</span>`
         );
-      });
     });
 }
 
 function getHighlight(username, highlightId) {
+
   // remove attached items & start loader
-
-  $(document).ready(function () {
-    $("#errormessage").each(function () {
-      $(this).remove();
+  if(document.querySelectorAll("#errormessage").length > 0){
+    document.querySelectorAll("#errormessage").forEach(currentItem => {
+      currentItem.remove();
     });
+  }
 
-    $("#downloads").empty();
+  // clear all subchilds of @downloads
+    var downloadsElem = document.getElementById("downloads");
+    while (downloadsElem.firstChild) {
+      downloadsElem.removeChild(downloadsElem.firstChild);
+    }
 
-    $("#spinner").show(); //shows loader
-  });
+
+    document.getElementById("spinner").style.display = "block"; //hides loader
 
   url = "username=" + username + "&highlight=" + highlightId;
 
@@ -844,19 +824,19 @@ function getHighlight(username, highlightId) {
 
         videoLinks = responseJson.result.storyVideoLinks;
 
-        $(document).ready(function () {
-          $("#downloads").append(
+        
+          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
             '<span class="success-message"> AVAILABLE DOWNLOADS FOR HIGHLIGHT: <span id="downloadcount">' +
               (imageLinks.length + videoLinks.length) +
               "</span></span>"
           );
 
-          $("#downloads").append(
+          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
             `<div id="results" class="downloadlink card-columns"> </div>`
           );
 
           for (var i = 0; i < imageLinks.length; i++)
-            $("#results").append(
+            document.getElementById("results").insertAdjacentHTML('beforebegin',
               `
 
                       <div class="card">
@@ -869,32 +849,19 @@ function getHighlight(username, highlightId) {
                 imageLinks[i] +
                 `" onclick="openMediaViewer('itemimg_` +
                 (i + 1) +
-                `')"/>
-
-                      
-
-                        <a id="imgdownloadlink" class="card-link" href="` +
+                `')"/><a id="imgdownloadlink" class="card-link" href="` +
                 imageLinks[i] +
                 "&dl=1" +
                 `" target="_blank">
-
                           <div class="c-body">
-
                           <span><i class="fas fa-download"></i> Download </span>
-
                           </div>
-
                         </a>
-
-                      
-
-                    </div>
-
-                    `
+                    </div>`
             );
 
           for (var j = 0; j < videoLinks.length; j++)
-            $("#results").append(
+            document.getElementById("results").insertAdjacentHTML('beforebegin',
               `
 
                       <div class="card">
@@ -928,16 +895,14 @@ function getHighlight(username, highlightId) {
 
                     `
             );
-        });
-
         //savesession details
 
         saveSessionDetails(url);
       } else if (
         responseJson.message === "Please enter a valid INSTAGRAM username"
       ) {
-        $(document).ready(function () {
-          $(".error").append(
+        
+          document.querySelector(".error").insertAdjacentHTML('beforebegin',
             `
 
                       <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
@@ -946,10 +911,9 @@ function getHighlight(username, highlightId) {
 
                     `
           );
-        });
       } else if (responseJson.message === "Please enter a valid username") {
-        $(document).ready(function () {
-          $(".error").append(
+        
+          document.querySelector(".error").insertAdjacentHTML('beforebegin',
             `
 
                       <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
@@ -958,33 +922,41 @@ function getHighlight(username, highlightId) {
 
                     `
           );
-        });
       }
 
-      $("#spinner").hide(); //hides loader
+      document.getElementById("spinner").style.display = "none"; //hides loader
     })
 
     .catch((err) => {
       console.log("err", err);
 
-      $("#spinner").hide(); //hides loader
-
-      $(document).ready(function () {
-        $(".error").append(
+      document.getElementById("spinner").style.display = "none"; //hides loader
+      
+        document.querySelector(".error").insertAdjacentHTML('beforebegin',
           `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
             " Something went wrong! Please try again." +
             `</span>`
         );
       });
-    });
-}
+    }
 
 function themeSelection() {
-  let isSelected = document.getElementById("theme-toggle").checked;
-
-  localStorage.setItem("darkMode", !isSelected);
-
-  changeTheme(localStorage.getItem("darkMode"));
+      let switchIs;
+      if(localStorage.getItem("darkMode")){
+        switchIs = (localStorage.getItem("darkMode") == 'true'); 
+        console.log("Setting mode as0:", !switchIs);
+  
+        localStorage.setItem("darkMode", !switchIs);
+  
+      } else { 
+        switchIs = false;
+        localStorage.setItem("darkMode", false);
+        console.log("Setting mode as1:", false);
+  
+      }
+      
+      document.getElementById("theme-toggle").checked = !switchIs;
+      changeTheme(localStorage.getItem("darkMode"));
 }
 
 function changeTheme(userPref) {
@@ -992,29 +964,36 @@ function changeTheme(userPref) {
 
   console.log("deviceWidth :", deviceWidth);
 
-  $(document).ready(function () {
     if (userPref === "true") {
-      $(".dark-th").css("color", "#ffffff");
-      $("body input").css("color", "#ffffff");
-      $("#theme-toggle").prop("checked", true);
+      document.querySelectorAll(".dark-th").forEach(currentItem => {
+        currentItem.style.color = "#ffffff";
+      });
+      document.querySelector("body input").style.color ="#ffffff";
+
+      console.log("checked is ", "true");
 
       if (deviceWidth < 575) {
-        $("body").css("background-image", "url(./assets/black_nature1024.jpg)");
+        document.querySelector("body").style.backgroundImage = "url(./assets/black_nature1024.jpg)";
       } else {
-        $("body").css("background-image", "url(./assets/black_nature.jpg)");
+        document.querySelector("body").style.backgroundImage = "url(./assets/black_nature.jpg)";
+      }
+    } else if (userPref === "false") {
+      document.querySelectorAll(".dark-th").forEach(currentItem => {
+        currentItem.style.color = "rgba(0,0,0,.5)";
+      });
+      document.querySelector("body input").style.color = "#808080";
+
+      console.log("checked is ", "false");
+
+      if (deviceWidth < 575) {
+        document.querySelector("body").style.backgroundImage = "url(./assets/white_nature1024.jpg)";
+      } else {
+        document.querySelector("body").style.backgroundImage = "url(./assets/white_nature.jpg)";
       }
     } else {
-      $(".dark-th").css("color", "rgba(0,0,0,.5)");
-      $("body input").css("color", "#808080");
-      $("#theme-toggle").prop("checked", false);
-
-      if (deviceWidth < 575) {
-        $("body").css("background-image", "url(./assets/white_nature1024.jpg)");
-      } else {
-        $("body").css("background-image", "url(./assets/white_nature.jpg)");
-      }
+      localStorage.setItem("darkMode", false);
+      console.log("checked is ", "false");
     }
-  });
 }
 
 function openMediaViewer(id) {
