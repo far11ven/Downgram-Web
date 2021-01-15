@@ -66,9 +66,9 @@ function changeTheme(userPref) {
         console.log("checked is ", "true");
   
         if (deviceWidth < 575) {
-          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/black_nature1024.jpg)";
+          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/black_nature1024.png)";
         } else {
-          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/black_nature.jpg)";
+          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/black_nature.png)";
         }
       } else if (userPref === "false") {
         document.querySelectorAll(".dark-th").forEach(currentItem => {
@@ -80,9 +80,9 @@ function changeTheme(userPref) {
         console.log("checked is ", "false");
   
         if (deviceWidth < 575) {
-          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/white_nature1024.jpg)";
+          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/white_nature1024.png)";
         } else {
-          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/white_nature.jpg)";
+          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/white_nature.png)";
         }
       } else {
         localStorage.setItem("darkMode", false);
