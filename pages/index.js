@@ -51,7 +51,7 @@ function saveViewCount() {
     changeTheme(localStorage.getItem("darkMode"));
 }
   
-  function changeTheme(userPref) {
+function changeTheme(userPref) {
     var deviceWidth = Math.max(window.screen.width, window.innerWidth);
   
     console.log("deviceWidth :", deviceWidth);
@@ -61,26 +61,28 @@ function saveViewCount() {
           currentItem.style.color = "#ffffff";
         });;
         document.querySelector("body input").style.color ="#ffffff";
+        document.querySelector(".privacy-policy").classList.add("bg-dark");
   
         console.log("checked is ", "true");
   
         if (deviceWidth < 575) {
-          document.querySelector("body").style.backgroundImage = "url(./assets/black_nature1024.jpg)";
+          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/black_nature1024.jpg)";
         } else {
-          document.querySelector("body").style.backgroundImage = "url(./assets/black_nature.jpg)";
+          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/black_nature.jpg)";
         }
       } else if (userPref === "false") {
         document.querySelectorAll(".dark-th").forEach(currentItem => {
           currentItem.style.color = "rgba(0,0,0,.5)";
         });
         document.querySelector("body input").style.color = "#808080";
-  
+        document.querySelector(".privacy-policy").classList.remove("bg-dark");
+
         console.log("checked is ", "false");
   
         if (deviceWidth < 575) {
-          document.querySelector("body").style.backgroundImage = "url(./assets/white_nature1024.jpg)";
+          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/white_nature1024.jpg)";
         } else {
-          document.querySelector("body").style.backgroundImage = "url(./assets/white_nature.jpg)";
+          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/white_nature.jpg)";
         }
       } else {
         localStorage.setItem("darkMode", false);

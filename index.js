@@ -155,13 +155,11 @@ window.onload = function(){
 function copyText() {
   var copyText = document.getElementById("post-description").innerText;
   var elem = document.createElement("textarea");
-  document.body.appendChildChild(elem);
+  document.body.appendChild(elem);
   elem.value = copyText;
   elem.select();
   document.execCommand("copy");
   document.body.removeChild(elem);
-
-  document.querySelector(".toast").toast("show");
 }
 
 function btnActivation() {
@@ -302,14 +300,9 @@ function parseJson(jsonData) {
               postText +
               `</p> 
               </blockquote>
-              <button id="copy-text" onclick="copyText()" title="copy post description">
-									<i class="fas fa-copy"></i> Copy Text
-                </button>
-                <div class="toast container" style="max-width:12rem;">
-									<div class="toast-body">
-										Text has been copied!
-									</div>
-								</div>
+              <button id="copy-text" type="button" onclick="copyText()"  title="copy post description" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Text has been copied!">
+                  <i class="fas fa-copy"></i> Copy Text
+              </button>
             </div>
           </div>`
           );
@@ -969,6 +962,7 @@ function changeTheme(userPref) {
         currentItem.style.color = "#ffffff";
       });
       document.querySelector("body input").style.color ="#ffffff";
+      document.getElementById("search-box").style.color ="#ffffff";
 
       console.log("checked is ", "true");
 
@@ -982,7 +976,7 @@ function changeTheme(userPref) {
         currentItem.style.color = "rgba(0,0,0,.5)";
       });
       document.querySelector("body input").style.color = "#808080";
-
+      document.getElementById("search-box").style.color ="#000000";
       console.log("checked is ", "false");
 
       if (deviceWidth < 575) {
@@ -1048,7 +1042,7 @@ function changeSearchMode(searchType) {
 
     searchBox.name = "search";
 
-    searchBox.placeholder = "paste your Instagram post/IGTV link..";
+    searchBox.placeholder = "enter your Instagram post/IGTV link..";
 
     var searchForm = document.getElementById("search-form");
 
@@ -1081,5 +1075,19 @@ function changeSearchMode(searchType) {
     var searchForm = document.getElementById("search-form");
 
     searchForm.role = "username";
+  } else if (searchType === "reels") {
+    var searchBox = document.getElementById("search-box");
+
+    searchBox.value = "";
+
+    searchBox.type = "search";
+
+    searchBox.name = "search";
+
+    searchBox.placeholder = "enter your reels link..";
+
+    var searchForm = document.getElementById("search-form");
+
+    searchForm.role = "search";
   }
 }
