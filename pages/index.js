@@ -61,7 +61,9 @@ function changeTheme(userPref) {
           currentItem.style.color = "#ffffff";
         });;
         document.querySelector("body input").style.color ="#ffffff";
-        document.querySelector(".privacy-policy").classList.add("bg-dark");
+        if(document.querySelector(".privacy-policy").length > 0){
+          document.querySelector(".privacy-policy").classList.add("bg-dark");
+        }
   
         console.log("checked is ", "true");
   
@@ -75,7 +77,9 @@ function changeTheme(userPref) {
           currentItem.style.color = "rgba(0,0,0,.5)";
         });
         document.querySelector("body input").style.color = "#808080";
-        document.querySelector(".privacy-policy").classList.remove("bg-dark");
+        if(document.querySelector(".privacy-policy").length > 0){
+          document.querySelector(".privacy-policy").classList.remove("bg-dark");
+        }
 
         console.log("checked is ", "false");
   
