@@ -5,6 +5,9 @@ let isFormValidated = false;
 
 window.onload = function () {
   formData["sender"] = "Downgram";
+  
+  let switchIs = (localStorage.getItem("darkMode") == 'true'); 
+  document.getElementById("theme-toggle").checked = switchIs;  // select the darMode switch as per user pref
   changeTheme(localStorage.getItem("darkMode")); //select theme
   saveViewCount();
 };
@@ -26,50 +29,64 @@ function saveViewCount() {
     .catch((err) => {
       console.log("err", err);
     });
-}
+  }
 
-function themeSelection() {
-  let isSelected = document.getElementById("theme-toggle").checked;
 
-  localStorage.setItem("darkMode", !isSelected);
-  changeTheme(localStorage.getItem("darkMode"));
-}
+  function themeSelection() {
+    let switchIs;
+    if(localStorage.getItem("darkMode")){
+      switchIs = (localStorage.getItem("darkMode") == 'true'); 
+      console.log("Setting mode as0:", !switchIs);
 
-function changeTheme(userPref) {
-  var deviceWidth = Math.max(window.screen.width, window.innerWidth);
-  console.log("deviceWidth :", deviceWidth);
-  $(document).ready(function () {
-    if (userPref === "true") {
-      $(".dark-th").css("color", "#ffffff");
-      $("#theme-toggle").prop("checked", true);
-      if (deviceWidth < 575) {
-        $("body").css(
-          "background-image",
-          "url(https://downgram.in/assets/black_nature1024.jpg)"
-        );
-      } else {
-        $("body").css(
-          "background-image",
-          "url(https://downgram.in/assets/black_nature.jpg)"
-        );
-      }
-    } else {
-      $(".dark-th").css("color", "rgba(0,0,0,.5)");
-      $("#theme-toggle").prop("checked", false);
-      if (deviceWidth < 575) {
-        $("body").css(
-          "background-image",
-          "url(https://downgram.in/assets/white_nature1024.jpg)"
-        );
-      } else {
-        $("body").css(
-          "background-image",
-          "url(https://downgram.in/assets/white_nature.jpg)"
-        );
-      }
+      localStorage.setItem("darkMode", !switchIs);
+
+    } else { 
+      switchIs = false;
+      localStorage.setItem("darkMode", false);
+      console.log("Setting mode as1:", false);
+
     }
-  });
+    
+    document.getElementById("theme-toggle").checked = !switchIs;
+    changeTheme(localStorage.getItem("darkMode"));
 }
+  
+  function changeTheme(userPref) {
+    var deviceWidth = Math.max(window.screen.width, window.innerWidth);
+  
+    console.log("deviceWidth :", deviceWidth);
+  
+      if (userPref === "true") {
+        document.querySelectorAll(".dark-th").forEach(currentItem => {
+          currentItem.style.color = "#ffffff";
+        });;
+        document.querySelector("body input").style.color ="#ffffff";
+  
+        console.log("checked is ", "true");
+  
+        if (deviceWidth < 575) {
+          document.querySelector("body").style.backgroundImage = "url(./assets/black_nature1024.jpg)";
+        } else {
+          document.querySelector("body").style.backgroundImage = "url(./assets/black_nature.jpg)";
+        }
+      } else if (userPref === "false") {
+        document.querySelectorAll(".dark-th").forEach(currentItem => {
+          currentItem.style.color = "rgba(0,0,0,.5)";
+        });
+        document.querySelector("body input").style.color = "#808080";
+  
+        console.log("checked is ", "false");
+  
+        if (deviceWidth < 575) {
+          document.querySelector("body").style.backgroundImage = "url(./assets/white_nature1024.jpg)";
+        } else {
+          document.querySelector("body").style.backgroundImage = "url(./assets/white_nature.jpg)";
+        }
+      } else {
+        localStorage.setItem("darkMode", false);
+        console.log("checked is ", "false");
+      }
+  }
 
 function handleFormInput(e) {
   formData[e.id] = e.value;
@@ -87,7 +104,7 @@ function isvalidated(event) {
 }
 
 function reporter() {
-  $("#spinner").show();
+  document.getElementById("spinner").style.display = "block"; //shows loader
 
   let requestBody = formData;
   fetch("https://prod.downgram.in/api/issuereporter", {
@@ -100,7 +117,7 @@ function reporter() {
     .then((response) => response.json())
     .then((responseJson) => {
       if (responseJson.message === "Report sent successfully") {
-        $("#issue-form").hide();
+        document.getElementById("issue-form").style.display = "none"; //shows loader
         var formParent = document.getElementById("msg-container");
         var newElement = document.createElement("p");
         newElement.setAttribute("id", "success-message");
@@ -118,6 +135,6 @@ function reporter() {
       console.log("err", err.message);
     })
     .finally(() => {
-      $("#spinner").hide();
+      document.getElementById("spinner").style.display = "none"; //hides loader
     });
 }
