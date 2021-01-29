@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgba(255, 255, 255, 0); display: block;" width="323px" height="323px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+<clipPath id="cp">
+  <path d="M0 -9.5 A9.5 9.5 0 0 1 0 9.5 A9.5 9.5 0 0 1 0 -9.5 M4.5 -1L4.5 1L7.5 1L7.5 -1Z"></path>
+</clipPath>
+<g transform="translate(50,50)">
+<circle clip-path="url(#cp)" cx="0" cy="0" fill="none" r="5" stroke="#2f5ac7" stroke-width="1" stroke-dasharray="7.853981633974483 0 0 0 0 31.41592653589793">
+<animate attributeName="stroke-dasharray" dur="1.8867924528301885s" repeatCount="indefinite" begin="-0.18867924528301885s" keyTimes="0;0.2;0.4;0.6;0.8;1" values="
+0 0 0 0 0 31.41592653589793;
+0 0 0 0 0 31.41592653589793;
+0 0 15.707963267948966 0 0 31.41592653589793;
+0 0 31.41592653589793 0 0 31.41592653589793;
+0 0 15.707963267948966 0 0 31.41592653589793;
+0 0 0 0 0 31.41592653589793
+"></animate>
+<animateTransform attributeName="transform" type="rotate" dur="1.8867924528301885s" repeatCount="indefinite" begin="-0.18867924528301885s" values="0;0;0;0;180;360"></animateTransform>
+</circle>
+
+<circle cx="0" cy="0" fill="none" r="7" stroke="#00a2e8" stroke-width="1" stroke-dasharray="21.991148575128552 0 0 43.982297150257104">
+<animate attributeName="stroke-dasharray" dur="1.8867924528301885s" repeatCount="indefinite" begin="0s" values="
+0 0 0 0 0 43.982297150257104;
+0 0 21.991148575128552 0 0 43.982297150257104;
+0 0 21.991148575128552 0 0 43.982297150257104;
+0 0 21.991148575128552 0 0 43.982297150257104;
+0 0 21.991148575128552 0 0 43.982297150257104;
+0 0 0 0 0 43.982297150257104
+"></animate>
+<animateTransform attributeName="transform" type="rotate" dur="1.8867924528301885s" repeatCount="indefinite" begin="0s" values="0;0;0;180;180;360"></animateTransform>
+</circle>
+
+<circle cx="0" cy="0" fill="none" r="9" stroke="#fe4f5b" stroke-width="1" stroke-dasharray="28.274333882308138 0 0 56.548667764616276" transform="rotate(45)">
+<animate attributeName="stroke-dasharray" dur="1.8867924528301885s" repeatCount="indefinite" begin="0s" keyTimes="0;0.06;0.1;0.3;0.45;0.5;0.7;0.90;1" values="
+0 0 21.205750411731103 0 0 56.548667764616276;
+0 0 21.205750411731103 0 0 56.548667764616276;
+0 0 28.274333882308138 0 0 56.548667764616276;
+0 0 28.274333882308138 0 0 56.548667764616276;
+0 0 7.0685834705770345 0 0 56.548667764616276;
+0 0 7.0685834705770345 0 0 56.548667764616276;
+0 0 28.274333882308138 0 0 56.548667764616276;
+0 0 28.274333882308138 0 0 56.548667764616276;
+0 0 21.205750411731103 0 0 56.548667764616276
+"></animate>
+<animateTransform attributeName="transform" type="rotate" dur="1.8867924528301885s" repeatCount="indefinite" begin="0s" keyTimes="0;0.06;0.1;0.3;0.5;0.6;0.8;0.90;1" values="-60;0;0;0;180;180;180;180;300"></animateTransform>
+</circle>
+</g>
+</svg>

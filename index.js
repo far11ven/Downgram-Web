@@ -16,10 +16,11 @@ window.onload = function(){
   document.getElementById("theme-toggle").checked = switchIs;  // select the darMode switch as per user pref
   changeTheme(localStorage.getItem("darkMode")); //select theme
 
-  fetch("config.json")
-    .then((response) => response.json())
-    .then((responseJSON) => {
-      config = responseJSON;
+  // fetch("config.json")
+  //   .then((response) => response.json())
+  //   .then((responseJSON) => {
+  //     config = responseJSON;
+  //   });
 
       getSessionCount();
 
@@ -37,6 +38,7 @@ window.onload = function(){
 
       if (searchOptions) {
         var selectedRadioBtn;
+        document.getElementById("search-loader").style.display = "block"; //shows loader
 
         if (searchOptions == "posts") {
           selectedRadioBtn = document.getElementById("inlineRadio1");
@@ -115,7 +117,6 @@ window.onload = function(){
         document.querySelector('a[href="' + window.location.pathname + '"]')
         .parentNode.classList.add("active");
       }
-    });
 };
 
 // function showGiforVideo() {
@@ -202,11 +203,14 @@ function getSessionCount() {
 
       document.querySelector("span.stats").innerHTML= totalSessions;
       document.getElementById("spinner").style.display = "none"; //hides loader
+      document.getElementById("search-loader").style.display = "none"; //hides search-loader
+
 
     }).catch((err) => {
       console.log("err", err);
 
       document.getElementById("spinner").style.display = "none"; //hides loader
+      document.getElementById("search-loader").style.display = "none"; //hides search-loader
     });
 }
 
@@ -228,12 +232,14 @@ function saveSessionDetails(url) {
 
     .then((responseJson) => {
       document.getElementById("spinner").style.display = "none"; //hides loader
+      document.getElementById("search-loader").style.display = "none"; //hides search-loader
     })
 
     .catch((err) => {
       console.log("err", err);
 
       document.getElementById("spinner").style.display = "none"; //hides loader
+      document.getElementById("search-loader").style.display = "none"; //hides search-loader
     });
 }
 
@@ -252,6 +258,7 @@ function getMedia(searchQuery) {
     }
 
   document.getElementById("spinner").style.display = "block"; //show loader
+  document.getElementById("search-loader").style.display = "block"; //shows search-loader
 
   var sanitizedUrl = searchQuery.split("?");
 
@@ -419,12 +426,14 @@ function parseJson(jsonData) {
       }
 
       document.getElementById("spinner").style.display = "none"; //hides loader
+      document.getElementById("search-loader").style.display = "none"; //hides search-loader
     })
 
     .catch((err) => {
       console.log("err", err);
 
       document.getElementById("spinner").style.display = "none"; //hides loader
+      document.getElementById("search-loader").style.display = "none"; //hides search-loader
 
       
         document.querySelector(".error").insertAdjacentHTML('beforebegin',
@@ -452,6 +461,7 @@ function getDP(searchQuery) {
   }
 
   document.getElementById("spinner").style.display = "none"; //hides loader
+  document.getElementById("search-loader").style.display = "none"; //hides search-loader
 
   if (username.includes("instagram.com")) {
     let link = username.split("instagram.com/");
@@ -545,12 +555,13 @@ function getDP(searchQuery) {
       }
 
       document.getElementById("spinner").style.display = "none"; //hides loader
+      document.getElementById("search-loader").style.display = "none"; //hides search-loader
     })
     .catch((err) => {
       console.log("err", err);
 
       document.getElementById("spinner").style.display = "none"; //hides loader
-
+      document.getElementById("search-loader").style.display = "none"; //hides search-loader
       
         document.querySelector(".error").insertAdjacentHTML('beforebegin',
           `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
@@ -577,6 +588,7 @@ function getStories(searchQuery) {
   }
 
   document.getElementById("spinner").style.display = "none"; //hides loader
+  document.getElementById("search-loader").style.display = "none"; //hides search-loader
 
   if (username.includes("instagram.com")) {
     let link = username.split("instagram.com/");
@@ -774,11 +786,13 @@ function getStories(searchQuery) {
           );
       }
       document.getElementById("spinner").style.display = "none"; //hides loader
+      document.getElementById("search-loader").style.display = "none"; //hides search-loader
 
     }).catch((err) => {
       console.log("err", err);
 
       document.getElementById("spinner").style.display = "none"; //hides loader
+      document.getElementById("search-loader").style.display = "none"; //hides search-loader
       
       document.querySelector(".error").insertAdjacentHTML('beforebegin',
           `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
@@ -805,6 +819,7 @@ function getHighlight(username, highlightId) {
 
 
     document.getElementById("spinner").style.display = "block"; //hides loader
+    document.getElementById("search-loader").style.display = "none"; //hides search-loader
 
   url = "username=" + username + "&highlight=" + highlightId;
 
@@ -918,12 +933,14 @@ function getHighlight(username, highlightId) {
       }
 
       document.getElementById("spinner").style.display = "none"; //hides loader
+      document.getElementById("search-loader").style.display = "none"; //hides search-loader
     })
 
     .catch((err) => {
       console.log("err", err);
 
       document.getElementById("spinner").style.display = "none"; //hides loader
+      document.getElementById("search-loader").style.display = "none"; //hides search-loader
       
         document.querySelector(".error").insertAdjacentHTML('beforebegin',
           `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
