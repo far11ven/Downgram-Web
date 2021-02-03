@@ -107,7 +107,7 @@ span.modal-link {
   text-decoration: overline;
 }
 
-p#search-loader{
+#search-loader{
   display:none;
 }
 
@@ -220,7 +220,7 @@ img.navbar-logo:hover {
   transform: scale(1.2);
 }
 
-img.logo {
+#logo img {
   height: 150px;
 }
 
@@ -418,66 +418,6 @@ input.form-control:focus {
   outline: 0;
   box-shadow: 0 0 0 0.05rem rgba(0, 123, 255, 0.25);
 }
-
-/* LOADER */
-
-#loader-2 span {
-  display: inline-block;
-  width: 15px;
-  height: 15px;
-  border-radius: 100%;
-  margin: 20px 4px;
-}
-
-#loader-2 span#span-1 {
-  background-color: #fe4469;
-}
-#loader-2 span#span-2 {
-  background-color: #00a3e8;
-}
-#loader-2 span#span-3 {
-  background-color: #2e58c8;
-}
-
-#loader-2 span#span-4 {
-  background-color: limegreen;
-}
-
-#loader-2 span:nth-child(1) {
-  animation: bounce 0.8s ease-in-out infinite;
-}
-
-#loader-2 span:nth-child(2) {
-  animation: bounce 0.8s ease-in-out 0.33s infinite;
-}
-
-#loader-2 span:nth-child(3) {
-  animation: bounce 0.8s ease-in-out 0.66s infinite;
-}
-
-#loader-2 span:nth-child(4) {
-  animation: bounce 0.8s ease-in-out 0.99s infinite;
-}
-
-@keyframes bounce {
-  0%,
-  75%,
-  100% {
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    -o-transform: translateY(0);
-    transform: translateY(0);
-  }
-
-  25% {
-    -webkit-transform: translateY(-20px);
-    -ms-transform: translateY(-20px);
-    -o-transform: translateY(-20px);
-    transform: translateY(-20px);
-  }
-}
-
-/* LOADER */
 
 /* The STARTING OF MediaViewer Modal (background) */
 

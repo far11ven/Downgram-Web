@@ -1,5 +1,4 @@
 //www.downgram.in
-
 let config;
 let url;
 let postText;
@@ -9,57 +8,57 @@ let highlightLinks = [];
 
 // add + '&dl=1'
 
-window.onload = function(){ 
-  document.getElementById("spinner").style.display = "block"; //shows loader
-  
-  let switchIs = (localStorage.getItem("darkMode") == 'true'); 
-  document.getElementById("theme-toggle").checked = switchIs;  // select the darMode switch as per user pref
-  changeTheme(localStorage.getItem("darkMode")); //select theme
+window.onload = function() {
 
-  // fetch("config.json")
-  //   .then((response) => response.json())
-  //   .then((responseJSON) => {
-  //     config = responseJSON;
-  //   });
+    let switchIs = (localStorage.getItem("darkMode") == 'true');
+    document.getElementById("theme-toggle").checked = switchIs; // select the darMode switch as per user pref
+    changeTheme(localStorage.getItem("darkMode")); //select theme
 
-      getSessionCount();
+    // fetch("config.json")
+    //   .then((response) => response.json())
+    //   .then((responseJSON) => {
+    //     config = responseJSON;
+    //   });
 
-      const urlParams = new URLSearchParams(window.location.search);
+    getSessionCount();
 
-      const searchQuery = urlParams.get("search");
+    const urlParams = new URLSearchParams(window.location.search);
 
-      const username = urlParams.get("username");
+    const searchQuery = urlParams.get("search");
 
-      const dp = urlParams.get("dp");
+    const username = urlParams.get("username");
 
-      const highlightId = urlParams.get("highlight");
+    const dp = urlParams.get("dp");
 
-      const searchOptions = urlParams.get("searchOptions");
+    const highlightId = urlParams.get("highlight");
 
-      if (searchOptions) {
+    const searchOptions = urlParams.get("searchOptions");
+
+    if (searchOptions) {
         var selectedRadioBtn;
         document.getElementById("search-loader").style.display = "block"; //shows loader
+        document.getElementById("logo").style.display = "none"; //hides logo
 
         if (searchOptions == "posts") {
-          selectedRadioBtn = document.getElementById("inlineRadio1");
+            selectedRadioBtn = document.getElementById("inlineRadio1");
 
-          changeSearchMode(searchOptions);
+            changeSearchMode(searchOptions);
         } else if (searchOptions == "dp") {
-          selectedRadioBtn = document.getElementById("inlineRadio2");
+            selectedRadioBtn = document.getElementById("inlineRadio2");
 
-          changeSearchMode(searchOptions);
+            changeSearchMode(searchOptions);
         } else if (searchOptions == "stories") {
-          selectedRadioBtn = document.getElementById("inlineRadio3");
+            selectedRadioBtn = document.getElementById("inlineRadio3");
 
-          changeSearchMode(searchOptions);
+            changeSearchMode(searchOptions);
         } else if (searchOptions == "reels") {
-          selectedRadioBtn = document.getElementById("inlineRadio4");
+            selectedRadioBtn = document.getElementById("inlineRadio4");
 
-          changeSearchMode(searchOptions);
+            changeSearchMode(searchOptions);
         }
 
         selectedRadioBtn.checked = true;
-      } else {
+    } else {
         //to be selected by default
 
         var selectedRadioBtn = document.getElementById("inlineRadio1");
@@ -67,56 +66,55 @@ window.onload = function(){
         selectedRadioBtn.checked = true;
 
         changeSearchMode("posts");
-      }
+    }
 
-      if (searchQuery) {
+    if (searchQuery) {
         document.getElementById("search-box").value = searchQuery;
         getMedia(searchQuery);
 
-        
-      } else if (dp) {
+    } else if (dp) {
         document.getElementById("search-box").value = dp;
         getDP(dp);
 
-      } else if (username && highlightId) {
+    } else if (username && highlightId) {
         document.getElementById("search-box").value = username;
         getHighlight(username, highlightId);
 
-      } else if (username) {
+    } else if (username) {
         document.getElementById("search-box").value = username;
         getStories(username);
-      }
+    }
 
-      btnActivation(); //to make search button disabled by default if searchquery is empty
+    btnActivation(); //to make search button disabled by default if searchquery is empty
 
-      saveViewCount(); // save page views
+    saveViewCount(); // save page views
 
-      if (
+    if (
         window.location.pathname === "/" ||
         window.location.pathname === "/index.html"
-      ) {
+    ) {
         var dialogShownOn = new Date(
-          localStorage.getItem("dialogShownOn")
+            localStorage.getItem("dialogShownOn")
         ).getDate();
 
         if (new Date().getDate() - dialogShownOn >= 365) {
-          var startUpModal = new bootstrap.Modal(document.getElementById('StartUpModal'), {
-            keyboard: false
-          })
-          startUpModal.show(); //display startup modal
+            var startUpModal = new bootstrap.Modal(document.getElementById('StartUpModal'), {
+                keyboard: false
+            })
+            startUpModal.show(); //display startup modal
 
-          var today = new Date().toLocaleDateString();
+            var today = new Date().toLocaleDateString();
 
-          localStorage.setItem("dialogShownOn", today);
+            localStorage.setItem("dialogShownOn", today);
         }
-      } else {
+    } else {
         if (window.location.pathname === "/404.html") {
-          window.location.replace("https://www.downgram.in");
+            window.location.replace("https://www.downgram.in");
         }
 
         document.querySelector('a[href="' + window.location.pathname + '"]')
-        .parentNode.classList.add("active");
-      }
+            .parentNode.classList.add("active");
+    }
 };
 
 // function showGiforVideo() {
@@ -154,173 +152,172 @@ window.onload = function(){
 // }
 
 function copyText() {
-  var copyText = document.getElementById("post-description").innerText;
-  var elem = document.createElement("textarea");
-  document.body.appendChild(elem);
-  elem.value = copyText;
-  elem.select();
-  document.execCommand("copy");
-  document.body.removeChild(elem);
+    var copyText = document.getElementById("post-description").innerText;
+    var elem = document.createElement("textarea");
+    document.body.appendChild(elem);
+    elem.value = copyText;
+    elem.select();
+    document.execCommand("copy");
+    document.body.removeChild(elem);
 }
 
 function btnActivation() {
-  if (document.getElementById("search-box").value === "") {
-    document.getElementById("search-btn").disabled = true;
-  } else {
-    document.getElementById("search-btn").disabled = false;
-  }
+    if (document.getElementById("search-box").value === "") {
+        document.getElementById("search-btn").disabled = true;
+    } else {
+        document.getElementById("search-btn").disabled = false;
+    }
 }
 
 function saveViewCount() {
-  let sessionBody = { channelType: "web" };
+    let sessionBody = {
+        channelType: "web"
+    };
 
-  fetch("https://prod.downgram.in/api/saveviewcount", {
-    method: "POST",
+    fetch("https://prod.downgram.in/api/saveviewcount", {
+            method: "POST",
+            body: JSON.stringify(sessionBody),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then((response) => response.json())
 
-    body: JSON.stringify(sessionBody),
+        .then((responseJson) => {})
 
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-
-    .then((responseJson) => {})
-
-    .catch((err) => {
-      console.log("err", err);
-    });
+        .catch((err) => {
+            console.log("err", err);
+        });
 }
 
 function getSessionCount() {
-  var url = document.getElementById("search-box").value;
+    var url = document.getElementById("search-box").value;
 
-  fetch("https://prod.downgram.in/api/sessioncount")
-    .then((response) => response.json())
+    fetch("https://prod.downgram.in/api/sessioncount")
+        .then((response) => response.json())
 
-    .then((responseJson) => {
-      let totalSessions = responseJson.result.$numberDouble;
+        .then((responseJson) => {
+            let totalSessions = responseJson.result.$numberDouble;
 
-      document.querySelector("span.stats").innerHTML= totalSessions;
-      document.getElementById("spinner").style.display = "none"; //hides loader
-      document.getElementById("search-loader").style.display = "none"; //hides search-loader
+            document.querySelector("span.stats").innerHTML = totalSessions;
+            document.getElementById("search-loader").style.display = "none"; //hides search-loader
+            document.getElementById("logo").style.display = "block"; //shows logo
 
-
-    }).catch((err) => {
-      console.log("err", err);
-
-      document.getElementById("spinner").style.display = "none"; //hides loader
-      document.getElementById("search-loader").style.display = "none"; //hides search-loader
-    });
+        }).catch((err) => {
+            console.log("err", err);
+            document.getElementById("search-loader").style.display = "none"; //hides search-loader
+            document.getElementById("logo").style.display = "block"; //shows logo
+        });
 }
 
 function saveSessionDetails(url) {
-  let sessionBody = { linkURL: url, channelType: "web" };
-  
-  fetch("https://prod.downgram.in/api/savesession", {
-    method: "POST",
+    let sessionBody = {
+        linkURL: url,
+        channelType: "web"
+    };
 
-    body: JSON.stringify(sessionBody),
+    fetch("https://prod.downgram.in/api/savesession", {
+            method: "POST",
+            body: JSON.stringify(sessionBody),
+            headers: {
+                Accept: "application/json, text/plain, */*",
 
-    headers: {
-      Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json",
+            },
+        })
+        .then((response) => response.json())
 
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
+        .then((responseJson) => {
 
-    .then((responseJson) => {
-      document.getElementById("spinner").style.display = "none"; //hides loader
-      document.getElementById("search-loader").style.display = "none"; //hides search-loader
-    })
+            document.getElementById("search-loader").style.display = "none"; //hides search-loader
+            document.getElementById("logo").style.display = "block"; //shows logo
+        })
 
-    .catch((err) => {
-      console.log("err", err);
-
-      document.getElementById("spinner").style.display = "none"; //hides loader
-      document.getElementById("search-loader").style.display = "none"; //hides search-loader
-    });
+        .catch((err) => {
+            console.log("err", err);
+            document.getElementById("search-loader").style.display = "none"; //hides search-loader
+            document.getElementById("logo").style.display = "block"; //shows logo
+        });
 }
 
 function getMedia(searchQuery) {
-  // remove attached items & start loader
-  if(document.querySelectorAll("#errormessage").length > 0){
-    document.querySelectorAll("#errormessage").forEach(currentItem => {
-      currentItem.remove();
-    });
-  }
-
-  // clear all subchilds of @downloads
-    var downloadsElem = document.getElementById("downloads");
-    while (downloadsElem.firstChild) {
-      downloadsElem.removeChild(downloadsElem.firstChild);
+    // remove attached items & start loader
+    if (document.querySelectorAll("#errormessage").length > 0) {
+        document.querySelectorAll("#errormessage").forEach(currentItem => {
+            currentItem.remove();
+        });
     }
 
-  document.getElementById("spinner").style.display = "block"; //show loader
-  document.getElementById("search-loader").style.display = "block"; //shows search-loader
+    // clear all subchilds of @downloads
+    var downloadsElem = document.getElementById("downloads");
+    while (downloadsElem.firstChild) {
+        downloadsElem.removeChild(downloadsElem.firstChild);
+    }
 
-  var sanitizedUrl = searchQuery.split("?");
+    document.getElementById("search-loader").style.display = "block"; //shows search-loader
+    document.getElementById("logo").style.display = "none"; //hides logo
 
-  url = sanitizedUrl[0] + "?__a=1";
+    var sanitizedUrl = searchQuery.split("?");
 
-  fetch(url)
-    .then((response) => response.json())
+    url = sanitizedUrl[0] + "?__a=1";
 
-    .then((responseJson) => {
-      parseJson(responseJson);
-    });
+    fetch(url)
+        .then((response) => response.json())
+
+        .then((responseJson) => {
+            parseJson(responseJson);
+        });
 }
 
 function parseJson(jsonData) {
-  fetch("https://prod.downgram.in/api/parsejson", {
-    method: "POST", // or 'PUT'
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(jsonData),
-  })
-    .then((response) => response.json())
+    fetch("https://prod.downgram.in/api/parsejson", {
+            method: "POST", // or 'PUT'
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(jsonData),
+        })
+        .then((response) => response.json())
 
-    .then((responseJson) => {
-      if (responseJson.message == "Hello") {
-        imageLinks = responseJson.result.imagelinks;
+        .then((responseJson) => {
+            if (responseJson.message == "Hello") {
+                imageLinks = responseJson.result.imagelinks;
 
-        videoLinks = responseJson.result.videolinks;
+                videoLinks = responseJson.result.videolinks;
 
-        postText = responseJson.result.postText;
+                postText = responseJson.result.postText;
 
-          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
-            '<span class="success-message"> AVAILABLE DOWNLOADS : <span id="downloadcount">' +
-              (imageLinks.length + videoLinks.length) +
-              "</span></span>"
-          );
+                document.getElementById("downloads").insertAdjacentHTML('beforebegin',
+                    '<span class="success-message"> AVAILABLE DOWNLOADS : <span id="downloadcount">' +
+                    (imageLinks.length + videoLinks.length) +
+                    "</span></span>"
+                );
 
-          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
-            `<div class="card conatiner post-text m-4">
+                document.getElementById("downloads").insertAdjacentHTML('beforebegin',
+                    `<div class="card conatiner post-text m-4">
             <div class="card-header">
               <strong>Post Description</strong>
             </div>
             <div class="card-body">
               <blockquote class="blockquote mb-0">
                 <p id="post-description">` +
-              postText +
-              `</p> 
+                    postText +
+                    `</p> 
               </blockquote>
               <button id="copy-text" type="button" onclick="copyText()"  title="copy post description" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Text has been copied!">
                   <i class="fas fa-copy"></i> Copy Text
               </button>
             </div>
           </div>`
-          );
+                );
 
-          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
-            `<div id="results" class="downloadlink card-columns"> </div>`
-          );
+                document.getElementById("downloads").insertAdjacentHTML('beforebegin',
+                    `<div id="results" class="downloadlink card-columns"> </div>`
+                );
 
-          for (var i = 0; i < imageLinks.length; i++)
-            document.getElementById("results").insertAdjacentHTML('beforebegin',
-              `
+                for (var i = 0; i < imageLinks.length; i++)
+                    document.getElementById("results").insertAdjacentHTML('beforebegin',
+                        `
 
                       <div class="card">
 
@@ -329,19 +326,19 @@ function parseJson(jsonData) {
                       <i class="media-type fas fa-image"></i>
 
                       <img id="itemimg_` +
-                (i + 1) +
-                `" class="card-img-top" src="` +
-                imageLinks[i] +
-                `" onclick="openMediaViewer('itemimg_` +
-                (i + 1) +
-                `')"/>
+                        (i + 1) +
+                        `" class="card-img-top" src="` +
+                        imageLinks[i] +
+                        `" onclick="openMediaViewer('itemimg_` +
+                        (i + 1) +
+                        `')"/>
 
                       </div>
 
                         <a id="imgdownloadlink" class="card-link" href="` +
-                imageLinks[i] +
-                "&dl=1" +
-                `" target="_blank">
+                        imageLinks[i] +
+                        "&dl=1" +
+                        `" target="_blank">
 
                           <div class="c-body">
 
@@ -356,11 +353,11 @@ function parseJson(jsonData) {
                     </div>
 
                     `
-            );
+                    );
 
-          for (var j = 0; j < videoLinks.length; j++)
-            document.getElementById("results").insertAdjacentHTML('beforebegin',
-              `
+                for (var j = 0; j < videoLinks.length; j++)
+                    document.getElementById("results").insertAdjacentHTML('beforebegin',
+                        `
 
                       <div class="card">
 
@@ -369,19 +366,19 @@ function parseJson(jsonData) {
                       <i class="media-type fas fa-video"></i>
 
                       <video id="itemvid_` +
-                (i + 1) +
-                `"  class="card-img-top" style="width: 100%;" src="` +
-                videoLinks[j] +
-                `" onclick="openMediaViewer('itemvid_` +
-                (i + 1) +
-                `')"></video>
+                        (i + 1) +
+                        `"  class="card-img-top" style="width: 100%;" src="` +
+                        videoLinks[j] +
+                        `" onclick="openMediaViewer('itemvid_` +
+                        (i + 1) +
+                        `')"></video>
 
                       </div>
 
                         <a id="viddownloadlink" class="card-link" href="` +
-                videoLinks[j] +
-                "&dl=1" +
-                `" target="_blank">
+                        videoLinks[j] +
+                        "&dl=1" +
+                        `" target="_blank">
 
                           <div class="c-body"><span><i class="fas fa-download"></i> Download </span>
 
@@ -394,321 +391,306 @@ function parseJson(jsonData) {
                     </div>
 
                     `
+                    );
+                //savesession details
+                saveSessionDetails(url);
+
+            } else if (
+                responseJson.message === "Please enter a valid INSTAGRAM link"
+            ) {
+
+                document.querySelector(".error").insertAdjacentHTML('beforebegin',
+                    `
+
+                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+                    responseJson.message +
+                    `</span>
+
+                    `
+                );
+            } else if (responseJson.message === "Please enter a valid link") {
+
+                document.querySelector(".error").insertAdjacentHTML('beforebegin',
+                    `
+
+                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+                    responseJson.message +
+                    `</span>
+
+                    `
+                );
+            }
+
+            document.getElementById("search-loader").style.display = "none"; //hides search-loader
+            document.getElementById("logo").style.display = "block"; //shows logo
+        })
+
+        .catch((err) => {
+            console.log("err", err);
+
+            document.getElementById("search-loader").style.display = "none"; //hides search-loader
+            document.getElementById("logo").style.display = "block"; //shows logo
+
+            document.querySelector(".error").insertAdjacentHTML('beforebegin',
+                `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+                " Something went wrong! Please try again." +
+                `</span>`
             );
-
-        //savesession details
-
-        saveSessionDetails(url);
-      } else if (
-        responseJson.message === "Please enter a valid INSTAGRAM link"
-      ) {
-        
-          document.querySelector(".error").insertAdjacentHTML('beforebegin',
-            `
-
-                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
-              responseJson.message +
-              `</span>
-
-                    `
-          );
-      } else if (responseJson.message === "Please enter a valid link") {
-        
-          document.querySelector(".error").insertAdjacentHTML('beforebegin',
-            `
-
-                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
-              responseJson.message +
-              `</span>
-
-                    `
-          );
-      }
-
-      document.getElementById("spinner").style.display = "none"; //hides loader
-      document.getElementById("search-loader").style.display = "none"; //hides search-loader
-    })
-
-    .catch((err) => {
-      console.log("err", err);
-
-      document.getElementById("spinner").style.display = "none"; //hides loader
-      document.getElementById("search-loader").style.display = "none"; //hides search-loader
-
-      
-        document.querySelector(".error").insertAdjacentHTML('beforebegin',
-          `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
-            " Something went wrong! Please try again." +
-            `</span>`
-        );
-      });
+        });
 }
 
 function getDP(searchQuery) {
-  let username = searchQuery;
+    let username = searchQuery;
 
- // remove attached items & start loader
- if(document.querySelectorAll("#errormessage").length > 0){
-  document.querySelectorAll("#errormessage").forEach(currentItem => {
-    currentItem.remove();
-  });
-}
+    // remove attached items & start loader
+    if (document.querySelectorAll("#errormessage").length > 0) {
+        document.querySelectorAll("#errormessage").forEach(currentItem => {
+            currentItem.remove();
+        });
+    }
 
-// clear all subchilds of @downloads
-  var downloadsElem = document.getElementById("downloads");
-  while (downloadsElem.firstChild) {
-    downloadsElem.removeChild(downloadsElem.firstChild);
-  }
+    // clear all subchilds of @downloads
+    var downloadsElem = document.getElementById("downloads");
+    while (downloadsElem.firstChild) {
+        downloadsElem.removeChild(downloadsElem.firstChild);
+    }
 
-  document.getElementById("spinner").style.display = "none"; //hides loader
-  document.getElementById("search-loader").style.display = "none"; //hides search-loader
 
-  if (username.includes("instagram.com")) {
-    let link = username.split("instagram.com/");
+    document.getElementById("search-loader").style.display = "block"; //shows search-loader
+    document.getElementById("logo").style.display = "none"; //hides logo
 
-    let usernameArr = link[1].split("/");
+    if (username.includes("instagram.com")) {
+        let link = username.split("instagram.com/");
 
-    if (usernameArr[0] !== "p") {
-      username = usernameArr[0];
-    } else {
-      
-        document.querySelector(".error").insertAdjacentHTML('beforebegin',
-          `
+        let usernameArr = link[1].split("/");
+
+        if (usernameArr[0] !== "p") {
+            username = usernameArr[0];
+        } else {
+
+            document.querySelector(".error").insertAdjacentHTML('beforebegin',
+                `
 
             <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> Please enter a valid Instagram username or profile link</span>
 
             `
-        );
-    }
-  }
-
-  url = username;
-
-  fetch("https://prod.downgram.in/api/getdp?dp=" + url)
-    .then((response) => response.json())
-
-    .then((responseJson) => {
-      if (responseJson.message == "Hello dp") {
-        imageLinks = responseJson.result.imagelinks;
-
-          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
-            '<span class="success-message"> AVAILABLE DP FOR USER : </span>'
-          );
-
-          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
-            `<div id="results" class="downloadlink card-columns"> </div>`
-          );
-
-          for (var i = 0; i < imageLinks.length; i++)
-            document.getElementById("results").insertAdjacentHTML('beforebegin',
-              `
-
-                      <div class="card">
-
-                      <i class="media-type fas fa-image"></i>
-
-                      <img id="itemimg_` +
-                (i + 1) +
-                `" class="card-img-top" src="` +
-                imageLinks[i] +
-                `" onclick="openMediaViewer('itemimg_` +
-                (i + 1) +
-                `')"/>
-
-                      
-
-                        <a id="imgdownloadlink" class="card-link" href="` +
-                imageLinks[i] +
-                "&dl=1" +
-                `" target="_blank">
-
-                          <div class="c-body">
-
-                          <span><i class="fas fa-download"></i> Download </span>
-
-                          </div>
-
-                        </a>
-
-                      
-
-                    </div>
-
-                    `
             );
+        }
+    }
 
-        //savesession details
-        saveSessionDetails(url);
+    url = username;
 
-      } else if (
-        responseJson.message ===
-        "Please enter a valid INSTAGRAM username/profile link"
-      ) {
-        
-          document.querySelector(".error").insertAdjacentHTML('beforebegin',
-            `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
-              responseJson.message +
-              `</span>
+    fetch("https://prod.downgram.in/api/getdp?dp=" + url)
+        .then((response) => response.json())
+
+        .then((responseJson) => {
+            if (responseJson.message == "Hello dp") {
+                imageLinks = responseJson.result.imagelinks;
+
+                document.getElementById("downloads").insertAdjacentHTML('beforebegin',
+                    '<span class="success-message"> AVAILABLE DP FOR USER : </span>'
+                );
+
+                document.getElementById("downloads").insertAdjacentHTML('beforebegin',
+                    `<div id="results" class="downloadlink card-columns"> </div>`
+                );
+
+                for (var i = 0; i < imageLinks.length; i++)
+                    document.getElementById("results").insertAdjacentHTML('beforebegin',
+                        `
+                      <div class="card">
+                      <i class="media-type fas fa-image"></i>
+                      <img id="itemimg_` +
+                        (i + 1) +
+                        `" class="card-img-top" src="` +
+                        imageLinks[i] +
+                        `" onclick="openMediaViewer('itemimg_` +
+                        (i + 1) +
+                        `')"/>
+                        <a id="imgdownloadlink" class="card-link" href="` +
+                        imageLinks[i] +
+                        "&dl=1" +
+                        `" target="_blank">
+                          <div class="c-body">
+                          <span><i class="fas fa-download"></i> Download </span>
+                          </div>
+                        </a>
+                    </div>
+                    `
+                    );
+
+                //savesession details
+                saveSessionDetails(url);
+
+            } else if (
+                responseJson.message ===
+                "Please enter a valid INSTAGRAM username/profile link"
+            ) {
+                document.querySelector(".error").insertAdjacentHTML('beforebegin',
+                    `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+                    responseJson.message +
+                    `</span>
 
            `
-          );
-      }
+                );
+            }
 
-      document.getElementById("spinner").style.display = "none"; //hides loader
-      document.getElementById("search-loader").style.display = "none"; //hides search-loader
-    })
-    .catch((err) => {
-      console.log("err", err);
+            document.getElementById("search-loader").style.display = "none"; //hides search-loader
+            document.getElementById("logo").style.display = "block"; //shows logo
+        })
+        .catch((err) => {
+            console.log("err", err);
 
-      document.getElementById("spinner").style.display = "none"; //hides loader
-      document.getElementById("search-loader").style.display = "none"; //hides search-loader
-      
-        document.querySelector(".error").insertAdjacentHTML('beforebegin',
-          `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
-            " Something went wrong! Please try again." +
-            `</span>`
-        );
-      });
+            document.getElementById("search-loader").style.display = "none"; //hides search-loader
+            document.getElementById("logo").style.display = "block"; //shows logo
+            
+            document.querySelector(".error").insertAdjacentHTML('beforebegin',
+                `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+                " Something went wrong! Please try again." +
+                `</span>`
+            );
+        });
 }
 
 function getStories(searchQuery) {
-  let username = searchQuery;
- 
- // remove attached items & start loader
- if(document.querySelectorAll("#errormessage").length > 0){
-  document.querySelectorAll("#errormessage").forEach(currentItem => {
-    currentItem.remove();
-  });
-}
+    let username = searchQuery;
 
-// clear all subchilds of @downloads
-  var downloadsElem = document.getElementById("downloads");
-  while (downloadsElem.firstChild) {
-    downloadsElem.removeChild(downloadsElem.firstChild);
-  }
+    // remove attached items & start loader
+    if (document.querySelectorAll("#errormessage").length > 0) {
+        document.querySelectorAll("#errormessage").forEach(currentItem => {
+            currentItem.remove();
+        });
+    }
 
-  document.getElementById("spinner").style.display = "none"; //hides loader
-  document.getElementById("search-loader").style.display = "none"; //hides search-loader
+    // clear all subchilds of @downloads
+    var downloadsElem = document.getElementById("downloads");
+    while (downloadsElem.firstChild) {
+        downloadsElem.removeChild(downloadsElem.firstChild);
+    }
 
-  if (username.includes("instagram.com")) {
-    let link = username.split("instagram.com/");
 
-    let usernameArr = link[1].split("/");
+    document.getElementById("search-loader").style.display = "block"; //shows search-loader
+    document.getElementById("logo").style.display = "none"; //hides logo
 
-    if (usernameArr[0] !== "p") {
-      username = usernameArr[0];
-    } else {
-      
-        document.querySelector(".error").insertAdjacentHTML('beforebegin',
-          `
+    if (username.includes("instagram.com")) {
+        let link = username.split("instagram.com/");
+
+        let usernameArr = link[1].split("/");
+
+        if (usernameArr[0] !== "p") {
+            username = usernameArr[0];
+        } else {
+
+            document.querySelector(".error").insertAdjacentHTML('beforebegin',
+                `
 
             <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> Please enter a valid Instagram username or profile link</span>
 
             `
-        );
+            );
+        }
     }
-  }
 
-  url = "username=" + username;
+    url = "username=" + username;
 
-  fetch("https://prod.downgram.in/api/getstories?" + url)
-    .then((response) => response.json())
+    fetch("https://prod.downgram.in/api/getstories?" + url)
+        .then((response) => response.json())
 
-    .then((responseJson) => {
-      if (responseJson.message == "Hello") {
-        imageLinks = responseJson.result.storyImageLinks;
+        .then((responseJson) => {
+            if (responseJson.message == "Hello") {
+                imageLinks = responseJson.result.storyImageLinks;
 
-        videoLinks = responseJson.result.storyVideoLinks;
+                videoLinks = responseJson.result.storyVideoLinks;
 
-        highlightLinks = responseJson.result.highlightsLinks;
+                highlightLinks = responseJson.result.highlightsLinks;
 
-        //initialize 3D array
+                //initialize 3D array
 
-        //for (var i = 0; i <= highlightLinks.length; i++) {
+                //for (var i = 0; i <= highlightLinks.length; i++) {
 
-        //  highlightLinks[i] = new Array(2);
+                //  highlightLinks[i] = new Array(2);
 
-        //}
+                //}
 
-        
-          // highlights code
 
-          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
-            '<span class="success-message"> AVAILABLE USER HIGHLIGHTS FOR ' +
-              username +
-              ' : <span id="downloadcount">' +
-              highlightLinks.length +
-              "</span></span>"
-          );
+                // highlights code
 
-          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
-            `<div id="highlight-results" class="higlights-bar"> </div>`
-          );
+                document.getElementById("downloads").insertAdjacentHTML('beforebegin',
+                    '<span class="success-message"> AVAILABLE USER HIGHLIGHTS FOR ' +
+                    username +
+                    ' : <span id="downloadcount">' +
+                    highlightLinks.length +
+                    "</span></span>"
+                );
 
-          for (var i = 0; i < highlightLinks.length; i++)
-            document.getElementById("highlight-results").insertAdjacentHTML('beforebegin',
-              `<a id="highLightlink" class="card-link" href="?username=` +
-                username +
-                "&highlight=" +
-                highlightLinks[i][2] +
-                "&searchOptions=stories" +
-                `" target="_self">
+                document.getElementById("downloads").insertAdjacentHTML('beforebegin',
+                    `<div id="highlight-results" class="higlights-bar"> </div>`
+                );
+
+                for (var i = 0; i < highlightLinks.length; i++)
+                    document.getElementById("highlight-results").insertAdjacentHTML('beforebegin',
+                        `<a id="highLightlink" class="card-link" href="?username=` +
+                        username +
+                        "&highlight=" +
+                        highlightLinks[i][2] +
+                        "&searchOptions=stories" +
+                        `" target="_self">
 
                     <img id="itemHighlight_` +
-                (i + 1) +
-                `" class="card-thumbnail" src="` +
-                highlightLinks[i][1] +
-                `"/>
+                        (i + 1) +
+                        `" class="card-thumbnail" src="` +
+                        highlightLinks[i][1] +
+                        `"/>
 
                 <div class="card-button">
 
                       <span>` +
-                highlightLinks[i][0] +
-                `</span>
+                        highlightLinks[i][0] +
+                        `</span>
 
                 </div>
 
               </a>
 
              `
-            );
+                    );
 
-          // Stories code
+                // Stories code
 
-          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
-            '<span class="success-message"> AVAILABLE USER STORY FOR ' +
-              username +
-              ' : <span id="downloadcount">' +
-              (imageLinks.length + videoLinks.length) +
-              "</span></span>"
-          );
+                document.getElementById("downloads").insertAdjacentHTML('beforebegin',
+                    '<span class="success-message"> AVAILABLE USER STORY FOR ' +
+                    username +
+                    ' : <span id="downloadcount">' +
+                    (imageLinks.length + videoLinks.length) +
+                    "</span></span>"
+                );
 
-          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
-            `<div id="results" class="downloadlink card-columns"> </div>`
-          );
+                document.getElementById("downloads").insertAdjacentHTML('beforebegin',
+                    `<div id="results" class="downloadlink card-columns"> </div>`
+                );
 
-          for (var i = 0; i < imageLinks.length; i++)
-            document.getElementById("results").insertAdjacentHTML('beforebegin',
-              `
+                for (var i = 0; i < imageLinks.length; i++)
+                    document.getElementById("results").insertAdjacentHTML('beforebegin',
+                        `
 
                         <div class="card">
 
                         <i class="media-type fas fa-image"></i>
 
                         <img id="itemimg_` +
-                (i + 1) +
-                `" class="card-img-top" src="` +
-                imageLinks[i] +
-                `" onclick="openMediaViewer('itemimg_` +
-                (i + 1) +
-                `')"/>
+                        (i + 1) +
+                        `" class="card-img-top" src="` +
+                        imageLinks[i] +
+                        `" onclick="openMediaViewer('itemimg_` +
+                        (i + 1) +
+                        `')"/>
 
                         
 
                           <a id="imgdownloadlink" class="card-link" href="` +
-                imageLinks[i] +
-                "&dl=1" +
-                `" target="_blank">
+                        imageLinks[i] +
+                        "&dl=1" +
+                        `" target="_blank">
 
                             <div class="c-body">
 
@@ -723,30 +705,30 @@ function getStories(searchQuery) {
                       </div>
 
                       `
-            );
+                    );
 
-          for (var j = 0; j < videoLinks.length; j++)
-            document.getElementById("results").insertAdjacentHTML('beforebegin',
-              `
+                for (var j = 0; j < videoLinks.length; j++)
+                    document.getElementById("results").insertAdjacentHTML('beforebegin',
+                        `
 
                         <div class="card">
 
                         <i class="media-type fas fa-video"></i>
 
                         <video id="itemvid_` +
-                (i + 1) +
-                `"  class="card-img-top" style="width: 100%;" src="` +
-                videoLinks[j] +
-                `" onclick="openMediaViewer('itemvid_` +
-                (i + 1) +
-                `')"></video>
+                        (i + 1) +
+                        `"  class="card-img-top" style="width: 100%;" src="` +
+                        videoLinks[j] +
+                        `" onclick="openMediaViewer('itemvid_` +
+                        (i + 1) +
+                        `')"></video>
 
                         
 
                           <a id="viddownloadlink" class="card-link" href="` +
-                videoLinks[j] +
-                "&dl=1" +
-                `" target="_blank">
+                        videoLinks[j] +
+                        "&dl=1" +
+                        `" target="_blank">
 
                             <div class="c-body"><span><i class="fas fa-download"></i> Download </span>
 
@@ -759,137 +741,138 @@ function getStories(searchQuery) {
                       </div>
 
                       `
-            );
+                    );
 
-        //savesession details
+                //savesession details
 
-        saveSessionDetails(url);
-      } else if (
-        responseJson.message === "Please enter a valid INSTAGRAM username"
-      ) {
-        
-          document.querySelector(".error").insertAdjacentHTML('beforebegin',
-            `
+                saveSessionDetails(url);
+            } else if (
+                responseJson.message === "Please enter a valid INSTAGRAM username"
+            ) {
+
+                document.querySelector(".error").insertAdjacentHTML('beforebegin',
+                    `
 
                       <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
-              responseJson.message +
-              `</span>
+                    responseJson.message +
+                    `</span>
 
                     `
-          );
-      } else if (responseJson.message === "Please enter a valid username") {
-        
-          document.querySelector(".error").insertAdjacentHTML('beforebegin',
-            `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
-              responseJson.message +
-            `</span>`
-          );
-      }
-      document.getElementById("spinner").style.display = "none"; //hides loader
-      document.getElementById("search-loader").style.display = "none"; //hides search-loader
+                );
+            } else if (responseJson.message === "Please enter a valid username") {
 
-    }).catch((err) => {
-      console.log("err", err);
+                document.querySelector(".error").insertAdjacentHTML('beforebegin',
+                    `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+                    responseJson.message +
+                    `</span>`
+                );
+            }
 
-      document.getElementById("spinner").style.display = "none"; //hides loader
-      document.getElementById("search-loader").style.display = "none"; //hides search-loader
-      
-      document.querySelector(".error").insertAdjacentHTML('beforebegin',
-          `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
-            " Something went wrong! Please try again." +
-            `</span>`
-        );
-    });
+            document.getElementById("search-loader").style.display = "none"; //hides search-loader
+            document.getElementById("logo").style.display = "block"; //shows logo
+
+        }).catch((err) => {
+            console.log("err", err);
+
+
+            document.getElementById("search-loader").style.display = "none"; //hides search-loader
+            document.getElementById("logo").style.display = "block"; //shows logo
+
+            document.querySelector(".error").insertAdjacentHTML('beforebegin',
+                `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+                " Something went wrong! Please try again." +
+                `</span>`
+            );
+        });
 }
 
 function getHighlight(username, highlightId) {
 
-  // remove attached items & start loader
-  if(document.querySelectorAll("#errormessage").length > 0){
-    document.querySelectorAll("#errormessage").forEach(currentItem => {
-      currentItem.remove();
-    });
-  }
-
-  // clear all subchilds of @downloads
-    var downloadsElem = document.getElementById("downloads");
-    while (downloadsElem.firstChild) {
-      downloadsElem.removeChild(downloadsElem.firstChild);
+    // remove attached items & start loader
+    if (document.querySelectorAll("#errormessage").length > 0) {
+        document.querySelectorAll("#errormessage").forEach(currentItem => {
+            currentItem.remove();
+        });
     }
 
+    // clear all subchilds of @downloads
+    var downloadsElem = document.getElementById("downloads");
+    while (downloadsElem.firstChild) {
+        downloadsElem.removeChild(downloadsElem.firstChild);
+    }
 
-    document.getElementById("spinner").style.display = "block"; //hides loader
-    document.getElementById("search-loader").style.display = "none"; //hides search-loader
+    document.getElementById("search-loader").style.display = "block"; //hides search-loader
+    document.getElementById("logo").style.display = "none"; //hides logo
 
-  url = "username=" + username + "&highlight=" + highlightId;
+    url = "username=" + username + "&highlight=" + highlightId;
 
-  fetch("https://prod.downgram.in/api/gethighlights?" + url)
-    .then((response) => response.json())
+    fetch("https://prod.downgram.in/api/gethighlights?" + url)
+        .then((response) => response.json())
 
-    .then((responseJson) => {
-      if (responseJson.message == "Hello") {
-        imageLinks = responseJson.result.storyImageLinks;
+        .then((responseJson) => {
+            if (responseJson.message == "Hello") {
+                imageLinks = responseJson.result.storyImageLinks;
 
-        videoLinks = responseJson.result.storyVideoLinks;
+                videoLinks = responseJson.result.storyVideoLinks;
 
-        
-          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
-            '<span class="success-message"> AVAILABLE DOWNLOADS FOR HIGHLIGHT: <span id="downloadcount">' +
-              (imageLinks.length + videoLinks.length) +
-              "</span></span>"
-          );
 
-          document.getElementById("downloads").insertAdjacentHTML('beforebegin',
-            `<div id="results" class="downloadlink card-columns"> </div>`
-          );
+                document.getElementById("downloads").insertAdjacentHTML('beforebegin',
+                    '<span class="success-message"> AVAILABLE DOWNLOADS FOR HIGHLIGHT: <span id="downloadcount">' +
+                    (imageLinks.length + videoLinks.length) +
+                    "</span></span>"
+                );
 
-          for (var i = 0; i < imageLinks.length; i++)
-            document.getElementById("results").insertAdjacentHTML('beforebegin',
-              `
+                document.getElementById("downloads").insertAdjacentHTML('beforebegin',
+                    `<div id="results" class="downloadlink card-columns"> </div>`
+                );
+
+                for (var i = 0; i < imageLinks.length; i++)
+                    document.getElementById("results").insertAdjacentHTML('beforebegin',
+                        `
 
                       <div class="card">
 
                       <i class="media-type fas fa-image"></i>
 
                       <img id="itemimg_` +
-                (i + 1) +
-                `" class="card-img-top" src="` +
-                imageLinks[i] +
-                `" onclick="openMediaViewer('itemimg_` +
-                (i + 1) +
-                `')"/><a id="imgdownloadlink" class="card-link" href="` +
-                imageLinks[i] +
-                "&dl=1" +
-                `" target="_blank">
+                        (i + 1) +
+                        `" class="card-img-top" src="` +
+                        imageLinks[i] +
+                        `" onclick="openMediaViewer('itemimg_` +
+                        (i + 1) +
+                        `')"/><a id="imgdownloadlink" class="card-link" href="` +
+                        imageLinks[i] +
+                        "&dl=1" +
+                        `" target="_blank">
                           <div class="c-body">
                           <span><i class="fas fa-download"></i> Download </span>
                           </div>
                         </a>
                     </div>`
-            );
+                    );
 
-          for (var j = 0; j < videoLinks.length; j++)
-            document.getElementById("results").insertAdjacentHTML('beforebegin',
-              `
+                for (var j = 0; j < videoLinks.length; j++)
+                    document.getElementById("results").insertAdjacentHTML('beforebegin',
+                        `
 
                       <div class="card">
 
                       <i class="media-type fas fa-video"></i>
 
                       <video id="itemvid_` +
-                (i + 1) +
-                `"  class="card-img-top" style="width: 100%;" src="` +
-                videoLinks[j] +
-                `" onclick="openMediaViewer('itemvid_` +
-                (i + 1) +
-                `')"></video>
+                        (i + 1) +
+                        `"  class="card-img-top" style="width: 100%;" src="` +
+                        videoLinks[j] +
+                        `" onclick="openMediaViewer('itemvid_` +
+                        (i + 1) +
+                        `')"></video>
 
                       
 
                         <a id="viddownloadlink" class="card-link" href="` +
-                videoLinks[j] +
-                "&dl=1" +
-                `" target="_blank">
+                        videoLinks[j] +
+                        "&dl=1" +
+                        `" target="_blank">
 
                           <div class="c-body"><span><i class="fas fa-download"></i> Download </span>
 
@@ -902,209 +885,210 @@ function getHighlight(username, highlightId) {
                     </div>
 
                     `
+                    );
+                //savesession details
+
+                saveSessionDetails(url);
+            } else if (
+                responseJson.message === "Please enter a valid INSTAGRAM username"
+            ) {
+
+                document.querySelector(".error").insertAdjacentHTML('beforebegin',
+                    `
+
+                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+                    responseJson.message +
+                    `</span>
+
+                    `
+                );
+            } else if (responseJson.message === "Please enter a valid username") {
+
+                document.querySelector(".error").insertAdjacentHTML('beforebegin',
+                    `
+
+                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+                    responseJson.message +
+                    `</span>
+
+                    `
+                );
+            }
+
+            document.getElementById("search-loader").style.display = "none"; //hides search-loader
+            document.getElementById("logo").style.display = "block"; //shows logo
+        })
+
+        .catch((err) => {
+            console.log("err", err);
+
+
+            document.getElementById("search-loader").style.display = "none"; //hides search-loader
+            document.getElementById("logo").style.display = "block"; //shows logo
+
+            document.querySelector(".error").insertAdjacentHTML('beforebegin',
+                `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
+                " Something went wrong! Please try again." +
+                `</span>`
             );
-        //savesession details
-
-        saveSessionDetails(url);
-      } else if (
-        responseJson.message === "Please enter a valid INSTAGRAM username"
-      ) {
-        
-          document.querySelector(".error").insertAdjacentHTML('beforebegin',
-            `
-
-                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
-              responseJson.message +
-              `</span>
-
-                    `
-          );
-      } else if (responseJson.message === "Please enter a valid username") {
-        
-          document.querySelector(".error").insertAdjacentHTML('beforebegin',
-            `
-
-                      <span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
-              responseJson.message +
-              `</span>
-
-                    `
-          );
-      }
-
-      document.getElementById("spinner").style.display = "none"; //hides loader
-      document.getElementById("search-loader").style.display = "none"; //hides search-loader
-    })
-
-    .catch((err) => {
-      console.log("err", err);
-
-      document.getElementById("spinner").style.display = "none"; //hides loader
-      document.getElementById("search-loader").style.display = "none"; //hides search-loader
-      
-        document.querySelector(".error").insertAdjacentHTML('beforebegin',
-          `<span id="errormessage" class="message"><i class="fas fa-exclamation-triangle"></i> ` +
-            " Something went wrong! Please try again." +
-            `</span>`
-        );
-      });
-    }
+        });
+}
 
 function themeSelection() {
-      let switchIs;
-      if(localStorage.getItem("darkMode")){
-        switchIs = (localStorage.getItem("darkMode") == 'true'); 
+    let switchIs;
+    if (localStorage.getItem("darkMode")) {
+        switchIs = (localStorage.getItem("darkMode") == 'true');
         console.log("Setting mode as0:", !switchIs);
-  
+
         localStorage.setItem("darkMode", !switchIs);
-  
-      } else { 
+
+    } else {
         switchIs = false;
         localStorage.setItem("darkMode", false);
         console.log("Setting mode as1:", false);
-  
-      }
-      
-      document.getElementById("theme-toggle").checked = !switchIs;
-      changeTheme(localStorage.getItem("darkMode"));
+
+    }
+
+    document.getElementById("theme-toggle").checked = !switchIs;
+    changeTheme(localStorage.getItem("darkMode"));
 }
 
 function changeTheme(userPref) {
-  var deviceWidth = Math.max(window.screen.width, window.innerWidth);
+    var deviceWidth = Math.max(window.screen.width, window.innerWidth);
 
-  console.log("deviceWidth :", deviceWidth);
+    console.log("deviceWidth :", deviceWidth);
 
     if (userPref === "true") {
-      document.querySelectorAll(".dark-th").forEach(currentItem => {
-        currentItem.style.color = "#ffffff";
-      });
-      document.querySelector("body input").style.color ="#ffffff";
-      document.getElementById("search-box").style.color ="#ffffff";
+        document.querySelectorAll(".dark-th").forEach(currentItem => {
+            currentItem.style.color = "#ffffff";
+        });
+        document.querySelector("body input").style.color = "#ffffff";
+        document.getElementById("search-box").style.color = "#ffffff";
 
-      console.log("checked is ", "true");
+        console.log("checked is ", "true");
 
-      if (deviceWidth < 575) {
-        document.querySelector("body").style.backgroundImage = "url(./assets/black_nature1024.png)";
-      } else {
-        document.querySelector("body").style.backgroundImage = "url(./assets/black_nature.png)";
-      }
+        if (deviceWidth < 575) {
+            document.querySelector("body").style.backgroundImage = "url(./assets/black_nature1024.png)";
+        } else {
+            document.querySelector("body").style.backgroundImage = "url(./assets/black_nature.png)";
+        }
     } else if (userPref === "false") {
-      document.querySelectorAll(".dark-th").forEach(currentItem => {
-        currentItem.style.color = "rgba(0,0,0,.5)";
-      });
-      document.querySelector("body input").style.color = "#808080";
-      document.getElementById("search-box").style.color ="#000000";
-      console.log("checked is ", "false");
+        document.querySelectorAll(".dark-th").forEach(currentItem => {
+            currentItem.style.color = "rgba(0,0,0,.5)";
+        });
+        document.querySelector("body input").style.color = "#808080";
+        document.getElementById("search-box").style.color = "#000000";
+        console.log("checked is ", "false");
 
-      if (deviceWidth < 575) {
-        document.querySelector("body").style.backgroundImage = "url(./assets/white_nature1024.png)";
-      } else {
-        document.querySelector("body").style.backgroundImage = "url(./assets/white_nature.png)";
-      }
+        if (deviceWidth < 575) {
+            document.querySelector("body").style.backgroundImage = "url(./assets/white_nature1024.png)";
+        } else {
+            document.querySelector("body").style.backgroundImage = "url(./assets/white_nature.png)";
+        }
     } else {
-      localStorage.setItem("darkMode", false);
-      console.log("checked is ", "false");
+        localStorage.setItem("darkMode", false);
+        console.log("checked is ", "false");
     }
 }
 
 function openMediaViewer(id) {
-  // Get the modal
+    // Get the modal
 
-  var modal = document.getElementById("MediaViewerModal");
+    var modal = document.getElementById("MediaViewerModal");
 
-  // Get the image and insert it inside the modal - use its "alt" text as a caption
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
 
-  var mediaItem = document.getElementById(id);
+    var mediaItem = document.getElementById(id);
 
-  var modalImg = document.getElementById("modalImg");
+    var modalImg = document.getElementById("modalImg");
 
-  var modalVideo = document.getElementById("modalVideo");
+    var modalVideo = document.getElementById("modalVideo");
 
-  if (id.includes("itemimg")) {
-    modalImg.style.display = "block";
+    if (id.includes("itemimg")) {
+        modalImg.style.display = "block";
 
-    modalVideo.style.display = "none";
+        modalVideo.style.display = "none";
 
-    modalImg.src = mediaItem.src;
-  } else {
-    modalVideo.style.display = "block";
+        modalImg.src = mediaItem.src;
+    } else {
+        modalVideo.style.display = "block";
 
-    modalImg.style.display = "none";
+        modalImg.style.display = "none";
 
-    modalVideo.src = mediaItem.src;
-  }
+        modalVideo.src = mediaItem.src;
+    }
 
-  var modalCaptionText = document.getElementById("caption");
+    var modalCaptionText = document.getElementById("caption");
 
-  modal.style.display = "block";
+    modal.style.display = "block";
 
-  modalCaptionText.innerHTML = mediaItem.alt;
+    modalCaptionText.innerHTML = mediaItem.alt;
 }
 
 function closeMediaViewer() {
-  // Get the modal
+    // Get the modal
 
-  var modal = document.getElementById("MediaViewerModal");
+    var modal = document.getElementById("MediaViewerModal");
 
-  modal.style.display = "none";
+    modal.style.display = "none";
 }
 
 function changeSearchMode(searchType) {
-  if (searchType === "posts") {
-    var searchBox = document.getElementById("search-box");
+    if (searchType === "posts") {
+        var searchBox = document.getElementById("search-box");
 
-    searchBox.value = "";
+        searchBox.value = "";
 
-    searchBox.type = "search";
+        searchBox.type = "search";
 
-    searchBox.name = "search";
+        searchBox.name = "search";
 
-    searchBox.placeholder = "enter your Instagram post/IGTV link..";
+        searchBox.placeholder = "enter your Instagram post/IGTV link..";
 
-    var searchForm = document.getElementById("search-form");
+        var searchForm = document.getElementById("search-form");
 
-    searchForm.role = "search";
-  } else if (searchType === "dp") {
-    var searchBox = document.getElementById("search-box");
+        searchForm.role = "search";
+    } else if (searchType === "dp") {
+        var searchBox = document.getElementById("search-box");
 
-    searchBox.value = "";
+        searchBox.value = "";
 
-    searchBox.type = "dp";
+        searchBox.type = "dp";
 
-    searchBox.name = "dp";
+        searchBox.name = "dp";
 
-    searchBox.placeholder = "enter your Instagram username only..";
+        searchBox.placeholder = "enter your Instagram username only..";
 
-    var searchForm = document.getElementById("search-form");
+        var searchForm = document.getElementById("search-form");
 
-    searchForm.role = "dp";
-  } else if (searchType === "stories") {
-    var searchBox = document.getElementById("search-box");
+        searchForm.role = "dp";
+    } else if (searchType === "stories") {
+        var searchBox = document.getElementById("search-box");
 
-    searchBox.value = "";
+        searchBox.value = "";
 
-    searchBox.type = "username";
+        searchBox.type = "username";
 
-    searchBox.name = "username";
+        searchBox.name = "username";
 
-    searchBox.placeholder = "enter your Instagram username only..";
+        searchBox.placeholder = "enter your Instagram username only..";
 
-    var searchForm = document.getElementById("search-form");
+        var searchForm = document.getElementById("search-form");
 
-    searchForm.role = "username";
-  } else if (searchType === "reels") {
-    var searchBox = document.getElementById("search-box");
+        searchForm.role = "username";
+    } else if (searchType === "reels") {
+        var searchBox = document.getElementById("search-box");
 
-    searchBox.value = "";
+        searchBox.value = "";
 
-    searchBox.type = "search";
+        searchBox.type = "search";
 
-    searchBox.name = "search";
+        searchBox.name = "search";
 
-    searchBox.placeholder = "enter your reels link..";
+        searchBox.placeholder = "enter your reels link..";
 
-    var searchForm = document.getElementById("search-form");
+        var searchForm = document.getElementById("search-form");
 
-    searchForm.role = "search";
-  }
+        searchForm.role = "search";
+    }
 }

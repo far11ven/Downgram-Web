@@ -110,7 +110,6 @@ function isvalidated(event) {
 }
 
 function reporter() {
-  document.getElementById("spinner").style.display = "block"; //shows loader
 
   let requestBody = formData;
   fetch("https://prod.downgram.in/api/issuereporter", {
