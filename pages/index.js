@@ -1,5 +1,6 @@
 //pages/index.js
 
+let prodURL;
 let formData = {};
 let isFormValidated = false;
 
@@ -9,15 +10,26 @@ window.onload = function () {
   let switchIs = (localStorage.getItem("darkMode") == 'true'); 
   document.getElementById("theme-toggle").checked = switchIs;  // select the darMode switch as per user pref
   changeTheme(localStorage.getItem("darkMode")); //select theme
-  saveViewCount();
+
+  getBackEndInfo().then(config => {
+    prodURL = config.DOWNGRAM_BACK_END;
+    saveViewCount();
+  })
+  .catch(err => console.log(error));
+  
 };
+
+function getBackEndInfo(){
+  return fetch('./config.json')
+  .then(response => response.json());
+}
 
 function saveViewCount() {
   let sessionBody = {
     channelType: "web",
   };
 
-  fetch("https://prod.downgram.in/api/saveviewcount", {
+  fetch(prodURL +"/api/saveviewcount", {
     method: "POST",
     body: JSON.stringify(sessionBody),
     headers: {
@@ -68,9 +80,9 @@ function changeTheme(userPref) {
         console.log("checked is ", "true");
   
         if (deviceWidth < 575) {
-          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/black_nature1024.png)";
+          document.querySelector("body").style.backgroundImage = "url(https://downgram.parlo.in/assets/black_nature1024.png)";
         } else {
-          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/black_nature.png)";
+          document.querySelector("body").style.backgroundImage = "url(https://downgram.parlo.in/assets/black_nature.png)";
         }
       } else if (userPref === "false") {
         document.querySelectorAll(".dark-th").forEach(currentItem => {
@@ -84,9 +96,9 @@ function changeTheme(userPref) {
         console.log("checked is ", "false");
   
         if (deviceWidth < 575) {
-          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/white_nature1024.png)";
+          document.querySelector("body").style.backgroundImage = "url(https://downgram.parlo.in/assets/white_nature1024.png)";
         } else {
-          document.querySelector("body").style.backgroundImage = "url(https://downgram.in/assets/white_nature.png)";
+          document.querySelector("body").style.backgroundImage = "url(https://downgram.parlo.in/assets/white_nature.png)";
         }
       } else {
         localStorage.setItem("darkMode", false);
@@ -112,7 +124,7 @@ function isvalidated(event) {
 function reporter() {
 
   let requestBody = formData;
-  fetch("https://prod.downgram.in/api/issuereporter", {
+  fetch(prodURL +"/api/issuereporter", {
     method: "POST",
     body: JSON.stringify(requestBody),
     headers: {
