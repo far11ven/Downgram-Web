@@ -1,5 +1,5 @@
-//www.downgram.in
-let config;
+//www.downgram.parlo.in
+let prodURL;
 let url;
 let postText;
 let imageLinks = [];
@@ -14,13 +14,14 @@ window.onload = function() {
     document.getElementById("theme-toggle").checked = switchIs; // select the darMode switch as per user pref
     changeTheme(localStorage.getItem("darkMode")); //select theme
 
-    // fetch("config.json")
-    //   .then((response) => response.json())
-    //   .then((responseJSON) => {
-    //     config = responseJSON;
-    //   });
+    
+    getBackEndInfo().then(config => {
+        prodURL = config.DOWNGRAM_BACK_END;
+        getSessionCount();
+        saveViewCount();
+    })
+    .catch(err => console.log(error));
 
-    getSessionCount();
 
     const urlParams = new URLSearchParams(window.location.search);
 
@@ -109,13 +110,18 @@ window.onload = function() {
         }
     } else {
         if (window.location.pathname === "/404.html") {
-            window.location.replace("https://www.downgram.in");
+            window.location.replace("https://www.downgram.parlo.in");
         }
 
         document.querySelector('a[href="' + window.location.pathname + '"]')
             .parentNode.classList.add("active");
     }
 };
+
+function getBackEndInfo(){
+    return fetch('./config.json')
+    .then(response => response.json());
+  }
 
 // function showGiforVideo() {
 
@@ -174,7 +180,7 @@ function saveViewCount() {
         channelType: "web"
     };
 
-    fetch("https://prod.downgram.in/api/saveviewcount", {
+    fetch(prodURL +"/api/saveviewcount", {
             method: "POST",
             body: JSON.stringify(sessionBody),
             headers: {
@@ -193,7 +199,7 @@ function saveViewCount() {
 function getSessionCount() {
     var url = document.getElementById("search-box").value;
 
-    fetch("https://prod.downgram.in/api/sessioncount")
+    fetch(prodURL +"/api/sessioncount")
         .then((response) => response.json())
 
         .then((responseJson) => {
@@ -216,7 +222,7 @@ function saveSessionDetails(url) {
         channelType: "web"
     };
 
-    fetch("https://prod.downgram.in/api/savesession", {
+    fetch(prodURL +"/api/savesession", {
             method: "POST",
             body: JSON.stringify(sessionBody),
             headers: {
@@ -270,7 +276,7 @@ function getMedia(searchQuery) {
 }
 
 function parseJson(jsonData) {
-    fetch("https://prod.downgram.in/api/parsejson", {
+    fetch(prodURL +"/api/parsejson", {
             method: "POST", // or 'PUT'
             headers: {
                 "Content-Type": "application/json",
@@ -480,7 +486,7 @@ function getDP(searchQuery) {
 
     url = username;
 
-    fetch("https://prod.downgram.in/api/getdp?dp=" + url)
+    fetch(prodURL +"/api/getdp?dp=" + url)
         .then((response) => response.json())
 
         .then((responseJson) => {
@@ -593,7 +599,7 @@ function getStories(searchQuery) {
 
     url = "username=" + username;
 
-    fetch("https://prod.downgram.in/api/getstories?" + url)
+    fetch(prodURL +"/api/getstories?" + url)
         .then((response) => response.json())
 
         .then((responseJson) => {
@@ -806,7 +812,7 @@ function getHighlight(username, highlightId) {
 
     url = "username=" + username + "&highlight=" + highlightId;
 
-    fetch("https://prod.downgram.in/api/gethighlights?" + url)
+    fetch(prodURL +"/api/gethighlights?" + url)
         .then((response) => response.json())
 
         .then((responseJson) => {
